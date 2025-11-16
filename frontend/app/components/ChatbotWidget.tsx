@@ -85,7 +85,7 @@ export default function ChatbotWidget() {
       <button
         aria-label={isOpen ? 'Close chat' : 'Open chat'}
         onClick={() => setIsOpen((v) => !v)}
-        className="h-14 w-14 rounded-full shadow-lg bg-gradient-to-r from-blue-600 to-purple-600 text-white flex items-center justify-center hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+        className="h-14 w-14 rounded-full shadow-lg bg-[color:var(--accent)] text-white flex items-center justify-center hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[color:var(--accent)]"
       >
         {isOpen ? (
           // Close icon
@@ -111,13 +111,13 @@ export default function ChatbotWidget() {
 
       {/* Chat Panel */}
       {isOpen && (
-        <div className="mt-3 w-[320px] sm:w-[380px] h-[440px] bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
-          <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between">
+        <div className="mt-3 w-[320px] sm:w-[380px] h-[440px] bg-[color:var(--background)] border border-[color:var(--foreground)]/[0.1] rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+          <div className="px-4 py-3 border-b border-[color:var(--foreground)]/[0.1] flex items-center justify-between">
             <div className="text-sm">
               <div className="font-semibold text-gray-900 dark:text-gray-100">Ask about me</div>
               <div className="text-gray-500 dark:text-gray-400">Powered by Gemini</div>
             </div>
-            <span className={`text-xs ${isLoading ? 'text-blue-600' : 'text-gray-400'}`}>{isLoading ? 'Thinking…' : 'Online'}</span>
+            <span className={`text-xs ${isLoading ? 'text-[color:var(--accent)]' : 'text-gray-400'}`}>{isLoading ? 'Thinking…' : 'Online'}</span>
           </div>
 
           <div ref={scrollRef} className="flex-1 overflow-y-auto px-3 py-3 space-y-3">
@@ -126,8 +126,8 @@ export default function ChatbotWidget() {
                 <div
                   className={`${
                     m.role === 'user'
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100'
+                      ? 'bg-[color:var(--accent)] text-white'
+                      : 'bg-[color:var(--background-secondary)] text-[color:var(--foreground)]'
                   } max-w-[85%] rounded-2xl px-3.5 py-2.5 text-sm whitespace-pre-wrap`}
                 >
                   {m.content}
@@ -144,12 +144,12 @@ export default function ChatbotWidget() {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
                 placeholder="Ask anything about me..."
-                className="flex-1 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 px-3 py-2 text-sm text-gray-900 dark:text-gray-100 outline-none focus:ring-2 focus:ring-blue-500"
+                className="flex-1 rounded-xl border border-[color:var(--foreground)]/[0.1] bg-[color:var(--background)] px-3 py-2 text-sm text-[color:var(--foreground)] outline-none focus:ring-2 focus:ring-[color:var(--accent)]"
               />
               <button
                 onClick={sendMessage}
                 disabled={isLoading || input.trim().length === 0}
-                className="rounded-xl bg-blue-600 text-white px-3 py-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                className="rounded-xl bg-[color:var(--accent)] text-white px-3 py-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Send
               </button>

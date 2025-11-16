@@ -4,7 +4,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-black dark:to-gray-900"
+      className="min-h-screen flex items-center justify-center bg-[color:var(--background)]"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
         <div className="text-center">
@@ -17,7 +17,7 @@ const Hero = () => {
 
           {/* Name */}
           <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold mb-6 animate-slide-up">
-            <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
               Abdullah Malik 
             </span>
           </h1>
@@ -37,13 +37,13 @@ const Hero = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-delay">
             <a
               href="#contact"
-              className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+              className="px-8 py-4 bg-[color:var(--accent)] text-white rounded-full font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
             >
               Get In Touch
             </a>
             <a
               href="#projects"
-              className="px-8 py-4 bg-white dark:bg-gray-800 text-gray-800 dark:text-white rounded-full font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 border-2 border-gray-200 dark:border-gray-700"
+              className="px-8 py-4 bg-[color:var(--background)] text-[color:var(--foreground)] rounded-full font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 border-2 border-[color:var(--foreground)]"
             >
               View Projects
             </a>
@@ -55,7 +55,7 @@ const Hero = () => {
               href="https://github.comhttps://github.com/AbdullahMalik17/AbdullahMalik17"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-12 h-12 flex items-center justify-center bg-white dark:bg-gray-800 rounded-full shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300"
+              className="w-12 h-12 flex items-center justify-center bg-[color:var(--background)] rounded-full shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300"
             >
               <svg
                 className="w-6 h-6 text-gray-800 dark:text-white"
@@ -73,7 +73,7 @@ const Hero = () => {
               href="www.linkedin.com/in/muhammad-abdullah-athar"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-12 h-12 flex items-center justify-center bg-white dark:bg-gray-800 rounded-full shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300"
+              className="w-12 h-12 flex items-center justify-center bg-[color:var(--background)] rounded-full shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300"
             >
               <svg
                 className="w-6 h-6 text-gray-800 dark:text-white"
@@ -86,7 +86,7 @@ const Hero = () => {
             <a
               href="mailto:muhammadabdullah51700@gmail.com"
               target="_blank"
-              className="w-12 h-12 flex items-center justify-center bg-white dark:bg-gray-800 rounded-full shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300"
+              className="w-12 h-12 flex items-center justify-center bg-[color:var(--background)] rounded-full shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300"
             >
               <svg
                 className="w-6 h-6 text-gray-800 dark:text-white"

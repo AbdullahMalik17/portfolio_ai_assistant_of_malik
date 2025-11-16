@@ -16,9 +16,9 @@ export default function Home() {
       <Contact />
       
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-8">
+      <footer className="bg-[color:var(--background)] text-[color:var(--foreground)] py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-gray-400">
+          <p className="text-[color:var(--foreground)]">
             © 2025 AI Portfolio. Built with Next.js and OpenAI.
           </p>
         </div>

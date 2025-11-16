@@ -5,13 +5,13 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="py-20 bg-white dark:bg-black">
+    <section id="about" className="py-20 bg-[color:var(--background)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
             About Me
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-blue-800 mx-auto"></div>
         </div>
 
         <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -42,7 +42,7 @@ const About = () => {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
               {stats.map((stat, index) => (
                 <div key={index} className="text-center">
-                  <div className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  <div className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
                     {stat.number}
                   </div>
                   <div className="text-sm text-gray-600 dark:text-gray-400 mt-2">
@@ -55,10 +55,10 @@ const About = () => {
 
           {/* Visual Element */}
           <div className="relative">
-            <div className="aspect-square bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 dark:from-blue-900 dark:via-purple-900 dark:to-pink-900 rounded-3xl p-8 flex items-center justify-center">
+            <div className="aspect-square bg-gradient-to-br from-blue-100 to-blue-300 dark:from-blue-800 dark:to-blue-900 rounded-3xl p-8 flex items-center justify-center">
               <div className="relative w-full h-full">
                 {/* Floating code blocks */}
-                <div className="absolute top-0 left-0 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 transform rotate-3 hover:rotate-0 transition-transform duration-300">
+                <div className="absolute top-0 left-0 bg-[color:var(--background)] rounded-lg shadow-lg p-4 transform rotate-3 hover:rotate-0 transition-transform duration-300">
                   <div className="flex items-center gap-2 mb-2">
                     <div className="w-3 h-3 rounded-full bg-red-500"></div>
                     <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
@@ -69,8 +69,7 @@ const About = () => {
                   </code>
                 </div>
 
-                <div className="absolute bottom-0 right-0 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 transform -rotate-3 hover:rotate-0 transition-transform duration-300">
-                  <div className="flex items-center gap-2 mb-2">
+                <div className="absolute bottom-0 right-0 bg-[color:var(--background)] rounded-lg shadow-lg p-4 transform -rotate-3 hover:rotate-0 transition-transform duration-300">                  <div className="flex items-center gap-2 mb-2">
                     <div className="w-3 h-3 rounded-full bg-blue-500"></div>
                     <div className="w-3 h-3 rounded-full bg-green-500"></div>
                   </div>

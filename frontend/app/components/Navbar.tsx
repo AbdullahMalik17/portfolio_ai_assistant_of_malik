@@ -33,7 +33,7 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
             AI Portfolio
           </div>
 
@@ -47,7 +47,7 @@ const Navbar = () => {
                 smooth={true}
                 offset={-70}
                 duration={500}
-                className="cursor-pointer text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
+                className="cursor-pointer text-gray-700 dark:text-gray-300 hover:text-[color:var(--accent)] transition-colors font-medium"
               >
                 {item.name}
               </Link>
@@ -95,7 +95,7 @@ const Navbar = () => {
                 smooth={true}
                 offset={-70}
                 duration={500}
-                className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium cursor-pointer"
+                className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-[color:var(--accent)] transition-colors font-medium cursor-pointer"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {item.name}

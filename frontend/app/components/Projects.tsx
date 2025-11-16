@@ -24,13 +24,13 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects" className="py-20 bg-white dark:bg-black">
+    <section id="projects" className="py-20 bg-[color:var(--background)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
             Featured Projects
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-blue-800 mx-auto"></div>
           <p className="mt-6 text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
             A selection of projects showcasing my work in AI and web development
           </p>
@@ -40,7 +40,7 @@ const Projects = () => {
           {projects.map((project, index) => (
             <div
               key={index}
-              className="group bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-500"
+              className="group bg-[color:var(--background)] rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-[color:var(--foreground)] hover:border-[color:var(--accent)]"
             >
               <div className="text-6xl mb-6 transform group-hover:scale-110 transition-transform duration-300">
                 {project.image}
@@ -55,7 +55,7 @@ const Projects = () => {
                 {project.tech.map((tech, techIndex) => (
                   <span
                     key={techIndex}
-                    className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm"
+                    className="px-3 py-1 bg-[color:var(--accent)]/[0.1] text-[color:var(--accent)] rounded-full text-sm"
                   >
                     {tech}
                   </span>
@@ -63,7 +63,7 @@ const Projects = () => {
               </div>
               <a
                 href={project.link}
-                className="inline-flex items-center text-blue-600 dark:text-blue-400 font-semibold hover:gap-3 transition-all duration-300"
+                className="inline-flex items-center text-[color:var(--accent)] font-semibold hover:gap-3 transition-all duration-300"
               >
                 View Project
                 <svg
