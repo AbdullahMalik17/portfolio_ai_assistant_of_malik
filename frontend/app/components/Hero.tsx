@@ -18,7 +18,7 @@ const Hero = () => {
           {/* Name */}
           <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold mb-6 animate-slide-up">
             <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-              Abdullah AI Assistant
+              Abdullah Malik 
             </span>
           </h1>
 
@@ -85,6 +85,7 @@ const Hero = () => {
             </a>
             <a
               href="mailto:muhammadabdullah51700@gmail.com"
+              target="_blank"
               className="w-12 h-12 flex items-center justify-center bg-white dark:bg-gray-800 rounded-full shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300"
             >
               <svg

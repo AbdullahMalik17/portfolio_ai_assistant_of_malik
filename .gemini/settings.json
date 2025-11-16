@@ -1,5 +1,5 @@
 {
     "context": {
-        "patterns": ["README.md", "START_HERE.md", "COMPLETED.md", "PROJECT_STATUS.md", "QUICK_START.md", "SETUP_GUIDE.md", "SUCCESS.md", "BUGS_FIXED.md", "RUN_ME.md", "START.txt", "EFFICIENCY_TEST_RESULTS.md", "PLAYWRIGHT_EFFICIENCY_RESULTS.md"]
+        "fileName": ["README.md", "START_HERE.md", "COMPLETED.md", "PROJECT_STATUS.md", "QUICK_START.md", "SETUP_GUIDE.md", "SUCCESS.md", "BUGS_FIXED.md", "RUN_ME.md", "START.txt", "EFFICIENCY_TEST_RESULTS.md", "PLAYWRIGHT_EFFICIENCY_RESULTS.md"]
     }
 }
