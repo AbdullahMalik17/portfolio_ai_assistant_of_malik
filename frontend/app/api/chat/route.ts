@@ -25,7 +25,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const apiKey = "AIzaSyC3FiyU_iCC3jDs1eMNUekwvMqrGUarDDs";
+    const apiKey = "AIzaSyDx0KEq08sIcgZyZe2sRzOx2gXv4YfL5gA";
     if (!apiKey) {
       return NextResponse.json(
         { success: false, error: 'Server not configured: GEMINI_API_KEY missing' },
