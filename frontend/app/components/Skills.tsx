@@ -2,56 +2,49 @@ const Skills = () => {
   const skillCategories = [
     {
       title: 'Frontend',
-      skills: ['Next.js', 'React', 'TypeScript','HTML/CSS','Chainlit for Chatbots'],
-      color: 'from-blue-500 to-blue-600',
+      skills: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'HTML5/CSS3'],
     },
     {
       title: 'Backend',
-      skills: ['Python', 'OpenAI SDK', 'REST APIs', 'PostgreSQL'],
-      color: 'from-blue-500 to-blue-600', // Changed to blue gradient
+      skills: ['Python', 'Node.js', 'FastAPI', 'PostgreSQL', 'MongoDB'],
     },
     {
-      title: 'AI/ML',
-      skills: ['OpenAI Agent','Vector DBs', 'LLM Integration', 'N8N for Automation' , 'Openai Agent Kit'],
-      color: 'from-blue-500 to-blue-600', // Changed to blue gradient
+      title: 'AI & ML',
+      skills: ['OpenAI API', 'LangChain', 'TensorFlow', 'PyTorch', 'NLP'],
     },
     {
       title: 'Tools',
-      skills: ['Git', 'Mem0', 'AWS', 'Vercel'],
-      color: 'from-blue-500 to-blue-600', // Changed to blue gradient
+      skills: ['Git', 'Docker', 'AWS', 'VS Code', 'Figma'],
     },
   ];
 
   return (
-    <section id="skills" className="py-20 bg-[color:var(--background)]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="skills" className="py-20 relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            Skills & Expertise
+          <h2 className="text-4xl md:text-5xl font-bold text-[color:var(--foreground)] mb-4">
+            Technical Skills
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-blue-800 mx-auto"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto rounded-full"></div>
           <p className="mt-6 text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Technologies and tools I use to bring ideas to life
+            A comprehensive toolkit for building modern, intelligent applications
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {skillCategories.map((category, index) => (
             <div
               key={index}
-              className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300"
+              className="glass rounded-2xl p-6 hover:shadow-[0_0_25px_rgba(59,130,246,0.15)] transition-all duration-300 hover:-translate-y-1"
             >
-              <div className="mb-6 flex items-center gap-3">
-                <div className={`w-2 h-8 bg-gradient-to-b ${category.color} rounded-full`}></div>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
-                  {category.title}
-                </h3>
-              </div>
-              <div className="flex flex-wrap gap-3">
+              <h3 className="text-xl font-bold text-[color:var(--accent)] mb-6 text-center">
+                {category.title}
+              </h3>
+              <div className="flex flex-wrap gap-3 justify-center">
                 {category.skills.map((skill, skillIndex) => (
                   <span
                     key={skillIndex}
-                    className="px-4 py-2 bg-gradient-to-r from-[color:var(--background)] to-[color:var(--background-secondary)] text-[color:var(--foreground)] rounded-full text-sm font-medium hover:scale-105 transform transition-all duration-200 cursor-default"
+                    className="px-3 py-1.5 bg-[color:var(--background)] text-[color:var(--foreground)] rounded-lg text-sm font-medium border border-[color:var(--foreground)]/10 hover:border-[color:var(--accent)] hover:text-[color:var(--accent)] transition-colors cursor-default"
                   >
                     {skill}
                   </span>
@@ -60,35 +53,9 @@ const Skills = () => {
             </div>
           ))}
         </div>
-
-        {/* Additional Info */}
-        <div className="mt-16 grid md:grid-cols-3 gap-8">
-          <div className="text-center p-6 bg-[color:var(--background)] rounded-2xl shadow-lg">
-            <div className="text-4xl mb-4">🚀</div>
-            <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Fast Development</h4>
-            <p className="text-gray-600 dark:text-gray-400">
-              Rapid prototyping and deployment
-            </p>
-          </div>
-          <div className="text-center p-6 bg-[color:var(--background)] rounded-2xl shadow-lg">
-            <div className="text-4xl mb-4">🎯</div>
-            <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Quality First</h4>
-            <p className="text-gray-600 dark:text-gray-400">
-              Clean, maintainable code
-            </p>
-          </div>
-          <div className="text-center p-6 bg-[color:var(--background)] rounded-2xl shadow-lg">
-            <div className="text-4xl mb-4">🤝</div>
-            <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Team Player</h4>
-            <p className="text-gray-600 dark:text-gray-400">
-              Collaborative approach
-            </p>
-          </div>
-        </div>
       </div>
     </section>
   );
 };
 
 export default Skills;
-

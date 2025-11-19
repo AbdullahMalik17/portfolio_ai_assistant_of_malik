@@ -81,6 +81,8 @@ app.add_middleware(
 app.include_router(assistant_router)
 from routes import compat_router
 app.include_router(compat_router)
+from routes.contact import router as contact_router
+app.include_router(contact_router)
 
 # Root endpoint
 @app.get("/")
