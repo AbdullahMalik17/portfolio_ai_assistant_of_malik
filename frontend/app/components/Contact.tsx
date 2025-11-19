@@ -72,8 +72,8 @@ const Contact = () => {
           </p>
         </div>
 
-        <div className="flex justify-center mb-12">
-          <SocialLinks className="glass px-8 py-4 rounded-full" />
+        <div className="flex justify-center mb-12 relative z-20">
+          <SocialLinks className="bg-white dark:bg-gray-800 shadow-lg px-8 py-4 rounded-full border border-gray-200 dark:border-gray-700" />
         </div>
 
         <div className="max-w-3xl mx-auto">

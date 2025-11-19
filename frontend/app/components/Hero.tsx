@@ -65,7 +65,7 @@ const Hero = () => {
             </Link>
           </div>
 
-          <div className="flex justify-center animate-fade-in-up delay-500 pt-8">
+          <div className="flex justify-center pt-8 relative z-20">
             <SocialLinks />
           </div>
 
