@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import SocialLinks from './SocialLinks';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -69,6 +70,10 @@ const Contact = () => {
           <p className="mt-6 text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
             Have a project in mind? Let's discuss how we can work together.
           </p>
+        </div>
+
+        <div className="flex justify-center mb-12">
+          <SocialLinks className="glass px-8 py-4 rounded-full" />
         </div>
 
         <div className="max-w-3xl mx-auto">
@@ -143,8 +148,8 @@ const Contact = () => {
               {/* Status Message */}
               {submitStatus.type && (
                 <div className={`mt-4 p-4 rounded-lg ${submitStatus.type === 'success'
-                    ? 'bg-green-500/10 text-green-500 border border-green-500/20'
-                    : 'bg-red-500/10 text-red-500 border border-red-500/20'
+                  ? 'bg-green-500/10 text-green-500 border border-green-500/20'
+                  : 'bg-red-500/10 text-red-500 border border-red-500/20'
                   }`}>
                   <p className="font-medium text-center">
                     {submitStatus.message}

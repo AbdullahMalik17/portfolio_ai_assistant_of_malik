@@ -1,6 +1,7 @@
 'use client';
 
 import { Link } from 'react-scroll';
+import SocialLinks from './SocialLinks';
 
 const Hero = () => {
   return (
@@ -62,6 +63,10 @@ const Hero = () => {
             >
               Contact Me
             </Link>
+          </div>
+
+          <div className="flex justify-center animate-fade-in-up delay-500 pt-8">
+            <SocialLinks />
           </div>
 
           {/* Scroll Indicator */}
