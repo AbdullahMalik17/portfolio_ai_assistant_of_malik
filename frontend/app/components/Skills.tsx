@@ -6,16 +6,16 @@ const Skills = () => {
     },
     {
       title: 'Backend',
-      skills: ['Python', 'Node.js', 'FastAPI', 'PostgreSQL', 'MongoDB'],
+      skills: ['Python', 'Node.js', 'FastAPI', 'JavaScript', 'Supabase'],
     },
     {
       title: 'AI & ML',
-      skills: ['OpenAI API', 'LangChain', 'TensorFlow', 'PyTorch', 'NLP'],
+      skills: ['OpenAI Agent Sdk', 'Langfuse' ,'N8N' ,'Google Framework' , 'OpenAI Agent Kit'],
     },
     {
       title: 'Tools',
-      skills: ['Git', 'Docker', 'AWS', 'VS Code', 'Figma'],
-    },
+      skills: ['Git', 'Docker', 'VS Code', 'Figma', 'AntiGravity', 'Gemini CLI with Advanced MCP integration'],
+    }, 
   ];
 
   return (

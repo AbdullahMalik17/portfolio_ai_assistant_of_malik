@@ -26,10 +26,11 @@ const About = () => {
                 intelligence.
               </p>
               <p>
-                My Journey Basically start from 10th class , when I was in 14 years old . I started 
+                My Journey Basically start from 10th class , when I was 14 years old . I started 
                 with Html , CSS , JavaScipt . Then , I practised for three month and make some <a href="https://github.com/AbdullahMalik17/Projects-of-html"></a>
                 After , I learnt TypeScript . Later , I move on Agentic AI Development from Panaversity.  
-                There , I learnt how to make AI Agents using OpenAI , Python and N8n .
+                There , I learnt how to make AI Agents using OpenAI Agent Sdk, Python and N8n .
+                Now , Currently , I'm learning OpenAI Agent Kit and Cloud technologies like Kubernetes , Docker .
 
               </p>
               <p>
