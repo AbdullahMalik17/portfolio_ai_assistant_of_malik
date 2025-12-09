@@ -46,7 +46,7 @@ export async function retrieveContext(
     }
 
     // 3. Filter by similarity threshold
-    const relevantChunks = searchResult.results
+    const relevantChunks: RetrievalResult[] = (searchResult.results as any[])
       .filter((result: any) => result.similarity >= similarityThreshold)
       .map((result: any) => ({
         content: result.content,
