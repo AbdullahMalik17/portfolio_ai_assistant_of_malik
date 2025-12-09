@@ -7,6 +7,8 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
+    subject: '',
     message: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -14,6 +16,8 @@ const Contact = () => {
     type: null,
     message: ''
   });
+
+  const maxMessageLength = 500;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -30,7 +34,7 @@ const Contact = () => {
     setSubmitStatus({ type: null, message: '' });
 
     try {
-      const response = await fetch('http://localhost:8000/api/contact', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -45,9 +49,9 @@ const Contact = () => {
           type: 'success',
           message: data.message || 'Your message has been sent successfully!'
         });
-        setFormData({ name: '', email: '', message: '' });
+        setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
       } else {
-        throw new Error(data.detail || 'Failed to send message');
+        throw new Error(data.error || 'Failed to send message');
       }
     } catch (error) {
       setSubmitStatus({
@@ -85,7 +89,7 @@ const Contact = () => {
                     htmlFor="name"
                     className="block text-sm font-medium text-[color:var(--foreground)] mb-2"
                   >
-                    Name
+                    Name <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="text"
@@ -94,6 +98,8 @@ const Contact = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
+                    minLength={2}
+                    maxLength={50}
                     className="w-full px-4 py-3 rounded-lg bg-[color:var(--background)] border border-[color:var(--foreground)]/10 focus:border-[color:var(--accent)] focus:ring-2 focus:ring-[color:var(--accent)]/20 outline-none transition-all"
                     placeholder="John Doe"
                   />
@@ -103,7 +109,7 @@ const Contact = () => {
                     htmlFor="email"
                     className="block text-sm font-medium text-[color:var(--foreground)] mb-2"
                   >
-                    Email
+                    Email <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="email"
@@ -117,22 +123,69 @@ const Contact = () => {
                   />
                 </div>
               </div>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label
+                    htmlFor="phone"
+                    className="block text-sm font-medium text-[color:var(--foreground)] mb-2"
+                  >
+                    Phone Number <span className="text-gray-400 text-xs">(Optional)</span>
+                  </label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 rounded-lg bg-[color:var(--background)] border border-[color:var(--foreground)]/10 focus:border-[color:var(--accent)] focus:ring-2 focus:ring-[color:var(--accent)]/20 outline-none transition-all"
+                    placeholder="+1 (555) 123-4567"
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="subject"
+                    className="block text-sm font-medium text-[color:var(--foreground)] mb-2"
+                  >
+                    Subject <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="subject"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    required
+                    minLength={5}
+                    maxLength={100}
+                    className="w-full px-4 py-3 rounded-lg bg-[color:var(--background)] border border-[color:var(--foreground)]/10 focus:border-[color:var(--accent)] focus:ring-2 focus:ring-[color:var(--accent)]/20 outline-none transition-all"
+                    placeholder="Project inquiry, collaboration, etc."
+                  />
+                </div>
+              </div>
               <div>
-                <label
-                  htmlFor="message"
-                  className="block text-sm font-medium text-[color:var(--foreground)] mb-2"
-                >
-                  Message
-                </label>
+                <div className="flex justify-between items-center mb-2">
+                  <label
+                    htmlFor="message"
+                    className="block text-sm font-medium text-[color:var(--foreground)]"
+                  >
+                    Message <span className="text-red-500">*</span>
+                  </label>
+                  <span className={`text-xs ${formData.message.length > maxMessageLength ? 'text-red-500' : 'text-gray-400'}`}>
+                    {formData.message.length}/{maxMessageLength}
+                  </span>
+                </div>
                 <textarea
                   id="message"
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
                   required
-                  rows={4}
+                  minLength={10}
+                  maxLength={maxMessageLength}
+                  rows={5}
                   className="w-full px-4 py-3 rounded-lg bg-[color:var(--background)] border border-[color:var(--foreground)]/10 focus:border-[color:var(--accent)] focus:ring-2 focus:ring-[color:var(--accent)]/20 outline-none transition-all resize-none"
-                  placeholder="Tell me about your project..."
+                  placeholder="Tell me about your project, goals, timeline, and budget..."
                 ></textarea>
               </div>
               <div className="text-center">
