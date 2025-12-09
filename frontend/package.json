@@ -12,7 +12,7 @@
     "@google/generative-ai": "^0.21.0",
     "@types/react-scroll": "^1.8.10",
     "@vercel/postgres": "^0.10.0",
-    "next": "16.0.0",
+    "next": "15.5.7",
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "react-icons": "^5.5.0",
