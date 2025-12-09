@@ -5,7 +5,7 @@ const Projects = () => {
       description: 'Intelligent dashboard with OpenAI integration for natural language processing and task automation.',
       tech: ['Next.js', 'OpenAI SDK', 'Python'],
       image: '🤖',
-      link: null, // Placeholder as requested
+      link: 'https://portfolio-ai-assistant-of-malik-five.vercel.app/', // Placeholder as requested
     },
     {
       title: 'AI Code Assistant',

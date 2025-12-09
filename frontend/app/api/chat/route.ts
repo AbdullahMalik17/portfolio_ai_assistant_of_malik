@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { retrieveContext, buildRAGPrompt, getFallbackPrompt } from '@/app/lib/rag-service';
 
 // Ensure this route runs on Node.js (not edge)
 export const runtime = 'nodejs';
@@ -13,6 +14,38 @@ type ChatRequest = {
   conversation_history?: ChatMessage[];
 };
 
+// Helper function to build fallback prompt when database is not available
+function buildFallbackPrompt(userQuery: string, conversation_history?: ChatMessage[]): string {
+  const systemPrompt = `You are an assistant that responds to questions about Abdullah Malik, the portfolio owner. Answer concisely, in a friendly and professional tone, only using information provided below. If unsure or the answer is not included, clearly state you are unsure.
+
+**Portfolio Owner Information:**
+- Name: Abdullah Malik
+- Profession: Software Engineer and AI Enthusiast
+- Skills/Technologies: HTML, CSS, JavaScript, TypeScript, Python, React, Next.js, OpenAI Agent SDK, N8n, FastAPI, Docker, Git
+- Experience: 2+ years
+- Education: Panaversity, PIAIC
+- Main Repository: https://github.com/AbdullahMalik17/AbdullahMalik17
+- Web Development Projects: https://github.com/AbdullahMalik17/Projects-of-html
+- AI Projects: https://github.com/AbdullahMalik17/Agentic_AI/tree/main/_Projects
+- Contact: LinkedIn: https://www.linkedin.com/in/muhammad-abdullah-athar
+
+**Response Guidelines:**
+- Use only the details above
+- Do not speculate. If a fact is not provided, reply "I am unsure"
+- Keep responses concise, friendly, and professional
+- If unsure, suggest connecting via LinkedIn
+
+**Output Format:**
+- Reply with 1-3 sentences, using plain text
+- Do not include bullet points or headings`;
+
+  const historyText = (conversation_history || [])
+    .map(m => `${m.role === 'user' ? 'User' : 'Assistant'}: ${m.content}`)
+    .join('\n');
+
+  return `${systemPrompt}\n\n${historyText ? historyText + '\n\n' : ''}User: ${userQuery}\nAssistant:`;
+}
+
 export async function POST(req: Request) {
   try {
     const body = (await req.json()) as ChatRequest;
@@ -25,7 +58,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const apiKey = "AIzaSyDx0KEq08sIcgZyZe2sRzOx2gXv4YfL5gA";
+    const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
       return NextResponse.json(
         { success: false, error: 'Server not configured: GEMINI_API_KEY missing' },
@@ -33,18 +66,40 @@ export async function POST(req: Request) {
       );
     }
 
-    // Import dynamically to avoid bundling issues when key is missing
+    // Extract actual user query (remove system prefix if present)
+    const userQuery = message.split('User:').pop()?.trim() || message;
+
+    // RAG: Retrieve relevant context (with error handling for missing database)
+    let prompt: string;
+    let ragEnabled = false;
+    let ragContext;
+
+    try {
+      console.log('Retrieving context for query:', userQuery);
+      ragContext = await retrieveContext(userQuery, 5, 0.5);
+
+      console.log(`Retrieved ${ragContext.retrievedChunks.length} relevant chunks`);
+      console.log('Sources:', ragContext.sources);
+
+      // Build prompt with RAG context
+      if (ragContext.retrievedChunks.length > 0) {
+        prompt = buildRAGPrompt(userQuery, ragContext, conversation_history);
+        ragEnabled = true;
+      } else {
+        // Fallback to basic prompt if no context found
+        console.warn('No relevant context found, using fallback');
+        prompt = buildFallbackPrompt(userQuery, conversation_history);
+      }
+    } catch (error) {
+      // If RAG fails (e.g., database not configured), use fallback prompt
+      console.warn('RAG retrieval failed, using fallback prompt:', error);
+      prompt = buildFallbackPrompt(userQuery, conversation_history);
+    }
+
+    // Generate response with Gemini
     const { GoogleGenerativeAI } = await import('@google/generative-ai');
     const genAI = new GoogleGenerativeAI(apiKey);
     const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
-
-    const system ='You are an assistant that responds to questions about Abdullah Malik, the portfolio owner. Answer concisely, in a friendly and professional tone, only using information provided below. If unsure or the answer is not included, clearly state you are unsure.\n **Portfolio Owner Information:**- Name: Abdullah Malik\n - Profession: Software Engineer and AI Enthusiast\n - Skills/Technologies: HTML, CSS, JavaScript, TypeScript, Python, OpenAI Agent SDK, N8n, GIT, Github; will also learn Agent Kit.\n - Main Repository: [AbdullahMalik17/AbdullahMalik17](https://github.com/AbdullahMalik17/AbdullahMalik17) \n - Web Development Projects: [Projects-of-html](https://github.com/AbdullahMalik17/Projects-of-html) \n - Chatbot Projects: [Agentic_AI chatbots](https://github.com/AbdullahMalik17/Agentic_AI/tree/main/_Projects) \n **Response Guidelines:** \n - Use only the details above. \n - Do not speculate. If a fact is not provided, reply “I am unsure.” \n - Keep responses concise, friendly, and professional. \n - Do not include any content besides the answer to the user’s question.\n **Output Format:**\n - Reply with a single paragraph of 1-3 sentences, using plain text.\n - Do not include bullet points or headings. \n --- \n **Examples** \n *Example 1:* \n Question: What programming languages does Abdullah Malik know? \n Answer: Abdullah Malik has learnt HTML, CSS, JavaScript, TypeScript, and Python. \n *Example 2:* \n Question: Does Abdullah Malik have any experience in AI? \n Answer: Yes, Abdullah Malik is an AI enthusiast and has worked with the OpenAI Agent SDK and created several chatbot projects. \n *Example 3:* \n Question: How can I view Abdullah’s web development projects? \n Answer: You can view Abdullah Malik’s web development projects at this GitHub link: https://github.com/AbdullahMalik17/Projects-of-html. \n *Example 4:*\n Question: Where did Abdullah Malik go to university? \n Answer: I am going Panaversity and PIAIC\n ---\n **Important:** \n - Only use provided information about Abdullah Malik. \n - State “I am unsure” if you do not know the answer.\n **REMINDER:** You are an assistant answering concise, friendly, and professional questions about Abdullah Malik, only using facts given above. If unsure, Say to connect with him and connect with Linkedin ';
-
-    // Build prompt with simple history
-    const historyText = (conversation_history || [])
-      .map((m) => `${m.role === 'user' ? 'User' : 'Assistant'}: ${m.content}`)
-      .join('\n');
-    const prompt = `${system}\n\n${historyText ? historyText + '\n\n' : ''}User: ${message}\nAssistant:`;
 
     const result = await model.generateContent(prompt);
     const text =
@@ -55,9 +110,22 @@ export async function POST(req: Request) {
         'I apologize, but I could not generate a response.'
       );
 
-    return NextResponse.json({ success: true, response: text, model: 'gemini-2.5-flash' });
+    return NextResponse.json({
+      success: true,
+      response: text,
+      model: 'gemini-2.5-flash',
+      rag: ragEnabled && ragContext ? {
+        chunksRetrieved: ragContext.retrievedChunks.length,
+        sources: ragContext.sources
+      } : {
+        chunksRetrieved: 0,
+        sources: [],
+        fallback: true
+      }
+    });
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Unknown error';
+    console.error('Chat API error:', message);
     return NextResponse.json({ success: false, error: message }, { status: 500 });
   }
 }

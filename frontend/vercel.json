@@ -1,0 +1,13 @@
+{
+  "functions": {
+    "app/api/chat/route.ts": {
+      "maxDuration": 30
+    },
+    "app/api/index-portfolio/route.ts": {
+      "maxDuration": 60
+    },
+    "app/api/init-db/route.ts": {
+      "maxDuration": 60
+    }
+  }
+}
