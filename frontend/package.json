@@ -14,6 +14,7 @@
     "@types/react-scroll": "^1.8.10",
     "@vercel/postgres": "^0.10.0",
     "dotenv": "^17.2.3",
+    "framer-motion": "^12.24.10",
     "next": "15.5.7",
     "openai": "^4.104.0",
     "react": "19.2.0",

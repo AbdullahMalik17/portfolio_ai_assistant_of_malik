@@ -2,6 +2,7 @@
 
 import { Link } from 'react-scroll';
 import SocialLinks from './SocialLinks';
+import TypewriterEffect from './TypewriterEffect';
 
 const Hero = () => {
   return (
@@ -34,14 +35,22 @@ const Hero = () => {
 
           <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto animate-fade-in-up delay-200 leading-relaxed">
             I&apos;m a passionate developer specializing in{' '}
-            <span className="text-[color:var(--accent)] font-semibold">
-              Artificial Intelligence
-            </span>{' '}
-            and{' '}
-            <span className="text-[color:var(--accent)] font-semibold">
-              Full-Stack Development
+            <span className="text-[color:var(--accent)] font-semibold min-w-[200px] inline-block">
+              <TypewriterEffect
+                words={[
+                  'AI Development',
+                  'Full-Stack Development',
+                  'Agentic AI Systems',
+                  'Cloud Technologies',
+                  'Web Applications',
+                ]}
+                typeSpeed={100}
+                deleteSpeed={50}
+                delayBetweenWords={2000}
+              />
             </span>
-            . Creating intelligent solutions for complex problems.
+            <br className="hidden md:block" />
+            Creating intelligent solutions for complex problems.
           </p>
 
           <div className="flex flex-col sm:flex-row justify-center gap-4 animate-fade-in-up delay-300">

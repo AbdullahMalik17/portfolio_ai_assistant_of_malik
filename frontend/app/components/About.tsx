@@ -1,7 +1,14 @@
+'use client';
+
+import FadeInWhenVisible from './FadeInWhenVisible';
+import AnimatedCounter from './AnimatedCounter';
+
 const About = () => {
   const stats = [
-    { number: '2+', label: 'Years Experience' },
-    { number: '24/7', label: 'AI Support' },
+    { number: 2, label: 'Years Experience', suffix: '+' },
+    { number: 15, label: 'Projects Completed', suffix: '+' },
+    { number: 10, label: 'Technologies Mastered', suffix: '+' },
+    { number: 247, label: 'AI Support Available', prefix: '', suffix: '' }, // Display as 247 for 24/7
   ];
 
   return (
@@ -15,6 +22,7 @@ const About = () => {
         </div>
 
         <div className="grid md:grid-cols-2 gap-12 items-center">
+          <FadeInWhenVisible direction="right">
           <div>
             <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
               Transforming Ideas into Intelligent Solutions
@@ -26,12 +34,24 @@ const About = () => {
                 intelligence.
               </p>
               <p>
-                My Journey Basically start from 10th class , when I was 14 years old . I started 
-                with Html , CSS , JavaScipt . Then , I practised for three month and make some <a href="https://github.com/AbdullahMalik17/Projects-of-html"></a>
-                After , I learnt TypeScript . Later , I move on Agentic AI Development from Panaversity.  
-                There , I learnt how to make AI Agents using OpenAI Agent Sdk, Python and N8n .
-                Now , Currently , I&apos;m learning OpenAI Agent Kit and Cloud technologies like Kubernetes , Docker .
-
+                My journey in technology began at age 14 during 10th grade, when I discovered
+                my passion for web development through HTML, CSS, and JavaScript. After three months
+                of dedicated practice, I built my first{' '}
+                <a
+                  href="https://github.com/AbdullahMalik17/Projects-of-html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[color:var(--accent)] hover:underline font-medium"
+                >
+                  collection of web projects
+                </a>
+                , which sparked my deeper interest in software development.
+              </p>
+              <p>
+                I then mastered TypeScript and transitioned into Agentic AI Development at Panaversity,
+                where I learned to build sophisticated AI agents using the OpenAI Agent SDK, Python,
+                and N8n. Currently, I&apos;m expanding my expertise in the OpenAI Agent Kit and cloud
+                technologies including Kubernetes and Docker, preparing for enterprise-scale deployments.
               </p>
               <p>
                 I believe in creating seamless, intelligent experiences that make
@@ -44,7 +64,15 @@ const About = () => {
               {stats.map((stat, index) => (
                 <div key={index} className="text-center">
                   <div className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
-                    {stat.number}
+                    {stat.label === 'AI Support Available' ? (
+                      <span>24/7</span>
+                    ) : (
+                      <AnimatedCounter
+                        value={stat.number}
+                        suffix={stat.suffix}
+                        prefix={stat.prefix}
+                      />
+                    )}
                   </div>
                   <div className="text-sm text-gray-600 dark:text-gray-400 mt-2">
                     {stat.label}
@@ -53,8 +81,10 @@ const About = () => {
               ))}
             </div>
           </div>
+          </FadeInWhenVisible>
 
           {/* Visual Element */}
+          <FadeInWhenVisible direction="left" delay={0.2}>
           <div className="relative">
             <div className="aspect-square bg-gradient-to-br from-blue-100 to-blue-300 dark:from-blue-800 dark:to-blue-900 rounded-3xl p-8 flex items-center justify-center">
               <div className="relative w-full h-full">
@@ -85,6 +115,7 @@ const About = () => {
               </div>
             </div>
           </div>
+          </FadeInWhenVisible>
         </div>
       </div>
     </section>
