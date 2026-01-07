@@ -10,11 +10,11 @@ const Skills = () => {
     },
     {
       title: 'AI & ML',
-      skills: ['OpenAI Agent Sdk', 'Langfuse' ,'N8N' ,'Google Framework' , 'OpenAI Agent Kit'],
+      skills: ['OpenAI Agent Sdk', 'Langfuse' ,'N8N' ,'Google Framework' , 'OpenAI Agent Kit', 'AI Driven Development'],
     },
     {
       title: 'Tools',
-      skills: ['Git', 'Docker', 'VS Code', 'Figma', 'AntiGravity', 'Gemini CLI with Advanced MCP integration'],
+      skills: ['Git', 'Docker', 'VS Code', 'Cursor', 'Claude Code', 'Gemini CLI', 'Qwen', 'Figma', 'AntiGravity', 'Spec'],
     }, 
   ];
 

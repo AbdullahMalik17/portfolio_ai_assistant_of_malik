@@ -1,6 +1,20 @@
 const Projects = () => {
   const projects = [
     {
+      title: 'Physical AI Platform',
+      description: 'Interactive platform teaching Physical AI & Humanoid Robotics with a RAG chatbot and 43+ runnable code examples.',
+      tech: ['Docusaurus', 'React', 'OpenAI', 'Pinecone', 'Tailwind'],
+      image: '📘',
+      link: 'https://github.com/AbdullahMalik17/Physical_AI',
+    },
+    {
+      title: 'Voice Assistant Agent',
+      description: 'Privacy-first voice assistant with wake word detection, semantic memory, and autonomous system control capabilities.',
+      tech: ['Python', 'Gemini API', 'Whisper', 'ChromaDB', 'Picovoice'],
+      image: '🎙️',
+      link: 'https://github.com/AbdullahMalik17/Voice-Assistant17',
+    },
+    {
       title: 'AI Assistant Dashboard',
       description: 'Intelligent dashboard with OpenAI integration for natural language processing and task automation.',
       tech: ['Next.js', 'OpenAI SDK', 'Python'],

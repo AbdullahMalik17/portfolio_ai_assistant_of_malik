@@ -21,13 +21,8 @@ export default function ChatbotWidget() {
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [threadId, setThreadId] = useState<string | undefined>(undefined);
   const scrollRef = useRef<HTMLDivElement | null>(null);
-
-  const aboutSystemPrefix = useMemo(
-    () =>
-      'You are an assistant that answers questions about the portfolio owner in a concise, friendly, professional tone. If asked for private data (addresses, phone, secrets), politely decline. If unsure, say you are unsure.',
-    []
-  );
 
   useEffect(() => {
     if (!scrollRef.current) return;
@@ -50,16 +45,22 @@ export default function ChatbotWidget() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          message: `${aboutSystemPrefix}\n\nUser: ${trimmed}`,
-          conversation_history: newMessages.map((m) => ({ role: m.role, content: m.content })),
+          message: trimmed,
+          thread_id: threadId, // Include thread_id for conversation context
         }),
       });
 
       if (!response.ok) {
         throw new Error(`Request failed: ${response.status}`);
       }
-      const data = (await response.json()) as { response?: string };
+      const data = (await response.json()) as { response?: string; thread_id?: string };
       const assistantReply = data.response || 'Sorry, I could not generate a response.';
+
+      // Update thread_id for conversation continuity
+      if (data.thread_id) {
+        setThreadId(data.thread_id);
+      }
+
       setMessages((prev) => [...prev, { role: 'assistant', content: assistantReply }]);
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : 'Unknown error';
@@ -115,7 +116,7 @@ export default function ChatbotWidget() {
           <div className="px-4 py-3 border-b border-[color:var(--foreground)]/[0.1] flex items-center justify-between">
             <div className="text-sm">
               <div className="font-semibold text-gray-900 dark:text-gray-100">Ask about me</div>
-              <div className="text-gray-500 dark:text-gray-400">Powered by Gemini</div>
+              <div className="text-gray-500 dark:text-gray-400">Powered by OpenAI</div>
             </div>
             <span className={`text-xs ${isLoading ? 'text-[color:var(--accent)]' : 'text-gray-400'}`}>{isLoading ? 'Thinking…' : 'Online'}</span>
           </div>

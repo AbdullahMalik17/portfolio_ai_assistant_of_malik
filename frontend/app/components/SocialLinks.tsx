@@ -1,6 +1,6 @@
 'use client';
 
-import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope, FaTwitter } from 'react-icons/fa';
 
 const SocialLinks = ({ className = '' }: { className?: string }) => {
     const links = [
@@ -15,6 +15,12 @@ const SocialLinks = ({ className = '' }: { className?: string }) => {
             icon: <FaLinkedin className="w-6 h-6" />,
             url: 'https://www.linkedin.com/in/muhammad-abdullah-athar',
             color: 'hover:text-blue-600',
+        },
+        {
+            name: 'Twitter',
+            icon: <FaTwitter className="w-6 h-6" />,
+            url: 'https://x.com/Ab4695Athar?t=nqRO0biMuBDrTIuzZOHq8A&s=08',
+            color: 'hover:text-blue-400',
         },
         {
             name: 'Instagram',

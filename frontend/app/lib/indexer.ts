@@ -1,108 +1,56 @@
 /**
- * Indexing Orchestrator
- * Handles the process of indexing portfolio content into the vector database
+ * Indexing Orchestrator (OpenAI Vector Store)
+ * Handles the process of uploading portfolio content to OpenAI Vector Store
  */
 
-import {
-  initEmbeddingsTable,
-  clearEmbeddings,
-  insertEmbedding,
-  createVectorIndex,
-  getEmbeddingsCount
-} from './db';
-import { preparePortfolioChunks, generateEmbedding } from './embedding-utils';
+import { uploadPortfolioToVectorStore, getVectorStoreFileCount } from './openai-vector-store';
+import { preparePortfolioFiles } from './embedding-utils';
 
 export interface IndexingResult {
   success: boolean;
-  totalChunks?: number;
-  successCount?: number;
-  failureCount?: number;
-  databaseCount?: number;
+  totalFiles?: number;
+  filesUploaded?: number;
+  vectorStoreCount?: number;
   error?: string;
 }
 
 /**
- * Index all portfolio content into the vector database
- * @param clearFirst - Whether to clear existing embeddings before indexing
+ * Index all portfolio content into OpenAI Vector Store
  */
-export async function indexPortfolioContent(clearFirst: boolean = true): Promise<IndexingResult> {
-  console.log('Starting portfolio content indexing...');
+export async function indexPortfolioContent(): Promise<IndexingResult> {
+  console.log('Starting portfolio content indexing to OpenAI Vector Store...');
 
   try {
-    // 1. Initialize table
-    console.log('Step 1: Initializing embeddings table...');
-    const initResult = await initEmbeddingsTable();
-    if (!initResult.success) {
-      throw new Error('Failed to initialize embeddings table');
+    // 1. Prepare content files
+    console.log('Step 1: Preparing portfolio files...');
+    const files = preparePortfolioFiles();
+    console.log(`Prepared ${files.length} portfolio files`);
+
+    // 2. Upload to Vector Store
+    console.log('Step 2: Uploading files to OpenAI Vector Store...');
+    const uploadResult = await uploadPortfolioToVectorStore(files);
+
+    if (!uploadResult.success) {
+      throw new Error(uploadResult.error || 'Failed to upload files to Vector Store');
     }
 
-    // 2. Clear existing embeddings if requested
-    if (clearFirst) {
-      console.log('Step 2: Clearing existing embeddings...');
-      const clearResult = await clearEmbeddings();
-      if (!clearResult.success) {
-        console.warn('Warning: Failed to clear embeddings, continuing anyway');
-      }
-    }
+    console.log(`✓ Successfully uploaded ${uploadResult.filesUploaded} files`);
 
-    // 3. Prepare content chunks
-    console.log('Step 3: Preparing content chunks...');
-    const chunks = preparePortfolioChunks();
-    console.log(`Prepared ${chunks.length} content chunks`);
+    // 3. Verify
+    console.log('Step 3: Verifying Vector Store...');
+    const fileCount = await getVectorStoreFileCount();
+    console.log(`Vector Store now contains ${fileCount} files`);
 
-    // 4. Generate embeddings and insert
-    console.log('Step 4: Generating embeddings and inserting into database...');
-    let successCount = 0;
-    let failureCount = 0;
-
-    for (const chunk of chunks) {
-      try {
-        // Generate embedding
-        const embedding = await generateEmbedding(chunk.content);
-
-        // Insert into database
-        const insertResult = await insertEmbedding(
-          chunk.content,
-          chunk.contentType,
-          embedding,
-          chunk.category,
-          chunk.metadata
-        );
-
-        if (insertResult.success) {
-          successCount++;
-          console.log(`✓ Indexed [${chunk.contentType}]: ${chunk.content.substring(0, 50)}...`);
-        } else {
-          failureCount++;
-          console.error(`✗ Failed to index [${chunk.contentType}]:`, insertResult.error);
-        }
-      } catch (error) {
-        failureCount++;
-        console.error(`✗ Error processing chunk [${chunk.contentType}]:`, error);
-      }
-    }
-
-    // 5. Create vector index for optimal search performance
-    console.log('Step 5: Creating vector index...');
-    const indexResult = await createVectorIndex();
-    if (!indexResult.success) {
-      console.warn('Warning: Failed to create vector index, search may be slower');
-    }
-
-    // 6. Verify
-    const countResult = await getEmbeddingsCount();
     console.log('\n=== Indexing Complete ===');
-    console.log(`Total chunks: ${chunks.length}`);
-    console.log(`Successfully indexed: ${successCount}`);
-    console.log(`Failed: ${failureCount}`);
-    console.log(`Database count: ${countResult.count}`);
+    console.log(`Total files: ${files.length}`);
+    console.log(`Successfully uploaded: ${uploadResult.filesUploaded}`);
+    console.log(`Vector Store count: ${fileCount}`);
 
     return {
       success: true,
-      totalChunks: chunks.length,
-      successCount,
-      failureCount,
-      databaseCount: countResult.count
+      totalFiles: files.length,
+      filesUploaded: uploadResult.filesUploaded,
+      vectorStoreCount: fileCount
     };
   } catch (error) {
     console.error('Indexing failed:', error);
