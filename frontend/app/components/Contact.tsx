@@ -2,13 +2,18 @@
 
 import { useState } from 'react';
 import SocialLinks from './SocialLinks';
+import Button from './Button';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
+    company: '',
     subject: '',
+    projectType: '',
+    budget: '',
+    timeline: '',
     message: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -19,7 +24,7 @@ const Contact = () => {
 
   const maxMessageLength = 500;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -49,7 +54,17 @@ const Contact = () => {
           type: 'success',
           message: data.message || 'Your message has been sent successfully!'
         });
-        setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          company: '',
+          subject: '',
+          projectType: '',
+          budget: '',
+          timeline: '',
+          message: ''
+        });
       } else {
         throw new Error(data.error || 'Failed to send message');
       }
@@ -144,6 +159,27 @@ const Contact = () => {
                 </div>
                 <div>
                   <label
+                    htmlFor="company"
+                    className="block text-sm font-medium text-[color:var(--foreground)] mb-2"
+                  >
+                    Company <span className="text-gray-400 text-xs">(Optional)</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="company"
+                    name="company"
+                    value={formData.company}
+                    onChange={handleChange}
+                    maxLength={100}
+                    className="w-full px-4 py-3 rounded-lg bg-[color:var(--background)] border border-[color:var(--foreground)]/10 focus:border-[color:var(--accent)] focus:ring-2 focus:ring-[color:var(--accent)]/20 outline-none transition-all"
+                    placeholder="Your Company Name"
+                  />
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label
                     htmlFor="subject"
                     className="block text-sm font-medium text-[color:var(--foreground)] mb-2"
                   >
@@ -161,6 +197,76 @@ const Contact = () => {
                     className="w-full px-4 py-3 rounded-lg bg-[color:var(--background)] border border-[color:var(--foreground)]/10 focus:border-[color:var(--accent)] focus:ring-2 focus:ring-[color:var(--accent)]/20 outline-none transition-all"
                     placeholder="Project inquiry, collaboration, etc."
                   />
+                </div>
+                <div>
+                  <label
+                    htmlFor="projectType"
+                    className="block text-sm font-medium text-[color:var(--foreground)] mb-2"
+                  >
+                    Project Type <span className="text-gray-400 text-xs">(Optional)</span>
+                  </label>
+                  <select
+                    id="projectType"
+                    name="projectType"
+                    value={formData.projectType}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 rounded-lg bg-[color:var(--background)] border border-[color:var(--foreground)]/10 focus:border-[color:var(--accent)] focus:ring-2 focus:ring-[color:var(--accent)]/20 outline-none transition-all"
+                  >
+                    <option value="">Select project type</option>
+                    <option value="web-development">Web Development</option>
+                    <option value="ai-integration">AI Integration</option>
+                    <option value="full-stack">Full-Stack Application</option>
+                    <option value="mobile-app">Mobile Application</option>
+                    <option value="consulting">Consulting</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label
+                    htmlFor="budget"
+                    className="block text-sm font-medium text-[color:var(--foreground)] mb-2"
+                  >
+                    Budget Range <span className="text-gray-400 text-xs">(Optional)</span>
+                  </label>
+                  <select
+                    id="budget"
+                    name="budget"
+                    value={formData.budget}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 rounded-lg bg-[color:var(--background)] border border-[color:var(--foreground)]/10 focus:border-[color:var(--accent)] focus:ring-2 focus:ring-[color:var(--accent)]/20 outline-none transition-all"
+                  >
+                    <option value="">Select budget range</option>
+                    <option value="less-than-5k">Less than $5,000</option>
+                    <option value="5k-10k">$5,000 - $10,000</option>
+                    <option value="10k-25k">$10,000 - $25,000</option>
+                    <option value="25k-50k">$25,000 - $50,000</option>
+                    <option value="50k-plus">$50,000+</option>
+                  </select>
+                </div>
+                <div>
+                  <label
+                    htmlFor="timeline"
+                    className="block text-sm font-medium text-[color:var(--foreground)] mb-2"
+                  >
+                    Project Timeline <span className="text-gray-400 text-xs">(Optional)</span>
+                  </label>
+                  <select
+                    id="timeline"
+                    name="timeline"
+                    value={formData.timeline}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 rounded-lg bg-[color:var(--background)] border border-[color:var(--foreground)]/10 focus:border-[color:var(--accent)] focus:ring-2 focus:ring-[color:var(--accent)]/20 outline-none transition-all"
+                  >
+                    <option value="">Select timeline</option>
+                    <option value="asap">ASAP</option>
+                    <option value="1-3-months">1-3 Months</option>
+                    <option value="3-6-months">3-6 Months</option>
+                    <option value="6-plus-months">6+ Months</option>
+                    <option value="flexible">Flexible</option>
+                  </select>
                 </div>
               </div>
               <div>
@@ -189,13 +295,32 @@ const Contact = () => {
                 ></textarea>
               </div>
               <div className="text-center">
-                <button
+                <Button
                   type="submit"
-                  disabled={isSubmitting}
-                  className="px-8 py-4 bg-[color:var(--accent)] text-white rounded-full font-semibold text-lg hover:bg-blue-600 hover:scale-105 transition-all shadow-[0_0_20px_rgba(59,130,246,0.5)] hover:shadow-[0_0_30px_rgba(59,130,246,0.7)] w-full md:w-auto disabled:opacity-50 disabled:cursor-not-allowed"
+                  variant="primary"
+                  size="lg"
+                  loading={isSubmitting}
+                  className="w-full md:w-auto rounded-full shadow-[0_0_20px_rgba(59,130,246,0.5)]"
+                  rightIcon={
+                    !isSubmitting ? (
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+                        />
+                      </svg>
+                    ) : undefined
+                  }
                 >
-                  {isSubmitting ? 'Sending...' : 'Send Message'}
-                </button>
+                  Send Message
+                </Button>
               </div>
 
               {/* Status Message */}

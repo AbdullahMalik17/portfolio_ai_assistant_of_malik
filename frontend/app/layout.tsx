@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ChatbotWidget from "./components/ChatbotWidget";
-import ThemeToggle from "./components/ThemeToggle";
+import PWAInstallPrompt from "./components/PWAInstallPrompt";
+import CommandPalette from "./components/CommandPalette";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -65,6 +66,24 @@ export const metadata: Metadata = {
   verification: {
     google: "your-google-verification-code", // Add your verification code
   },
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Abdullah Malik",
+  },
+  formatDetection: {
+    telephone: false,
+  },
+  icons: {
+    icon: [
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [
+      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
 };
 
 export default function RootLayout({
@@ -79,7 +98,8 @@ export default function RootLayout({
       >
         {children}
         <ChatbotWidget />
-        <ThemeToggle />
+        <PWAInstallPrompt />
+        <CommandPalette />
 
         {/* JSON-LD Structured Data */}
         <script
