@@ -72,7 +72,7 @@ const Contact = () => {
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto rounded-full"></div>
           <p className="mt-6 text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Have a project in mind? Let's discuss how we can work together.
+            Have a project in mind? Let&apos;s discuss how we can work together.
           </p>
         </div>
 

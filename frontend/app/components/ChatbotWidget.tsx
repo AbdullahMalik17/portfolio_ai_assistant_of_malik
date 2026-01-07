@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 type ChatMessage = {
   role: 'user' | 'assistant';
@@ -156,7 +156,7 @@ export default function ChatbotWidget() {
               </button>
             </div>
             <div className="mt-2 text-[11px] text-gray-500 dark:text-gray-400">
-              Tip: Try "What are your top skills?" or "Tell me about your projects".
+              Tip: Try &quot;What are your top skills?&quot; or &quot;Tell me about your projects&quot;.
             </div>
           </div>
         </div>

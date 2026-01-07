@@ -14,7 +14,7 @@ export interface ContentChunk {
   content: string;
   contentType: 'project' | 'skill' | 'about' | 'contact' | 'hero';
   category?: string;
-  metadata: Record<string, any>;
+  metadata: Record<string, unknown>;
 }
 
 /**

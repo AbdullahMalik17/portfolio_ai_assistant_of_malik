@@ -19,7 +19,7 @@ const Hero = () => {
         <div className="text-center space-y-8">
           <div className="inline-block animate-fade-in-up">
             <span className="px-4 py-2 rounded-full glass text-sm font-medium text-[color:var(--accent)] border border-[color:var(--accent)]/20">
-              👋 Hi, I'm Abdullah Malik
+              👋 Hi, I&apos;m Abdullah Malik
             </span>
           </div>
 
@@ -33,7 +33,7 @@ const Hero = () => {
           </h1>
 
           <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto animate-fade-in-up delay-200 leading-relaxed">
-            I'm a passionate developer specializing in{' '}
+            I&apos;m a passionate developer specializing in{' '}
             <span className="text-[color:var(--accent)] font-semibold">
               Artificial Intelligence
             </span>{' '}

@@ -30,7 +30,7 @@ const About = () => {
                 with Html , CSS , JavaScipt . Then , I practised for three month and make some <a href="https://github.com/AbdullahMalik17/Projects-of-html"></a>
                 After , I learnt TypeScript . Later , I move on Agentic AI Development from Panaversity.  
                 There , I learnt how to make AI Agents using OpenAI Agent Sdk, Python and N8n .
-                Now , Currently , I'm learning OpenAI Agent Kit and Cloud technologies like Kubernetes , Docker .
+                Now , Currently , I&apos;m learning OpenAI Agent Kit and Cloud technologies like Kubernetes , Docker .
 
               </p>
               <p>

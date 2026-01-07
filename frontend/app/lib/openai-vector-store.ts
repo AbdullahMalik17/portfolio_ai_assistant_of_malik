@@ -136,7 +136,7 @@ export async function chatWithAssistant(
       // Verify thread exists
       try {
         await openai.beta.threads.retrieve(currentThreadId);
-      } catch (error) {
+      } catch {
         console.warn(`Thread ${currentThreadId} not found, creating new one`);
         currentThreadId = await createThread();
       }
@@ -196,6 +196,7 @@ export async function uploadPortfolioToVectorStore(
 
     // Add files to Vector Store
     console.log(`Adding ${fileIds.length} files to Vector Store...`);
+    // @ts-expect-error - TypeScript types for vectorStores.fileBatches are not up to date with the API
     await openai.beta.vectorStores.fileBatches.createAndPoll(vectorStoreId, {
       file_ids: fileIds
     });
@@ -226,6 +227,7 @@ export async function getVectorStoreFileCount(): Promise<number> {
   const vectorStoreId = getVectorStoreId();
 
   try {
+    // @ts-expect-error - TypeScript types for vectorStores are not up to date with the API
     const vectorStore = await openai.beta.vectorStores.retrieve(vectorStoreId);
     return vectorStore.file_counts.completed || 0;
   } catch (error) {
@@ -243,10 +245,12 @@ export async function clearVectorStore(): Promise<boolean> {
 
   try {
     // List all files in the Vector Store
+    // @ts-expect-error - TypeScript types for vectorStores.files are not up to date with the API
     const files = await openai.beta.vectorStores.files.list(vectorStoreId);
 
     // Delete each file
     for (const file of files.data) {
+      // @ts-expect-error - TypeScript types for vectorStores.files are not up to date with the API
       await openai.beta.vectorStores.files.del(vectorStoreId, file.id);
       console.log(`Deleted file: ${file.id}`);
     }

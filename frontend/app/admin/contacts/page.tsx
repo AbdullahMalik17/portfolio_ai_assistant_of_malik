@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 interface Contact {
   id: number;
@@ -19,11 +19,7 @@ export default function AdminContactsPage() {
   const [error, setError] = useState<string | null>(null);
   const [filter, setFilter] = useState<'all' | 'new' | 'read' | 'replied'>('all');
 
-  useEffect(() => {
-    fetchContacts();
-  }, [filter]);
-
-  const fetchContacts = async () => {
+  const fetchContacts = useCallback(async () => {
     try {
       setLoading(true);
       const filterParam = filter !== 'all' ? `?status=${filter}` : '';
@@ -41,7 +37,11 @@ export default function AdminContactsPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [filter]);
+
+  useEffect(() => {
+    fetchContacts();
+  }, [fetchContacts]);
 
   const updateStatus = async (id: number, status: 'new' | 'read' | 'replied') => {
     try {
@@ -106,7 +106,7 @@ export default function AdminContactsPage() {
           {['all', 'new', 'read', 'replied'].map((f) => (
             <button
               key={f}
-              onClick={() => setFilter(f as any)}
+              onClick={() => setFilter(f as 'all' | 'new' | 'read' | 'replied')}
               className={`px-4 py-2 rounded-lg font-medium transition-all ${
                 filter === f
                   ? 'bg-blue-500 text-white shadow-lg'
@@ -169,7 +169,7 @@ export default function AdminContactsPage() {
                       <select
                         value={contact.status}
                         onChange={(e) =>
-                          updateStatus(contact.id, e.target.value as any)
+                          updateStatus(contact.id, e.target.value as 'new' | 'read' | 'replied')
                         }
                         className="px-3 py-1 rounded-lg bg-gray-100 dark:bg-gray-700 text-sm border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
                       >

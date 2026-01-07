@@ -243,6 +243,7 @@ async function main() {
   try {
     // Step 1: Create Vector Store
     console.log('\n📦 Step 1: Creating Vector Store...');
+    // @ts-expect-error - TypeScript types for vectorStores are not up to date with the API
     const vectorStore = await openai.beta.vectorStores.create({
       name: "Abdullah's Portfolio Knowledge Base"
     });
@@ -270,6 +271,7 @@ async function main() {
 
     // Step 4: Add Files to Vector Store
     console.log('\n🔗 Step 4: Adding files to Vector Store...');
+    // @ts-expect-error - TypeScript types for vectorStores.fileBatches are not up to date with the API
     await openai.beta.vectorStores.fileBatches.createAndPoll(vectorStore.id, {
       file_ids: fileIds
     });
