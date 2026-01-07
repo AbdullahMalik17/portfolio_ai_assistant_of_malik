@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run build:*)",
+      "Bash(rm:*)",
+      "Bash(ls:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nfix: Resolve Vercel build failures - TypeScript and ESLint errors\n\n- Remove outdated test-rag route that uses non-existent functions\n- Fix TypeScript errors in OpenAI vector store operations \\(@ts-expect-error\\)\n- Update ESLint config to Next.js 15 FlatConfig format\n- Fix all ESLint errors: no-explicit-any, unescaped-entities, unused-vars\n- Fix useEffect dependency warning in admin contacts page\n- Clean up unused Playwright screenshots\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git push:*)"
+    ]
+  }
+}
