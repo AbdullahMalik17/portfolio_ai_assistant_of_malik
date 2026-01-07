@@ -1,3 +1,8 @@
+'use client';
+
+import { motion } from 'framer-motion';
+import FadeInWhenVisible from './FadeInWhenVisible';
+
 const Projects = () => {
   const projects = [
     {
@@ -37,24 +42,48 @@ const Projects = () => {
     },
   ];
 
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.15,
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0 },
+  };
+
   return (
     <section id="projects" className="py-20 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-[color:var(--foreground)] mb-4">
-            Featured Projects
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto rounded-full"></div>
-          <p className="mt-6 text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            A selection of projects showcasing my work in AI and web development
-          </p>
-        </div>
+        <FadeInWhenVisible>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-[color:var(--foreground)] mb-4">
+              Featured Projects
+            </h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto rounded-full"></div>
+            <p className="mt-6 text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+              A selection of projects showcasing my work in AI and web development
+            </p>
+          </div>
+        </FadeInWhenVisible>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <motion.div
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-50px' }}
+        >
           {projects.map((project, index) => (
-            <div
+            <motion.div
               key={index}
-              className="group glass rounded-2xl p-8 hover:shadow-[0_0_30px_rgba(59,130,246,0.2)] transition-all duration-300 hover:-translate-y-2 flex flex-col h-full"
+              variants={cardVariants}
+              whileHover={{ y: -12, scale: 1.02, transition: { duration: 0.2 } }}
+              className="group glass rounded-2xl p-8 hover:shadow-[0_0_30px_rgba(59,130,246,0.2)] transition-shadow duration-300 flex flex-col h-full"
             >
               <div className="text-6xl mb-6 transform group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
                 {project.image}
@@ -106,9 +135,9 @@ const Projects = () => {
                   </span>
                 )}
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
