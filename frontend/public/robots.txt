@@ -1,0 +1,11 @@
+# *
+User-agent: *
+Allow: /
+
+# Disallow admin routes
+User-agent: *
+Disallow: /admin/
+Disallow: /api/admin/
+
+# Sitemap
+Sitemap: https://portfolio-ai-assistant-of-malik-five.vercel.app/sitemap.xml

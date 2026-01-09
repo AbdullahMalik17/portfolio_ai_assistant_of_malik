@@ -112,13 +112,13 @@ export default function ChatbotWidget() {
 
       {/* Chat Panel */}
       {isOpen && (
-        <div className="mt-3 w-[320px] sm:w-[380px] h-[440px] bg-[color:var(--background)] border border-[color:var(--foreground)]/[0.1] rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+        <div className="mt-3 w-[280px] xs:w-[320px] sm:w-[380px] h-[440px] max-h-[90vh] bg-[color:var(--background)] border border-[color:var(--foreground)]/[0.1] rounded-2xl shadow-2xl flex flex-col overflow-hidden">
           <div className="px-4 py-3 border-b border-[color:var(--foreground)]/[0.1] flex items-center justify-between">
             <div className="text-sm">
               <div className="font-semibold text-gray-900 dark:text-gray-100">Ask about me</div>
               <div className="text-gray-500 dark:text-gray-400">Powered by OpenAI</div>
             </div>
-            <span className={`text-xs ${isLoading ? 'text-[color:var(--accent)]' : 'text-gray-400'}`}>{isLoading ? 'Thinking…' : 'Online'}</span>
+            <span aria-live="polite" className={`text-xs ${isLoading ? 'text-[color:var(--accent)]' : 'text-gray-400'}`}>{isLoading ? 'Thinking…' : 'Online'}</span>
           </div>
 
           <div ref={scrollRef} className="flex-1 overflow-y-auto px-3 py-3 space-y-3">

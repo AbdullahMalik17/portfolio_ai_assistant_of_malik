@@ -6,6 +6,8 @@ import Projects from './components/Projects';
 import GitHubStats from './components/GitHubStats';
 import Testimonials from './components/Testimonials';
 import Contact from './components/Contact';
+import WhatsAppWidget from './components/WhatsAppWidget';
+import AchievementStats from './components/AchievementStats';
 
 export default function Home() {
   return (
@@ -14,6 +16,7 @@ export default function Home() {
       <Hero />
       <About />
       <Skills />
+      <AchievementStats />
       <Projects />
       <GitHubStats />
       <Testimonials />
@@ -61,6 +64,8 @@ export default function Home() {
           </div>
         </div>
       </footer>
+      {/* Floating Widgets */}
+      <WhatsAppWidget />
       </main>
   );
 }

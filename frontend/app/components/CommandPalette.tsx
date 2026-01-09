@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface Command {
@@ -195,7 +195,7 @@ export default function CommandPalette() {
               initial={{ opacity: 0, scale: 0.95, y: -20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: -20 }}
-              className="fixed top-1/4 left-1/2 -translate-x-1/2 w-full max-w-2xl z-50 px-4"
+              className="fixed top-[15%] sm:top-1/4 left-1/2 -translate-x-1/2 w-full max-w-2xl z-50 px-4"
             >
               <div className="glass rounded-2xl shadow-2xl border-2 border-[color:var(--accent)]/20 overflow-hidden">
                 {/* Search Input */}

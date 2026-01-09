@@ -19,6 +19,7 @@ export interface SkillCategory {
 export interface PersonalInfo {
   name: string;
   email: string;
+  whatsapp: string;
   linkedin: string;
   github: string;
   instagram: string;
@@ -38,6 +39,7 @@ export interface AboutInfo {
 export const PERSONAL_INFO: PersonalInfo = {
   name: "Abdullah Malik",
   email: "muhammadabdullah51700@gmail.com",
+  whatsapp: "+923040705172",
   linkedin: "https://www.linkedin.com/in/muhammad-abdullah-athar",
   github: "https://github.com/AbdullahMalik17",
   instagram: "https://www.instagram.com/muhammadabdullah17337/",

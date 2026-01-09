@@ -16,6 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://portfolio-ai-assistant-of-malik-five.vercel.app'),
   title: "Abdullah Malik - Full-Stack Developer & AI Specialist",
   description: "Professional portfolio of Abdullah Malik showcasing expertise in Agentic AI Systems, Full-Stack Development, and Cloud Technologies. Specializing in Next.js, Python, OpenAI Agent SDK, and modern web applications.",
   keywords: [
@@ -56,12 +57,21 @@ export const metadata: Metadata = {
     title: "Abdullah Malik - Full-Stack Developer & AI Specialist",
     description: "Professional portfolio showcasing expertise in Agentic AI Systems, Full-Stack Development with Next.js, Python, and Cloud Technologies.",
     siteName: "Abdullah Malik Portfolio",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Abdullah Malik - Full-Stack Developer & AI Specialist",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Abdullah Malik - Full-Stack Developer & AI Specialist",
     description: "Professional portfolio showcasing expertise in Agentic AI Systems and Full-Stack Development",
     creator: "@AbdullahMalik",
+    images: ["/og-image.png"],
   },
   verification: {
     google: "your-google-verification-code", // Add your verification code

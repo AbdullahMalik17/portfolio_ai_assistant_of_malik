@@ -46,7 +46,7 @@ export default function Button({
   ...props
 }: ButtonProps) {
   const baseStyles =
-    'font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2';
+    'font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent)] focus-visible:ring-offset-2';
 
   const widthStyle = fullWidth ? 'w-full' : '';
 
@@ -54,6 +54,7 @@ export default function Button({
     <motion.button
       whileHover={!disabled && !loading ? { scale: 1.02 } : {}}
       whileTap={!disabled && !loading ? { scale: 0.98 } : {}}
+      aria-busy={loading}
       className={`${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${widthStyle} ${className}`}
       disabled={disabled || loading}
       {...props}

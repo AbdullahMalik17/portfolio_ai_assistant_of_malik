@@ -100,7 +100,7 @@ const Testimonials = () => {
 
                 {/* Author */}
                 <div className="flex flex-col items-center">
-                  <div className="text-5xl mb-4">{currentTestimonial.image}</div>
+                  <div className="text-5xl mb-4" role="img" aria-label="Testimonial author avatar">{currentTestimonial.image}</div>
                   <h4 className="text-lg font-bold text-gray-900 dark:text-white">
                     {currentTestimonial.name}
                   </h4>

@@ -36,7 +36,7 @@ const Hero = () => {
 
           <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto animate-fade-in-up delay-200 leading-relaxed">
             I&apos;m a passionate developer specializing in{' '}
-            <span className="text-[color:var(--accent)] font-semibold min-w-[200px] inline-block">
+            <span className="text-[color:var(--accent)] font-semibold min-w-[120px] sm:min-w-[200px] inline-block">
               <TypewriterEffect
                 words={[
                   'AI Development',

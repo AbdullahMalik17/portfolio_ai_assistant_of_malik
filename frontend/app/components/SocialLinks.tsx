@@ -1,6 +1,6 @@
 'use client';
 
-import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope, FaTwitter } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope, FaTwitter, FaWhatsapp } from 'react-icons/fa';
 
 const SocialLinks = ({ className = '' }: { className?: string }) => {
     const links = [

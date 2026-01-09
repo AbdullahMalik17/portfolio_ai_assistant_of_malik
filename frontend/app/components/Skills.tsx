@@ -15,7 +15,7 @@ const Skills = () => {
     },
     {
       title: 'AI & ML',
-      skills: ['OpenAI Agent Sdk', 'Langfuse' ,'N8N' ,'Google Framework' , 'OpenAI Agent Kit', 'AI Driven Development'],
+      skills: ['OpenAI Agent Sdk', 'Langfuse', 'N8N', 'Google Framework', 'OpenAI Agent Kit', 'AI Driven Development'],
     },
     {
       title: 'Tools',
