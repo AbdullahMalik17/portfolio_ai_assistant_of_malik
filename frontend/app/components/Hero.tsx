@@ -65,8 +65,8 @@ const Hero = () => {
               View My Work
             </Link>
             <a
-              href="/Abdullah_Malik_Resume.pdf"
-              download="Abdullah_Malik_Resume.pdf"
+              href="/Abdullah_resume.pdf"
+              download="Abdullah_resume.pdf"
             >
               <Button
                 variant="outline"

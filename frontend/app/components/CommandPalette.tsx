@@ -71,7 +71,7 @@ export default function CommandPalette() {
       label: 'Download Resume',
       description: 'Download my resume PDF',
       icon: '📄',
-      action: () => window.open('/Abdullah_Malik_Resume.pdf', '_blank'),
+      action: () => window.open('/Abdullah_resume.pdf', '_blank'),
       keywords: ['resume', 'cv', 'download'],
     },
     {

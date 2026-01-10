@@ -1,6 +1,6 @@
 'use client';
 
-import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope, FaTwitter, FaWhatsapp } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope, FaTwitter, FaFilePdf } from 'react-icons/fa';
 
 const SocialLinks = ({ className = '' }: { className?: string }) => {
     const links = [
@@ -33,6 +33,12 @@ const SocialLinks = ({ className = '' }: { className?: string }) => {
             icon: <FaEnvelope className="w-6 h-6" />,
             url: 'mailto:muhammadabdullah51700@gmail.com',
             color: 'hover:text-red-500',
+        },
+        {
+            name: 'Resume',
+            icon: <FaFilePdf className="w-6 h-6" />,
+            url: '/Abdullah_resume.pdf',
+            color: 'hover:text-red-600',
         },
     ];
 
