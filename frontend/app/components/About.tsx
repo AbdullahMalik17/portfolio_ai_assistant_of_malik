@@ -14,8 +14,8 @@ const About = () => {
   return (
     <section id="about" className="py-20 bg-[color:var(--background-secondary)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
             About Me
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-blue-800 mx-auto rounded-full"></div>
@@ -24,10 +24,10 @@ const About = () => {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <FadeInWhenVisible direction="right">
           <div>
-            <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
+            <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
               Transforming Ideas into Intelligent Solutions
             </h3>
-            <div className="space-y-4 text-lg text-gray-600 dark:text-gray-400">
+            <div className="space-y-4 text-base sm:text-lg text-gray-600 dark:text-gray-400">
               <p>
                 I&apos;m a passionate full-stack developer and AI specialist with expertise
                 in creating modern web applications powered by cutting-edge artificial
@@ -60,7 +60,7 @@ const About = () => {
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 mt-12">
               {stats.map((stat, index) => (
                 <div key={index} className="text-center">
                   <div className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">

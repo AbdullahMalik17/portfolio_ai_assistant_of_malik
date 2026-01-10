@@ -13,8 +13,8 @@ const Hero = () => {
     >
       {/* Background Elements */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
-        <div className="absolute top-[20%] left-[10%] w-72 h-72 bg-purple-500/30 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-[20%] right-[10%] w-96 h-96 bg-blue-500/30 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-[20%] left-[10%] w-48 sm:w-72 h-48 sm:h-72 bg-purple-500/30 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-[20%] right-[10%] w-64 sm:w-96 h-64 sm:h-96 bg-blue-500/30 rounded-full blur-3xl animate-pulse delay-1000"></div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -25,7 +25,7 @@ const Hero = () => {
             </span>
           </div>
 
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight animate-fade-in-up delay-100">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight animate-fade-in-up delay-100">
             Building the{' '}
             <span className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
               Future of AI
@@ -34,7 +34,7 @@ const Hero = () => {
             One Line at a Time
           </h1>
 
-          <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto animate-fade-in-up delay-200 leading-relaxed">
+          <p className="text-lg sm:text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto animate-fade-in-up delay-200 leading-relaxed">
             I&apos;m a passionate developer specializing in{' '}
             <span className="text-[color:var(--accent)] font-semibold min-w-[120px] sm:min-w-[200px] inline-block">
               <TypewriterEffect

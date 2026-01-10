@@ -81,12 +81,12 @@ const Contact = () => {
   return (
     <section id="contact" className="py-20 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-[color:var(--foreground)] mb-4">
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[color:var(--foreground)] mb-4">
             Get In Touch
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto rounded-full"></div>
-          <p className="mt-6 text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          <p className="mt-6 text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
             Have a project in mind? Let&apos;s discuss how we can work together.
           </p>
         </div>
@@ -96,9 +96,9 @@ const Contact = () => {
         </div>
 
         <div className="max-w-3xl mx-auto">
-          <div className="glass rounded-2xl p-8 md:p-12 shadow-2xl">
+          <div className="glass rounded-2xl p-6 sm:p-8 md:p-12 shadow-2xl">
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 <div>
                   <label
                     htmlFor="name"
@@ -139,7 +139,7 @@ const Contact = () => {
                 </div>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 <div>
                   <label
                     htmlFor="phone"
@@ -177,7 +177,7 @@ const Contact = () => {
                 </div>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 <div>
                   <label
                     htmlFor="subject"
@@ -223,7 +223,7 @@ const Contact = () => {
                 </div>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 <div>
                   <label
                     htmlFor="budget"
@@ -294,13 +294,13 @@ const Contact = () => {
                   placeholder="Tell me about your project, goals, timeline, and budget..."
                 ></textarea>
               </div>
-              <div className="text-center">
+              <div className="text-center pt-4">
                 <Button
                   type="submit"
                   variant="primary"
                   size="lg"
                   loading={isSubmitting}
-                  className="w-full md:w-auto rounded-full shadow-[0_0_20px_rgba(59,130,246,0.5)]"
+                  className="w-full sm:w-auto rounded-full shadow-[0_0_20px_rgba(59,130,246,0.5)]"
                   rightIcon={
                     !isSubmitting ? (
                       <svg
