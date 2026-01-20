@@ -43,6 +43,8 @@ const Contact = () => {
       const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
       const endpoint = `${backendUrl.replace(/\/$/, '')}/api/contact`;
 
+      console.log(`🚀 Attempting to contact backend at: ${endpoint}`); // Debug log
+
       const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
