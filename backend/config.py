@@ -33,11 +33,7 @@ class Settings:
         if cors_origins_str:
             self.cors_origins: list[str] = [origin.strip() for origin in cors_origins_str.split(",")]
         else:
-            self.cors_origins: list[str] = [
-                "http://localhost:3000",
-                "http://localhost:3001",
-                "http://127.0.0.1:3000",
-            ]
+            self.cors_origins: list[str] = ["*"]
         
         # AI Model Settings
         self.default_model: str = os.getenv("DEFAULT_MODEL", "gemini-2.5-flash")
