@@ -39,7 +39,11 @@ const Contact = () => {
     setSubmitStatus({ type: null, message: '' });
 
     try {
-      const response = await fetch('/api/contact', {
+      // Use external backend URL if available, otherwise default to localhost:8000
+      const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
+      const endpoint = `${backendUrl.replace(/\/$/, '')}/api/contact`;
+
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -66,9 +70,10 @@ const Contact = () => {
           message: ''
         });
       } else {
-        throw new Error(data.error || 'Failed to send message');
+        throw new Error(data.error || data.detail || 'Failed to send message');
       }
     } catch (error) {
+      console.error('Submission error:', error);
       setSubmitStatus({
         type: 'error',
         message: error instanceof Error ? error.message : 'Failed to send message. Please try again.'
@@ -79,7 +84,13 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-20 relative">
+    <section id="contact" className="py-20 relative overflow-hidden">
+      {/* Background decorations */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+          <div className="absolute top-1/4 right-0 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+      </div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[color:var(--foreground)] mb-4">
@@ -92,11 +103,13 @@ const Contact = () => {
         </div>
 
         <div className="flex justify-center mb-12 relative z-20">
-          <SocialLinks className="bg-white dark:bg-gray-800 shadow-lg px-8 py-4 rounded-full border border-gray-200 dark:border-gray-700" />
+          <SocialLinks className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md shadow-lg px-8 py-4 rounded-full border border-gray-200 dark:border-gray-700 transition-transform hover:scale-105 duration-300" />
         </div>
 
         <div className="max-w-3xl mx-auto">
-          <div className="glass rounded-2xl p-6 sm:p-8 md:p-12 shadow-2xl">
+          <div className="glass rounded-2xl p-6 sm:p-8 md:p-12 shadow-2xl border border-white/20 relative overflow-hidden group">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-700"></div>
+            
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 <div>

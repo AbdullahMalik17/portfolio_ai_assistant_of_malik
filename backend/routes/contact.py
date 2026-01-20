@@ -1,13 +1,10 @@
 """
 FastAPI routes for contact form submissions.
-Saves contact messages to a SQLite database and sends email notifications.
+Uses DatabaseService for storage (SQLite/PostgreSQL) and sends email notifications.
 """
-import sqlite3
 import logging
 import smtplib
 import os
-from datetime import datetime
-from pathlib import Path
 from typing import List, Optional
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -15,12 +12,11 @@ from email.mime.multipart import MIMEMultipart
 from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel, EmailStr, Field
 
+from services.db_service import db_service
+
 logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api/contact", tags=["contact"])
-
-# Database file
-DB_FILE = Path("contacts.db")
 
 
 class ContactRequest(BaseModel):
@@ -28,7 +24,11 @@ class ContactRequest(BaseModel):
     name: str = Field(..., min_length=1, description="Sender's name")
     email: EmailStr = Field(..., description="Sender's email")
     phone: Optional[str] = Field(None, description="Sender's phone number")
+    company: Optional[str] = Field(None, description="Sender's company")
     subject: str = Field(..., min_length=1, description="Message subject")
+    projectType: Optional[str] = Field(None, description="Type of project")
+    budget: Optional[str] = Field(None, description="Budget range")
+    timeline: Optional[str] = Field(None, description="Project timeline")
     message: str = Field(..., min_length=1, description="Message content")
 
 
@@ -36,74 +36,6 @@ class ContactResponse(BaseModel):
     """Response model for contact form."""
     success: bool
     message: str
-
-
-def init_db():
-    """Initialize the database table and handle migrations."""
-    try:
-        conn = sqlite3.connect(DB_FILE)
-        cursor = conn.cursor()
-        
-        # Create table if not exists (original schema)
-        cursor.execute("""
-            CREATE TABLE IF NOT EXISTS contacts (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                name TEXT NOT NULL,
-                email TEXT NOT NULL,
-                message TEXT NOT NULL,
-                timestamp TEXT NOT NULL
-            )
-        """)
-        
-        # Check and migrate columns
-        cursor.execute("PRAGMA table_info(contacts)")
-        columns = [info[1] for info in cursor.fetchall()]
-        
-        if 'phone' not in columns:
-            cursor.execute("ALTER TABLE contacts ADD COLUMN phone TEXT")
-            logger.info("Added 'phone' column to contacts table")
-            
-        if 'subject' not in columns:
-            cursor.execute("ALTER TABLE contacts ADD COLUMN subject TEXT")
-            logger.info("Added 'subject' column to contacts table")
-
-        conn.commit()
-        conn.close()
-        return True
-    except Exception as e:
-        logger.error(f"Error initializing database: {e}")
-        return False
-
-
-def save_contact(contact_data: dict):
-    """Save contact data to SQLite database."""
-    try:
-        # Ensure DB exists and is migrated
-        init_db()
-        
-        conn = sqlite3.connect(DB_FILE)
-        cursor = conn.cursor()
-        
-        timestamp = datetime.now().isoformat()
-        
-        cursor.execute("""
-            INSERT INTO contacts (name, email, phone, subject, message, timestamp)
-            VALUES (?, ?, ?, ?, ?, ?)
-        """, (
-            contact_data["name"], 
-            contact_data["email"], 
-            contact_data.get("phone"), 
-            contact_data["subject"], 
-            contact_data["message"], 
-            timestamp
-        ))
-        
-        conn.commit()
-        conn.close()
-        return True
-    except Exception as e:
-        logger.error(f"Error saving contact: {e}")
-        return False
 
 
 def send_email_notification(contact_data: dict):
@@ -130,6 +62,10 @@ def send_email_notification(contact_data: dict):
         Name: {contact_data['name']}
         Email: {contact_data['email']}
         Phone: {contact_data.get('phone', 'N/A')}
+        Company: {contact_data.get('company', 'N/A')}
+        Project Type: {contact_data.get('projectType') or contact_data.get('project_type', 'N/A')}
+        Budget: {contact_data.get('budget', 'N/A')}
+        Timeline: {contact_data.get('timeline', 'N/A')}
         Subject: {contact_data['subject']}
         
         Message:
@@ -156,15 +92,15 @@ def send_email_notification(contact_data: dict):
 async def submit_contact(request: ContactRequest):
     """
     Handle contact form submission.
-    Saves the message to a SQLite database and sends an email.
+    Saves the message to the configured database (SQLite/PostgreSQL) and sends an email.
     """
     try:
         logger.info(f"Received contact message from {request.email}")
         
         contact_data = request.model_dump()
         
-        # 1. Save to Database
-        db_success = save_contact(contact_data)
+        # 1. Save to Database (using abstracted service)
+        db_success = db_service.save_contact(contact_data)
         
         # 2. Send Email Notification
         email_success = send_email_notification(contact_data)
