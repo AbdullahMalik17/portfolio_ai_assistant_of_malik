@@ -5,19 +5,27 @@ import SocialLinks from './SocialLinks';
 import TypewriterEffect from './TypewriterEffect';
 import Button from './Button';
 
+import NetworkBackground from './NetworkBackground';
+
 const Hero = () => {
   return (
     <section
       id="home"
+      data-component="Hero Section"
+      data-type="Client Component"
       className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16"
     >
       {/* Background Elements */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
-        <div className="absolute top-[20%] left-[10%] w-48 sm:w-72 h-48 sm:h-72 bg-purple-500/30 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-[20%] right-[10%] w-64 sm:w-96 h-64 sm:h-96 bg-blue-500/30 rounded-full blur-3xl animate-pulse delay-1000"></div>
+      <div data-tech="Canvas Animation" className="absolute inset-0">
+         <NetworkBackground />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+        <div className="absolute top-[20%] left-[10%] w-48 sm:w-72 h-48 sm:h-72 bg-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-[20%] right-[10%] w-64 sm:w-96 h-64 sm:h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10" data-component="Content Wrapper" data-type="Layout">
         <div className="text-center space-y-8">
           <div className="inline-block animate-fade-in-up">
             <span className="px-4 py-2 rounded-full glass text-sm font-medium text-[color:var(--accent)] border border-[color:var(--accent)]/20">
@@ -36,7 +44,7 @@ const Hero = () => {
 
           <p className="text-lg sm:text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto animate-fade-in-up delay-200 leading-relaxed">
             I&apos;m a passionate developer specializing in{' '}
-            <span className="text-[color:var(--accent)] font-semibold min-w-[120px] sm:min-w-[200px] inline-block">
+            <span className="text-[color:var(--accent)] font-semibold min-w-[120px] sm:min-w-[200px] inline-block" data-tech="Typewriter Hook">
               <TypewriterEffect
                 words={[
                   'AI Development',
@@ -60,6 +68,7 @@ const Hero = () => {
               smooth={true}
               offset={-70}
               duration={500}
+              data-tech="React Scroll"
               className="px-8 py-4 bg-[color:var(--accent)] text-white rounded-full font-semibold text-lg hover:bg-blue-600 hover:scale-105 transition-all shadow-[0_0_20px_rgba(59,130,246,0.5)] hover:shadow-[0_0_30px_rgba(59,130,246,0.7)] cursor-pointer"
             >
               View My Work

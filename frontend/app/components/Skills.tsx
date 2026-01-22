@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import FadeInWhenVisible from './FadeInWhenVisible';
+import SkillsCloud from './SkillsCloud';
 
 const Skills = () => {
   const skillCategories = [
@@ -23,6 +24,9 @@ const Skills = () => {
     },
   ];
 
+  // Flatten skills for the cloud
+  const allSkills = skillCategories.flatMap(cat => cat.skills);
+
   const containerVariants = {
     hidden: {},
     visible: {
@@ -33,12 +37,17 @@ const Skills = () => {
   };
 
   const cardVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
+    hidden: { opacity: 0, x: 20 },
+    visible: { opacity: 1, x: 0 },
   };
 
   return (
-    <section id="skills" className="py-20 relative overflow-hidden">
+    <section 
+      id="skills" 
+      className="py-20 relative overflow-hidden bg-[color:var(--background-secondary)]/30"
+      data-component="Skills Section"
+      data-type="Client Component"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeInWhenVisible>
           <div className="text-center mb-12 sm:mb-16">
@@ -52,37 +61,53 @@ const Skills = () => {
           </div>
         </FadeInWhenVisible>
 
-        <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-        >
-          {skillCategories.map((category, index) => (
+        <div className="flex flex-col lg:flex-row gap-12 items-center">
+            {/* Left Column: 3D Cloud */}
+            <div className="w-full lg:w-1/2" data-component="3D Tag Cloud" data-type="Canvas/JS Animation">
+                <FadeInWhenVisible direction="right">
+                    <div className="glass rounded-3xl p-4 flex items-center justify-center bg-white/5 dark:bg-black/20">
+                        <SkillsCloud skills={allSkills} />
+                    </div>
+                </FadeInWhenVisible>
+            </div>
+
+            {/* Right Column: Categories Grid */}
             <motion.div
-              key={index}
-              variants={cardVariants}
-              whileHover={{ y: -8, transition: { duration: 0.2 } }}
-              className="glass rounded-2xl p-6 hover:shadow-[0_0_25px_rgba(59,130,246,0.15)] transition-shadow duration-300"
+            className="w-full lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-6"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-50px' }}
+            data-component="Skill Categories"
+            data-type="Layout"
             >
-              <h3 className="text-xl font-bold text-[color:var(--accent)] mb-6 text-center">
-                {category.title}
-              </h3>
-              <div className="flex flex-wrap gap-3 justify-center">
-                {category.skills.map((skill, skillIndex) => (
-                  <motion.span
-                    key={skillIndex}
-                    whileHover={{ scale: 1.05 }}
-                    className="px-3 py-1.5 bg-[color:var(--background)] text-[color:var(--foreground)] rounded-lg text-sm font-medium border border-[color:var(--foreground)]/10 hover:border-[color:var(--accent)] hover:text-[color:var(--accent)] transition-colors cursor-default"
-                  >
-                    {skill}
-                  </motion.span>
-                ))}
-              </div>
+            {skillCategories.map((category, index) => (
+                <motion.div
+                key={index}
+                variants={cardVariants}
+                whileHover={{ y: -8, transition: { duration: 0.2 } }}
+                className="glass rounded-2xl p-6 hover:shadow-[0_0_25px_rgba(59,130,246,0.15)] transition-shadow duration-300 border border-white/10"
+                data-component="Skill Category Card"
+                data-tech="Framer Motion"
+                >
+                <h3 className="text-xl font-bold text-[color:var(--accent)] mb-4 text-center">
+                    {category.title}
+                </h3>
+                <div className="flex flex-wrap gap-2 justify-center" data-tech="Skill Tags">
+                    {category.skills.map((skill, skillIndex) => (
+                    <motion.span
+                        key={skillIndex}
+                        whileHover={{ scale: 1.05 }}
+                        className="px-2.5 py-1 bg-[color:var(--background)] text-[color:var(--foreground)] rounded-md text-xs font-medium border border-[color:var(--foreground)]/10 hover:border-[color:var(--accent)] hover:text-[color:var(--accent)] transition-colors cursor-default"
+                    >
+                        {skill}
+                    </motion.span>
+                    ))}
+                </div>
+                </motion.div>
+            ))}
             </motion.div>
-          ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

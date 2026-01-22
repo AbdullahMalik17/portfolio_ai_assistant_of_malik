@@ -258,9 +258,29 @@ export default function CommandPalette() {
                       ))}
                     </div>
                   ) : (
-                    <div className="p-8 text-center text-gray-500">
-                      <span className="text-4xl mb-2 block">🤷</span>
-                      <p>No commands found</p>
+                    <div className="p-2">
+                         <button
+                          onClick={() => {
+                            const event = new CustomEvent('open-portfolio-chat', { detail: search });
+                            window.dispatchEvent(event);
+                            setIsOpen(false);
+                          }}
+                          onMouseEnter={() => setSelectedIndex(0)}
+                          className={`w-full flex items-center gap-4 p-3 rounded-lg text-left transition-all bg-[color:var(--accent)] text-white`}
+                        >
+                          <span className="text-2xl">🤖</span>
+                          <div className="flex-1 min-w-0">
+                            <div className="font-semibold truncate">
+                              Ask AI: &quot;{search}&quot;
+                            </div>
+                            <div className="text-sm truncate text-white/80">
+                              Send this query to the AI Assistant
+                            </div>
+                          </div>
+                          <kbd className="px-2 py-1 text-xs bg-white/20 rounded">
+                            ↵
+                          </kbd>
+                        </button>
                     </div>
                   )}
                 </div>

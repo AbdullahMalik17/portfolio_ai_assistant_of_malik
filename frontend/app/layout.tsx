@@ -4,6 +4,8 @@ import "./globals.css";
 import ChatbotWidget from "./components/ChatbotWidget";
 import PWAInstallPrompt from "./components/PWAInstallPrompt";
 import CommandPalette from "./components/CommandPalette";
+import ContextMenu from "./components/ContextMenu";
+import DeveloperTerminal from "./components/DeveloperTerminal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -110,6 +112,8 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+        <DeveloperTerminal />
+        <ContextMenu />
         <ChatbotWidget />
         <PWAInstallPrompt />
         <CommandPalette />

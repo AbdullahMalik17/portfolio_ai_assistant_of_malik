@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import FadeInWhenVisible from './FadeInWhenVisible';
 import ProjectModal from './ProjectModal';
 import Button from './Button';
+import ProjectCard3D from './ProjectCard3D';
 
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
@@ -164,7 +165,12 @@ const Projects = () => {
   };
 
   return (
-    <section id="projects" className="py-20 relative">
+    <section 
+      id="projects" 
+      className="py-20 relative"
+      data-component="Projects Section"
+      data-type="Client Component"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <FadeInWhenVisible>
           <div className="text-center mb-12 sm:mb-16">
@@ -184,68 +190,85 @@ const Projects = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-50px' }}
+          data-component="Project Grid"
+          data-type="Layout"
         >
           {projects.map((project, index) => (
             <motion.div
               key={index}
               variants={cardVariants}
-              whileHover={{ y: -12, scale: 1.02, transition: { duration: 0.2 } }}
-              className="group glass rounded-2xl p-8 hover:shadow-[0_0_30px_rgba(59,130,246,0.2)] transition-shadow duration-300 flex flex-col h-full"
+              className="h-full"
+              data-component="Project Card"
+              data-type="Interactive Component"
+              data-tech="Framer Motion"
             >
-              <div className="text-6xl mb-6 transform group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
-                {project.image}
-              </div>
-              <h3 className="text-2xl font-bold text-[color:var(--foreground)] mb-3 group-hover:text-[color:var(--accent)] transition-colors">
-                {project.title}
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400 mb-6 flex-grow">
-                {project.description}
-              </p>
-
-              <div className="space-y-4">
-                <div className="flex flex-wrap gap-2">
-                  {project.tech.map((tech, techIndex) => (
-                    <span
-                      key={techIndex}
-                      className="px-3 py-1 bg-[color:var(--accent)]/[0.1] text-[color:var(--accent)] rounded-full text-xs font-medium border border-[color:var(--accent)]/20"
-                    >
-                      {tech}
-                    </span>
-                  ))}
+              <ProjectCard3D 
+                className="group glass rounded-2xl p-8 hover:shadow-[0_0_30px_rgba(59,130,246,0.2)] transition-shadow duration-300 flex flex-col h-full bg-[color:var(--background-secondary)]/50 backdrop-blur-xl border border-white/10"
+                glareColor="rgba(59, 130, 246, 0.3)"
+              >
+                <div className="text-6xl mb-6 transform group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
+                  {project.image}
                 </div>
+                <h3 className="text-2xl font-bold text-[color:var(--foreground)] mb-3 group-hover:text-[color:var(--accent)] transition-colors">
+                  {project.title}
+                </h3>
+                <p className="text-gray-600 dark:text-gray-400 mb-6 flex-grow">
+                  {project.description}
+                </p>
 
-                <div className="flex gap-3">
-                  <Button
-                    variant="primary"
-                    size="sm"
-                    onClick={() => setSelectedProject(index)}
-                    rightIcon={
-                      <svg
-                        className="w-4 h-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
+                <div className="space-y-4">
+                  <div className="flex flex-wrap gap-2" data-tech="Tech Stack List">
+                    {project.tech.map((tech, techIndex) => (
+                      <span
+                        key={techIndex}
+                        className="px-3 py-1 bg-[color:var(--accent)]/[0.1] text-[color:var(--accent)] rounded-full text-xs font-medium border border-[color:var(--accent)]/20"
                       >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
-                    }
-                  >
-                    Learn More
-                  </Button>
-                  {project.link && (
-                    <a href={project.link} target="_blank" rel="noopener noreferrer">
-                      <Button variant="ghost" size="sm">
-                        View Code
-                      </Button>
-                    </a>
-                  )}
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="flex gap-3 relative z-30">
+                    <Button
+                      variant="primary"
+                      size="sm"
+                      onClick={(e: React.MouseEvent) => {
+                         e.stopPropagation();
+                         setSelectedProject(index);
+                      }}
+                      rightIcon={
+                        <svg
+                          className="w-4 h-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                          />
+                        </svg>
+                      }
+                    >
+                      Learn More
+                    </Button>
+                    {project.link && (
+                      <a 
+                        href={project.link} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <Button variant="ghost" size="sm">
+                          View Code
+                        </Button>
+                      </a>
+                    )}
+                  </div>
                 </div>
-              </div>
+              </ProjectCard3D>
             </motion.div>
           ))}
         </motion.div>

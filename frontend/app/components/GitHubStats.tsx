@@ -1,13 +1,38 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import FadeInWhenVisible from './FadeInWhenVisible';
 import AnimatedCounter from './AnimatedCounter';
 
+interface GitHubProfile {
+  public_repos: number;
+  followers: number;
+  following: number;
+}
+
 const GitHubStats = () => {
+  const [profile, setProfile] = useState<GitHubProfile | null>(null);
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const res = await fetch('https://api.github.com/users/AbdullahMalik17');
+        if (res.ok) {
+          const data = await res.json();
+          setProfile(data);
+        }
+      } catch (error) {
+        console.error('Failed to fetch GitHub stats', error);
+      }
+    };
+
+    fetchStats();
+  }, []);
+
   const stats = [
-    { number: 15, label: 'Public Repositories', suffix: '+' },
-    { number: 50, label: 'Contributions (2024)', suffix: '+' },
-    { number: 10, label: 'Technologies Used', suffix: '+' },
+    { number: profile?.public_repos || 15, label: 'Public Repositories', suffix: '+' },
+    { number: 50, label: 'Contributions (2024)', suffix: '+' }, // Contributions require GraphQL API, keeping static for now
+    { number: profile?.followers || 0, label: 'Followers', suffix: '' },
     { number: 3, label: 'Major Projects', suffix: '' },
   ];
 
@@ -21,7 +46,7 @@ const GitHubStats = () => {
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full"></div>
             <p className="mt-6 text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              Open source contributions and project development
+              Real-time data from my open source contributions and project development
             </p>
           </div>
         </FadeInWhenVisible>
@@ -30,7 +55,7 @@ const GitHubStats = () => {
           <div className="glass rounded-3xl p-8 md:p-12 border-2 border-[color:var(--accent)]/20">
             <div className="text-center mb-8">
               <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-                2024 Contributions
+                Live Stats
               </h3>
             </div>
 

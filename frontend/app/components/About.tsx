@@ -1,7 +1,9 @@
 'use client';
 
+import Timeline, { TimelineEvent } from './Timeline';
 import FadeInWhenVisible from './FadeInWhenVisible';
 import AnimatedCounter from './AnimatedCounter';
+import SystemArchitecture from './SystemArchitecture';
 
 const About = () => {
   const stats = [
@@ -11,8 +13,36 @@ const About = () => {
     { number: 247, label: 'AI Support Available', prefix: '', suffix: '' }, // Display as 247 for 24/7
   ];
 
+  const timelineEvents: TimelineEvent[] = [
+    {
+      year: '2023',
+      title: 'The Spark',
+      description: 'Discovered web development at age 14. Built first HTML/CSS projects within 3 months, igniting a passion for code.',
+    },
+    {
+      year: '2024',
+      title: 'Leveling Up',
+      description: 'Mastered TypeScript and modern web frameworks (Next.js). Started building robust full-stack applications.',
+    },
+    {
+      year: '2024 - 2025',
+      title: 'Agentic AI Specialization',
+      description: 'Joined Panaversity. Specialized in Agentic AI using OpenAI SDK, Python, and N8n. Built first autonomous agents.',
+    },
+    {
+      year: 'Present',
+      title: 'Enterprise AI',
+      description: 'Expanding into Cloud Native AI (Docker, Kubernetes) and OpenAI Agent Kit for scalable enterprise solutions.',
+    },
+  ];
+
   return (
-    <section id="about" className="py-20 bg-[color:var(--background-secondary)]">
+    <section 
+      id="about" 
+      className="py-20 bg-[color:var(--background-secondary)]"
+      data-component="About Section"
+      data-type="Client Component"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
@@ -21,46 +51,26 @@ const About = () => {
           <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-blue-800 mx-auto rounded-full"></div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid md:grid-cols-2 gap-12 items-start">
           <FadeInWhenVisible direction="right">
-          <div>
+          <div data-component="Bio Content" data-type="Layout">
             <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-              Transforming Ideas into Intelligent Solutions
+              My Journey
             </h3>
-            <div className="space-y-4 text-base sm:text-lg text-gray-600 dark:text-gray-400">
-              <p>
-                I&apos;m a passionate full-stack developer and AI specialist with expertise
-                in creating modern web applications powered by cutting-edge artificial
-                intelligence.
-              </p>
-              <p>
-                My journey in technology began at age 14 during 10th grade, when I discovered
-                my passion for web development through HTML, CSS, and JavaScript. After three months
-                of dedicated practice, I built my first{' '}
-                <a
-                  href="https://github.com/AbdullahMalik17/Projects-of-html"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[color:var(--accent)] hover:underline font-medium"
-                >
-                  collection of web projects
-                </a>
-                , which sparked my deeper interest in software development.
-              </p>
-              <p>
-                I then mastered TypeScript and transitioned into Agentic AI Development at Panaversity,
-                where I learned to build sophisticated AI agents using the OpenAI Agent SDK, Python,
-                and N8n. Currently, I&apos;m expanding my expertise in the OpenAI Agent Kit and cloud
-                technologies including Kubernetes and Docker, preparing for enterprise-scale deployments.
-              </p>
-              <p>
-                I believe in creating seamless, intelligent experiences that make
-                technology accessible and beneficial for everyone.
+            
+            <div data-component="Journey Timeline" data-tech="Framer Motion">
+                <Timeline events={timelineEvents} />
+            </div>
+
+            <div className="mt-8">
+               <p className="text-gray-600 dark:text-gray-400 italic">
+                &quot;I believe in creating seamless, intelligent experiences that make
+                technology accessible and beneficial for everyone.&quot;
               </p>
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 mt-12">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 mt-12" data-component="Stats Display" data-tech="Custom Animated Counter">
               {stats.map((stat, index) => (
                 <div key={index} className="text-center">
                   <div className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
@@ -85,35 +95,8 @@ const About = () => {
 
           {/* Visual Element */}
           <FadeInWhenVisible direction="left" delay={0.2}>
-          <div className="relative">
-            <div className="aspect-square bg-gradient-to-br from-blue-100 to-blue-300 dark:from-blue-800 dark:to-blue-900 rounded-3xl p-8 flex items-center justify-center">
-              <div className="relative w-full h-full">
-                {/* Floating code blocks */}
-                <div className="absolute top-0 left-0 bg-[color:var(--background)] rounded-lg shadow-lg p-4 transform rotate-3 hover:rotate-0 transition-transform duration-300">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                    <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                  </div>
-                  <code className="text-sm text-gray-800 dark:text-white">
-                    {'<div>AI Powered</div>'}
-                  </code>
-                </div>
-
-                <div className="absolute bottom-0 right-0 bg-[color:var(--background)] rounded-lg shadow-lg p-4 transform -rotate-3 hover:rotate-0 transition-transform duration-300">                  <div className="flex items-center gap-2 mb-2">
-                    <div className="w-3 h-3 rounded-full bg-blue-500"></div>
-                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                  </div>
-                  <code className="text-sm text-gray-800 dark:text-white">
-                    {'const ai = new Assistant&apos;()'}
-                  </code>
-                </div>
-
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                  <div className="text-6xl animate-pulse">🤖</div>
-                </div>
-              </div>
-            </div>
+          <div className="relative" data-component="System Diagram" data-tech="SVG / Framer Motion">
+            <SystemArchitecture />
           </div>
           </FadeInWhenVisible>
         </div>

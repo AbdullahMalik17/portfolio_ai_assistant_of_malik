@@ -10,6 +10,13 @@ type ChatMessage = {
 const PUBLIC_BACKEND_URL =
   (typeof process !== 'undefined' && process.env.NEXT_PUBLIC_BACKEND_URL) || '';
 
+// Extend Window interface for Web Speech API
+declare global {
+  interface Window {
+    webkitSpeechRecognition: any;
+  }
+}
+
 export default function ChatbotWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([
@@ -21,16 +28,80 @@ export default function ChatbotWidget() {
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isListening, setIsListening] = useState(false);
   const [threadId, setThreadId] = useState<string | undefined>(undefined);
   const scrollRef = useRef<HTMLDivElement | null>(null);
+  const recognitionRef = useRef<any>(null);
 
   useEffect(() => {
     if (!scrollRef.current) return;
     scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
   }, [messages, isOpen]);
 
-  async function sendMessage() {
-    const trimmed = input.trim();
+  // Initialize Speech Recognition
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.webkitSpeechRecognition) {
+      const recognition = new window.webkitSpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = 'en-US';
+
+      recognition.onstart = () => {
+        setIsListening(true);
+      };
+
+      recognition.onresult = (event: any) => {
+        const transcript = event.results[0][0].transcript;
+        setInput(transcript);
+        // Optional: Auto-send after voice input
+        // sendMessage(transcript);
+      };
+
+      recognition.onerror = (event: any) => {
+        console.error('Speech recognition error', event.error);
+        setIsListening(false);
+      };
+
+      recognition.onend = () => {
+        setIsListening(false);
+      };
+
+      recognitionRef.current = recognition;
+    }
+  }, []);
+
+  // Handle Custom Event for Smart Search
+  useEffect(() => {
+    const handleOpenChat = (event: CustomEvent) => {
+      setIsOpen(true);
+      if (event.detail) {
+        // Wait for state update then send
+        setTimeout(() => sendMessage(event.detail), 100);
+      }
+    };
+
+    window.addEventListener('open-portfolio-chat', handleOpenChat as EventListener);
+    return () => {
+      window.removeEventListener('open-portfolio-chat', handleOpenChat as EventListener);
+    };
+  }, [messages, threadId]); // Dependencies for sendMessage context
+
+  const toggleListening = () => {
+    if (!recognitionRef.current) {
+      alert('Speech recognition is not supported in this browser.');
+      return;
+    }
+
+    if (isListening) {
+      recognitionRef.current.stop();
+    } else {
+      recognitionRef.current.start();
+    }
+  };
+
+  async function sendMessage(textOverride?: string) {
+    const textToSend = textOverride || input;
+    const trimmed = textToSend.trim();
     if (!trimmed || isLoading) return;
 
     const newMessages: ChatMessage[] = [...messages, { role: 'user', content: trimmed }];
@@ -139,16 +210,30 @@ export default function ChatbotWidget() {
 
           <div className="p-3 border-t border-gray-200 dark:border-gray-800">
             <div className="flex items-center gap-2">
+              <button
+                onClick={toggleListening}
+                className={`p-2 rounded-xl transition-all ${
+                  isListening 
+                    ? 'bg-red-500 text-white animate-pulse' 
+                    : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
+                }`}
+                title={isListening ? 'Stop listening' : 'Start voice input'}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+                  <path d="M8.25 4.5a3.75 3.75 0 1 1 7.5 0v8.25a3.75 3.75 0 1 1-7.5 0V4.5Z" />
+                  <path d="M6 10.5a.75.75 0 0 1 .75.75v1.5a5.25 5.25 0 1 0 10.5 0v-1.5a.75.75 0 0 1 1.5 0v1.5a6.751 6.751 0 0 1-6 6.709v2.291h3a.75.75 0 0 1 0 1.5h-7.5a.75.75 0 0 1 0-1.5h3v-2.291a6.751 6.751 0 0 1-6-6.709v-1.5A.75.75 0 0 1 6 10.5Z" />
+                </svg>
+              </button>
               <input
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder="Ask anything about me..."
+                placeholder={isListening ? 'Listening...' : 'Ask anything about me...'}
                 className="flex-1 rounded-xl border border-[color:var(--foreground)]/[0.1] bg-[color:var(--background)] px-3 py-2 text-sm text-[color:var(--foreground)] outline-none focus:ring-2 focus:ring-[color:var(--accent)]"
               />
               <button
-                onClick={sendMessage}
+                onClick={() => sendMessage()}
                 disabled={isLoading || input.trim().length === 0}
                 className="rounded-xl bg-[color:var(--accent)] text-white px-3 py-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
               >

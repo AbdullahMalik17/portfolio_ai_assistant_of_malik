@@ -17,12 +17,38 @@ const Contact = () => {
     message: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isDrafting, setIsDrafting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{ type: 'success' | 'error' | null; message: string }>({
     type: null,
     message: ''
   });
 
-  const maxMessageLength = 500;
+  const maxMessageLength = 1000;
+
+  const handleAIDraft = async () => {
+    if (!formData.message.trim() || isDrafting) return;
+    
+    setIsDrafting(true);
+    try {
+      const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
+      const response = await fetch(`${backendUrl.replace(/\/$/, '')}/api/assistant/chat`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: `Convert this rough project intent into a professional, concise project inquiry for a full-stack developer portfolio. Raw intent: "${formData.message}"`,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setFormData(prev => ({ ...prev, message: data.response }));
+      }
+    } catch (error) {
+      console.error('Drafting error:', error);
+    } finally {
+      setIsDrafting(false);
+    }
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
@@ -292,9 +318,29 @@ const Contact = () => {
                   >
                     Message <span className="text-red-500">*</span>
                   </label>
-                  <span className={`text-xs ${formData.message.length > maxMessageLength ? 'text-red-500' : 'text-gray-400'}`}>
-                    {formData.message.length}/{maxMessageLength}
-                  </span>
+                  <div className="flex items-center gap-4">
+                    <button
+                        type="button"
+                        onClick={handleAIDraft}
+                        disabled={isDrafting || !formData.message.trim()}
+                        className="text-xs flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-purple-500/10 text-purple-500 border border-purple-500/20 hover:bg-purple-500/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                        {isDrafting ? (
+                            <>
+                                <svg className="animate-spin h-3 w-3" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"></circle>
+                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                Drafting...
+                            </>
+                        ) : (
+                            <>✨ Refine with AI</>
+                        )}
+                    </button>
+                    <span className={`text-[10px] ${formData.message.length > maxMessageLength ? 'text-red-500' : 'text-gray-400'}`}>
+                        {formData.message.length}/{maxMessageLength}
+                    </span>
+                  </div>
                 </div>
                 <textarea
                   id="message"
@@ -305,8 +351,8 @@ const Contact = () => {
                   minLength={10}
                   maxLength={maxMessageLength}
                   rows={5}
-                  className="w-full px-4 py-3 rounded-lg bg-[color:var(--background)] border border-[color:var(--foreground)]/10 focus:border-[color:var(--accent)] focus:ring-2 focus:ring-[color:var(--accent)]/20 outline-none transition-all resize-none"
-                  placeholder="Tell me about your project, goals, timeline, and budget..."
+                  className="w-full px-4 py-3 rounded-lg bg-[color:var(--background)] border border-[color:var(--foreground)]/10 focus:border-[color:var(--accent)] focus:ring-2 focus:ring-[color:var(--accent)]/20 outline-none transition-all resize-none font-sans text-sm"
+                  placeholder="Tip: Type a few keywords and click 'Refine with AI'..."
                 ></textarea>
               </div>
               <div className="text-center pt-4">
