@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 
 type ChatMessage = {
   role: 'user' | 'assistant';
@@ -10,10 +10,40 @@ type ChatMessage = {
 const PUBLIC_BACKEND_URL =
   (typeof process !== 'undefined' && process.env.NEXT_PUBLIC_BACKEND_URL) || '';
 
+interface SpeechRecognitionEvent {
+  results: {
+    [index: number]: {
+      [index: number]: {
+        transcript: string;
+      };
+    };
+  };
+}
+
+interface SpeechRecognitionErrorEvent {
+  error: string;
+}
+
+interface SpeechRecognition {
+  continuous: boolean;
+  interimResults: boolean;
+  lang: string;
+  start: () => void;
+  stop: () => void;
+  onstart: (() => void) | null;
+  onresult: ((event: SpeechRecognitionEvent) => void) | null;
+  onerror: ((event: SpeechRecognitionErrorEvent) => void) | null;
+  onend: (() => void) | null;
+}
+
+interface IWebkitSpeechRecognition {
+  new (): SpeechRecognition;
+}
+
 // Extend Window interface for Web Speech API
 declare global {
   interface Window {
-    webkitSpeechRecognition: any;
+    webkitSpeechRecognition: IWebkitSpeechRecognition;
   }
 }
 
@@ -31,7 +61,7 @@ export default function ChatbotWidget() {
   const [isListening, setIsListening] = useState(false);
   const [threadId, setThreadId] = useState<string | undefined>(undefined);
   const scrollRef = useRef<HTMLDivElement | null>(null);
-  const recognitionRef = useRef<any>(null);
+  const recognitionRef = useRef<SpeechRecognition | null>(null);
 
   useEffect(() => {
     if (!scrollRef.current) return;
@@ -50,14 +80,14 @@ export default function ChatbotWidget() {
         setIsListening(true);
       };
 
-      recognition.onresult = (event: any) => {
+      recognition.onresult = (event: SpeechRecognitionEvent) => {
         const transcript = event.results[0][0].transcript;
         setInput(transcript);
         // Optional: Auto-send after voice input
         // sendMessage(transcript);
       };
 
-      recognition.onerror = (event: any) => {
+      recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
         console.error('Speech recognition error', event.error);
         setIsListening(false);
       };
@@ -70,36 +100,7 @@ export default function ChatbotWidget() {
     }
   }, []);
 
-  // Handle Custom Event for Smart Search
-  useEffect(() => {
-    const handleOpenChat = (event: CustomEvent) => {
-      setIsOpen(true);
-      if (event.detail) {
-        // Wait for state update then send
-        setTimeout(() => sendMessage(event.detail), 100);
-      }
-    };
-
-    window.addEventListener('open-portfolio-chat', handleOpenChat as EventListener);
-    return () => {
-      window.removeEventListener('open-portfolio-chat', handleOpenChat as EventListener);
-    };
-  }, [messages, threadId]); // Dependencies for sendMessage context
-
-  const toggleListening = () => {
-    if (!recognitionRef.current) {
-      alert('Speech recognition is not supported in this browser.');
-      return;
-    }
-
-    if (isListening) {
-      recognitionRef.current.stop();
-    } else {
-      recognitionRef.current.start();
-    }
-  };
-
-  async function sendMessage(textOverride?: string) {
+  const sendMessage = useCallback(async (textOverride?: string) => {
     const textToSend = textOverride || input;
     const trimmed = textToSend.trim();
     if (!trimmed || isLoading) return;
@@ -142,7 +143,36 @@ export default function ChatbotWidget() {
     } finally {
       setIsLoading(false);
     }
-  }
+  }, [input, isLoading, messages, threadId]);
+
+  // Handle Custom Event for Smart Search
+  useEffect(() => {
+    const handleOpenChat = (event: CustomEvent) => {
+      setIsOpen(true);
+      if (event.detail) {
+        // Wait for state update then send
+        setTimeout(() => sendMessage(event.detail), 100);
+      }
+    };
+
+    window.addEventListener('open-portfolio-chat', handleOpenChat as EventListener);
+    return () => {
+      window.removeEventListener('open-portfolio-chat', handleOpenChat as EventListener);
+    };
+  }, [sendMessage]);
+
+  const toggleListening = () => {
+    if (!recognitionRef.current) {
+      alert('Speech recognition is not supported in this browser.');
+      return;
+    }
+
+    if (isListening) {
+      recognitionRef.current.stop();
+    } else {
+      recognitionRef.current.start();
+    }
+  };
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === 'Enter') {

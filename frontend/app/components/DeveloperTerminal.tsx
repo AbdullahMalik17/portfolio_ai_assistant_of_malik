@@ -89,10 +89,10 @@ Access: Read-only`,
 
     let output: string | undefined = '';
 
-    if (commands[cmd]) {
+    if (cmd && commands[cmd]) {
       output = commands[cmd](args) as string;
     } else {
-      output = `Command not found: ${cmd}. Type 'help' for available commands.`;
+      output = `Command not found: ${cmd || ''}. Type 'help' for available commands.`;
     }
 
     if (output !== undefined) {

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 interface SkillsCloudProps {
   skills: string[];
@@ -10,7 +10,7 @@ const SkillsCloud = ({ skills }: SkillsCloudProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   
   // Custom Hook for 3D logic to avoid complex dependencies
-  const useTagCloud = (container: React.RefObject<HTMLDivElement>, tags: string[]) => {
+  const useTagCloud = (container: React.RefObject<HTMLDivElement | null>, tags: string[]) => {
     useEffect(() => {
       if (!container.current) return;
       
@@ -20,7 +20,6 @@ const SkillsCloud = ({ skills }: SkillsCloudProps) => {
       const _size = 200;
       
       const elements: HTMLElement[] = [];
-      let active = false;
       let mouseX = 0;
       let mouseY = 0;
       
@@ -38,32 +37,11 @@ const SkillsCloud = ({ skills }: SkillsCloudProps) => {
         }
       };
       
-      // Animation Loop
-      const animate = () => {
-        const phi = Math.acos(-1 + (2 * 0 + 1) / elements.length);
-        const theta = Math.sqrt(elements.length * Math.PI) * phi;
-        
-        // Calculate Rotation
-        const ma = mouseX * 0.0001; // Slower rotation
-        const mb = mouseY * 0.0001;
-        
-        // We need state for rotation, storing in closure
-        // But for simplicity in this React effect, we'll just use time + mouse influence
-        // Actually, let's implement a proper spherical distribution
-        
-      };
-      
       init();
       
       // Simple spherical layout + rotation implementation
-      let cx = 0;
-      let cy = 0;
-      let cz = 0;
       
       const positionTags = () => {
-        const phi = 0;
-        const theta = 0;
-        
         for (let i = 1; i < elements.length + 1; i++) {
             const phi = Math.acos(-1 + (2 * i - 1) / elements.length);
             const theta = Math.sqrt(elements.length * Math.PI) * phi;
@@ -134,20 +112,21 @@ const SkillsCloud = ({ skills }: SkillsCloudProps) => {
         mouseY = 0;
       };
 
-      container.current.addEventListener('mousemove', handleMouseMove);
-      container.current.addEventListener('mouseleave', handleMouseLeave);
+      const currentContainer = container.current;
+      currentContainer.addEventListener('mousemove', handleMouseMove);
+      currentContainer.addEventListener('mouseleave', handleMouseLeave);
       
       const frameId = requestAnimationFrame(update);
 
       return () => {
          cancelAnimationFrame(frameId);
-         if (container.current) {
-             container.current.removeEventListener('mousemove', handleMouseMove);
-             container.current.removeEventListener('mouseleave', handleMouseLeave);
+         if (currentContainer) {
+             currentContainer.removeEventListener('mousemove', handleMouseMove);
+             currentContainer.removeEventListener('mouseleave', handleMouseLeave);
          }
       };
 
-    }, [tags]);
+    }, [tags, container]);
   };
 
   useTagCloud(containerRef, skills);
