@@ -65,11 +65,10 @@ const Contact = () => {
     setSubmitStatus({ type: null, message: '' });
 
     try {
-      // Use external backend URL if available, otherwise default to localhost:8000
-      const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
-      const endpoint = `${backendUrl.replace(/\/$/, '')}/api/contact`;
+      // Use Next.js API route for contact form (saves to Vercel Postgres + sends email)
+      const endpoint = '/api/contact';
 
-      console.log(`🚀 Attempting to contact backend at: ${endpoint}`); // Debug log
+      console.log('📧 Submitting contact form...'); // Debug log
 
       const response = await fetch(endpoint, {
         method: 'POST',
@@ -113,10 +112,11 @@ const Contact = () => {
 
   return (
     <section id="contact" className="py-20 relative overflow-hidden">
-      {/* Background decorations */}
+      {/* Cyber Background decorations */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-          <div className="absolute top-1/4 right-0 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute top-1/4 right-0 w-72 h-72 bg-purple-500/15 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-cyan-500/15 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-cyan-400/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -124,7 +124,7 @@ const Contact = () => {
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[color:var(--foreground)] mb-4">
             Get In Touch
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto rounded-full"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-cyan-400 to-purple-500 mx-auto rounded-full shadow-[0_0_20px_rgba(6,182,212,0.5)]"></div>
           <p className="mt-6 text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
             Have a project in mind? Let&apos;s discuss how we can work together.
           </p>
@@ -361,7 +361,7 @@ const Contact = () => {
                   variant="primary"
                   size="lg"
                   loading={isSubmitting}
-                  className="w-full sm:w-auto rounded-full shadow-[0_0_20px_rgba(59,130,246,0.5)]"
+                  className="w-full sm:w-auto rounded-full shadow-[0_0_25px_rgba(6,182,212,0.5)] hover:shadow-[0_0_40px_rgba(6,182,212,0.6)]"
                   rightIcon={
                     !isSubmitting ? (
                       <svg

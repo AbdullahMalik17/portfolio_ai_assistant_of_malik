@@ -12,6 +12,62 @@ const Projects = () => {
 
   const projects = [
     {
+      title: 'Digital FTE - Abdullah Junior',
+      description: 'High-autonomy AI agent system acting as a Digital Employee that manages personal and business affairs 24/7 with self-evolving capabilities.',
+      longDescription: 'Abdullah Junior is an elite Digital Full-Time Equivalent (FTE) - a comprehensive AI agent system designed to act as your personal and business autopilot. Features a dual-agent architecture with Cloud Agent (Sentry) for continuous monitoring and Local Agent (Executive) for secure task execution, orchestrated by an intelligent Brain system.',
+      tech: ['Python', 'FastAPI', 'Gemini AI', 'Claude AI', 'MCP Servers'],
+      image: '🤖',
+      link: 'https://github.com/AbdullahMalik17/Digital-FTE',
+      githubLink: 'https://github.com/AbdullahMalik17/Digital-FTE',
+      features: [
+        '24/7 automated monitoring of Gmail, WhatsApp, LinkedIn, and Social Media',
+        'Dual-Agent Architecture: Cloud Sentry (read-only) + Local Executive (full access)',
+        'Intelligent Orchestrator Brain for task classification and AI model selection',
+        'Self-Evolution Engine with autonomous debugging and skill acquisition',
+        'Financial management via Odoo integration (invoicing, expense tracking)',
+        'Knowledge management with Git-synced Obsidian Vault',
+      ],
+      technologies: ['Python', 'FastAPI', 'Google Gemini 1.5 Pro', 'Claude 3.5', 'MCP Servers', 'Docker', 'Fly.io', 'Kubernetes'],
+      challenges: [
+        'Designed dual-agent security model separating cloud monitoring from local execution',
+        'Implemented MCP servers for Gmail, WhatsApp, LinkedIn, Odoo, and Social Media integrations',
+        'Built self-evolving system with comprehensive audit logging and testing protocols',
+      ],
+      results: [
+        'Created autonomous digital employee capable of 24/7 task management',
+        'Achieved secure multi-channel communication across 6+ platforms',
+        'Built for 2026 AI Employee Hackathon with production-ready architecture',
+      ],
+    },
+    {
+      title: 'Customer Success Digital FTE',
+      description: 'AI-powered customer support agent handling inquiries 24/7 across Email, WhatsApp, and Web channels with intelligent escalation.',
+      longDescription: 'Complete AI-powered customer support system that autonomously handles customer inquiries across multiple channels. Features semantic search with pgvector, intelligent escalation detection, and comprehensive ticket management with 100% completion of all 9 development phases.',
+      tech: ['Python', 'FastAPI', 'OpenAI GPT-4', 'PostgreSQL', 'Kafka'],
+      image: '💬',
+      link: 'https://github.com/AbdullahMalik17/Hacathan_5',
+      githubLink: 'https://github.com/AbdullahMalik17/Hacathan_5',
+      features: [
+        'Multi-channel support: Email (Gmail), WhatsApp (Twilio), Web Forms',
+        '5 AI function tools: create_ticket, get_customer_history, search_knowledge_base, send_email, escalate',
+        'Semantic search with pgvector (1536-dim embeddings) for intelligent responses',
+        'Sentiment analysis and intelligent escalation detection',
+        'Async message processing with Kafka and dead letter queue',
+        'Cross-channel customer identity management',
+      ],
+      technologies: ['Python', 'FastAPI', 'OpenAI GPT-4 Turbo', 'PostgreSQL + pgvector', 'Apache Kafka', 'Docker', 'Kubernetes'],
+      challenges: [
+        'Built semantic search system with pgvector for accurate knowledge base queries',
+        'Implemented async message processing with Kafka, deduplication, and retry logic',
+        'Designed escalation detection for pricing, refund, legal, and sentiment triggers',
+      ],
+      results: [
+        'Completed all 9 development phases (117/117 tasks - 100%)',
+        'Production-ready deployment on Docker/Kubernetes with cloud support (GKE/EKS/AKS)',
+        'Comprehensive monitoring with Prometheus, Grafana, and structured logging',
+      ],
+    },
+    {
       title: 'Physical AI Platform',
       description: 'Interactive platform teaching Physical AI & Humanoid Robotics with a RAG chatbot and 43+ runnable code examples.',
       longDescription: 'Comprehensive educational platform designed to make Physical AI and Humanoid Robotics accessible to everyone. Features an intelligent RAG-powered chatbot that answers questions about robotics, embodied AI, and related concepts using vector search across curated educational content.',
@@ -177,7 +233,7 @@ const Projects = () => {
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[color:var(--foreground)] mb-4">
               Featured Projects
             </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto rounded-full"></div>
+            <div className="w-24 h-1 bg-gradient-to-r from-cyan-400 to-purple-500 mx-auto rounded-full shadow-[0_0_20px_rgba(6,182,212,0.5)]"></div>
             <p className="mt-6 text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
               A selection of projects showcasing my work in AI and web development
             </p>
@@ -202,9 +258,9 @@ const Projects = () => {
               data-type="Interactive Component"
               data-tech="Framer Motion"
             >
-              <ProjectCard3D 
-                className="group glass rounded-2xl p-8 hover:shadow-[0_0_30px_rgba(59,130,246,0.2)] transition-shadow duration-300 flex flex-col h-full bg-[color:var(--background-secondary)]/50 backdrop-blur-xl border border-white/10"
-                glareColor="rgba(59, 130, 246, 0.3)"
+              <ProjectCard3D
+                className="group glass rounded-2xl p-8 hover:shadow-[0_0_40px_rgba(6,182,212,0.3)] transition-all duration-300 flex flex-col h-full bg-[color:var(--background-secondary)]/50 backdrop-blur-xl border border-cyan-500/10 hover:border-cyan-400/30"
+                glareColor="rgba(6, 182, 212, 0.4)"
               >
                 <div className="text-6xl mb-6 transform group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
                   {project.image}
