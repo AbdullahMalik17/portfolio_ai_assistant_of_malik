@@ -27,24 +27,35 @@ const Contact = () => {
 
   const handleAIDraft = async () => {
     if (!formData.message.trim() || isDrafting) return;
-    
+
     setIsDrafting(true);
     try {
-      const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
-      const response = await fetch(`${backendUrl.replace(/\/$/, '')}/api/assistant/chat`, {
+      // Use Next.js API route for AI message refinement
+      const response = await fetch('/api/refine-message', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          message: `Convert this rough project intent into a professional, concise project inquiry for a full-stack developer portfolio. Raw intent: "${formData.message}"`,
+          message: formData.message,
         }),
       });
 
-      if (response.ok) {
-        const data = await response.json();
+      const data = await response.json();
+
+      if (response.ok && data.success) {
         setFormData(prev => ({ ...prev, message: data.response }));
+      } else {
+        console.error('AI refinement failed:', data.error);
+        setSubmitStatus({
+          type: 'error',
+          message: data.error || 'AI refinement is temporarily unavailable'
+        });
       }
     } catch (error) {
       console.error('Drafting error:', error);
+      setSubmitStatus({
+        type: 'error',
+        message: 'Failed to connect to AI service'
+      });
     } finally {
       setIsDrafting(false);
     }
