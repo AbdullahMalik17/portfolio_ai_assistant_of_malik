@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import FadeInWhenVisible from './FadeInWhenVisible';
 import ProjectModal from './ProjectModal';
@@ -217,7 +217,7 @@ const Projects = () => {
       project.tech.forEach(tech => techSet.add(tech));
     });
     return Array.from(techSet).sort();
-  }, []);
+  }, [projects]);
 
   // Define categories
   const categories = [
@@ -228,7 +228,7 @@ const Projects = () => {
   ];
 
   // Category mapping
-  const getCategoryForProject = (project: typeof projects[0]) => {
+  const getCategoryForProject = useCallback((project: typeof projects[0]) => {
     const title = project.title.toLowerCase();
     const desc = project.description.toLowerCase();
 
@@ -239,7 +239,7 @@ const Projects = () => {
       return 'Education';
     }
     return 'Web Development';
-  };
+  }, []);
 
   // Filter and sort projects
   const filteredAndSortedProjects = useMemo(() => {
@@ -268,7 +268,7 @@ const Projects = () => {
     // 'recent' keeps the original order
 
     return filtered;
-  }, [projects, searchQuery, selectedCategory, selectedTechs, sortBy]);
+  }, [projects, searchQuery, selectedCategory, selectedTechs, sortBy, getCategoryForProject]);
 
   // Toggle tech filter
   const toggleTech = (tech: string) => {
@@ -467,7 +467,7 @@ const Projects = () => {
               data-component="Project Grid"
               data-type="Layout"
             >
-              {filteredAndSortedProjects.map((project, index) => {
+              {filteredAndSortedProjects.map((project) => {
                 const originalIndex = projects.findIndex(p => p.title === project.title);
                 return (
                 <motion.div

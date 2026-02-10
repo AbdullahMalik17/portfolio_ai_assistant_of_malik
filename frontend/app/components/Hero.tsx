@@ -22,7 +22,7 @@ const Hero = () => {
 
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
         <div className="hero-glow top-[10%] left-[-10%] opacity-50"></div>
-        <div className="hero-glow bottom-[10%] right-[-10%] opacity-50" style={{ '--accent-glow': 'var(--accent-glow-secondary)' } as any}></div>
+        <div className="hero-glow bottom-[10%] right-[-10%] opacity-50" style={{ '--accent-glow': 'var(--accent-glow-secondary)' } as React.CSSProperties}></div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10" data-component="Content Wrapper" data-type="Layout">

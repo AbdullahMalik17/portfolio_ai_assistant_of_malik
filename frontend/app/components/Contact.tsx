@@ -126,7 +126,7 @@ const Contact = () => {
     <section id="contact" className="py-24 relative overflow-hidden">
       {/* Cyber Background decorations */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-          <div className="hero-glow top-[20%] right-[-10%] opacity-30" style={{ '--accent-glow': 'var(--accent-glow-secondary)' } as any}></div>
+          <div className="hero-glow top-[20%] right-[-10%] opacity-30" style={{ '--accent-glow': 'var(--accent-glow-secondary)' } as React.CSSProperties}></div>
           <div className="hero-glow bottom-[-10%] left-[-10%] opacity-20"></div>
       </div>
 

@@ -10,10 +10,13 @@ interface ProjectCard3DProps {
 }
 
 // Throttle helper function
-const useThrottle = (callback: Function, delay: number) => {
+const useThrottle = <T extends unknown[]>(
+  callback: (...args: T) => void,
+  delay: number
+) => {
   const lastCall = useRef(0);
 
-  return useCallback((...args: any[]) => {
+  return useCallback((...args: T) => {
     const now = Date.now();
     if (now - lastCall.current >= delay) {
       lastCall.current = now;
