@@ -15,7 +15,7 @@ interface TimelineProps {
 
 const Timeline = ({ events }: TimelineProps) => {
   return (
-    <div className="relative border-l-2 border-gray-200 dark:border-gray-700 ml-3 md:ml-6 space-y-8 my-8">
+    <div className="relative border-l border-gray-200 dark:border-gray-700 ml-3 md:ml-6 space-y-8 my-8">
       {events.map((event, index) => (
         <motion.div
           key={index}
@@ -26,7 +26,7 @@ const Timeline = ({ events }: TimelineProps) => {
           className="relative pl-8 md:pl-12"
         >
           {/* Dot */}
-          <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-[color:var(--accent)] border-4 border-white dark:border-gray-900 shadow-sm" />
+          <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-[color:var(--accent)] border-2 border-white dark:border-gray-900 shadow-sm" />
           
           {/* Content */}
           <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4">

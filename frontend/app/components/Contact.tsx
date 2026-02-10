@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import SocialLinks from './SocialLinks';
 import Button from './Button';
+import { FloatingInput, FloatingTextarea } from './FloatingInput';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -122,261 +123,211 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-20 relative overflow-hidden">
+    <section id="contact" className="py-24 relative overflow-hidden">
       {/* Cyber Background decorations */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-          <div className="absolute top-1/4 right-0 w-72 h-72 bg-purple-500/15 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-cyan-500/15 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-          <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-cyan-400/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+          <div className="hero-glow top-[20%] right-[-10%] opacity-30" style={{ '--accent-glow': 'var(--accent-glow-secondary)' } as any}></div>
+          <div className="hero-glow bottom-[-10%] left-[-10%] opacity-20"></div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12 sm:mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[color:var(--foreground)] mb-4">
-            Get In Touch
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
+            Get In <span className="text-shimmer">Touch</span>
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-cyan-400 to-purple-500 mx-auto rounded-full shadow-[0_0_20px_rgba(6,182,212,0.5)]"></div>
-          <p className="mt-6 text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Have a project in mind? Let&apos;s discuss how we can work together.
+          <div className="w-24 h-1 bg-gradient-to-r from-[color:var(--accent)] to-[color:var(--accent-secondary)] mx-auto rounded-full"></div>
+          <p className="mt-8 text-base sm:text-lg text-gray-400 max-w-2xl mx-auto">
+            Have a project in mind? Let&apos;s discuss how we can build something extraordinary together.
           </p>
         </div>
 
-        <div className="flex justify-center mb-12 relative z-20">
-          <SocialLinks className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md shadow-lg px-8 py-4 rounded-full border border-gray-200 dark:border-gray-700 transition-transform hover:scale-105 duration-300" />
+        <div className="flex justify-center mb-16 relative z-20">
+          <SocialLinks className="bg-white/5 backdrop-blur-xl shadow-2xl px-10 py-5 rounded-full border border-white/10 transition-all hover:scale-110 duration-500 hover:border-[color:var(--accent)]/50" />
         </div>
 
-        <div className="max-w-3xl mx-auto">
-          <div className="glass rounded-2xl p-6 sm:p-8 md:p-12 shadow-2xl border border-white/20 relative overflow-hidden group">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-700"></div>
+        <div className="max-w-4xl mx-auto">
+          <div className="glass glow-card rounded-3xl p-8 sm:p-10 md:p-16 shadow-2xl border border-white/10 relative overflow-hidden bg-white/[0.02]">
             
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-                <div>
-                  <label
-                    htmlFor="name"
-                    className="block text-sm font-medium text-[color:var(--foreground)] mb-2"
-                  >
-                    Name <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    minLength={2}
-                    maxLength={50}
-                    className="w-full px-4 py-3 rounded-lg bg-[color:var(--background)] border border-[color:var(--foreground)]/10 focus:border-[color:var(--accent)] focus:ring-2 focus:ring-[color:var(--accent)]/20 outline-none transition-all"
-                    placeholder="John Doe"
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium text-[color:var(--foreground)] mb-2"
-                  >
-                    Email <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 rounded-lg bg-[color:var(--background)] border border-[color:var(--foreground)]/10 focus:border-[color:var(--accent)] focus:ring-2 focus:ring-[color:var(--accent)]/20 outline-none transition-all"
-                    placeholder="john@example.com"
-                  />
-                </div>
+            <form onSubmit={handleSubmit} className="space-y-8 relative z-10">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                <FloatingInput
+                  type="text"
+                  id="name"
+                  name="name"
+                  label="Name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  isRequired
+                  required
+                  minLength={2}
+                  maxLength={50}
+                  className="bg-black/20"
+                />
+                <FloatingInput
+                  type="email"
+                  id="email"
+                  name="email"
+                  label="Email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  isRequired
+                  required
+                  className="bg-black/20"
+                />
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-                <div>
-                  <label
-                    htmlFor="phone"
-                    className="block text-sm font-medium text-[color:var(--foreground)] mb-2"
-                  >
-                    Phone Number <span className="text-gray-400 text-xs">(Optional)</span>
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg bg-[color:var(--background)] border border-[color:var(--foreground)]/10 focus:border-[color:var(--accent)] focus:ring-2 focus:ring-[color:var(--accent)]/20 outline-none transition-all"
-                    placeholder="+1 (555) 123-4567"
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="company"
-                    className="block text-sm font-medium text-[color:var(--foreground)] mb-2"
-                  >
-                    Company <span className="text-gray-400 text-xs">(Optional)</span>
-                  </label>
-                  <input
-                    type="text"
-                    id="company"
-                    name="company"
-                    value={formData.company}
-                    onChange={handleChange}
-                    maxLength={100}
-                    className="w-full px-4 py-3 rounded-lg bg-[color:var(--background)] border border-[color:var(--foreground)]/10 focus:border-[color:var(--accent)] focus:ring-2 focus:ring-[color:var(--accent)]/20 outline-none transition-all"
-                    placeholder="Your Company Name"
-                  />
-                </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                <FloatingInput
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  label="Phone Number"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  isOptional
+                  className="bg-black/20"
+                />
+                <FloatingInput
+                  type="text"
+                  id="company"
+                  name="company"
+                  label="Company"
+                  value={formData.company}
+                  onChange={handleChange}
+                  isOptional
+                  maxLength={100}
+                  className="bg-black/20"
+                />
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-                <div>
-                  <label
-                    htmlFor="subject"
-                    className="block text-sm font-medium text-[color:var(--foreground)] mb-2"
-                  >
-                    Subject <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    id="subject"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    required
-                    minLength={5}
-                    maxLength={100}
-                    className="w-full px-4 py-3 rounded-lg bg-[color:var(--background)] border border-[color:var(--foreground)]/10 focus:border-[color:var(--accent)] focus:ring-2 focus:ring-[color:var(--accent)]/20 outline-none transition-all"
-                    placeholder="Project inquiry, collaboration, etc."
-                  />
-                </div>
-                <div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                <FloatingInput
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  label="Subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  isRequired
+                  required
+                  minLength={5}
+                  maxLength={100}
+                  className="bg-black/20"
+                />
+                <div className="relative group">
                   <label
                     htmlFor="projectType"
-                    className="block text-sm font-medium text-[color:var(--foreground)] mb-2"
+                    className="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-2 ml-1"
                   >
-                    Project Type <span className="text-gray-400 text-xs">(Optional)</span>
+                    Project Type <span className="text-gray-600">(Optional)</span>
                   </label>
                   <select
                     id="projectType"
                     name="projectType"
                     value={formData.projectType}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg bg-[color:var(--background)] border border-[color:var(--foreground)]/10 focus:border-[color:var(--accent)] focus:ring-2 focus:ring-[color:var(--accent)]/20 outline-none transition-all"
+                    className="w-full px-5 py-4 rounded-xl bg-black/20 border border-white/10 focus:border-[color:var(--accent)] focus:ring-4 focus:ring-[color:var(--accent)]/10 outline-none transition-all text-white appearance-none cursor-pointer"
                   >
-                    <option value="">Select project type</option>
-                    <option value="web-development">Web Development</option>
-                    <option value="ai-integration">AI Integration</option>
-                    <option value="full-stack">Full-Stack Application</option>
-                    <option value="mobile-app">Mobile Application</option>
-                    <option value="consulting">Consulting</option>
-                    <option value="other">Other</option>
+                    <option value="" className="bg-[color:var(--background)]">Select project type</option>
+                    <option value="web-development" className="bg-[color:var(--background)]">Web Development</option>
+                    <option value="ai-integration" className="bg-[color:var(--background)]">AI Integration</option>
+                    <option value="full-stack" className="bg-[color:var(--background)]">Full-Stack Application</option>
+                    <option value="mobile-app" className="bg-[color:var(--background)]">Mobile Application</option>
+                    <option value="consulting" className="bg-[color:var(--background)]">Consulting</option>
+                    <option value="other" className="bg-[color:var(--background)]">Other</option>
                   </select>
+                  <div className="absolute right-4 bottom-4 pointer-events-none text-gray-500">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-                <div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                <div className="relative group">
                   <label
                     htmlFor="budget"
-                    className="block text-sm font-medium text-[color:var(--foreground)] mb-2"
+                    className="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-2 ml-1"
                   >
-                    Budget Range <span className="text-gray-400 text-xs">(Optional)</span>
+                    Budget Range <span className="text-gray-600">(Optional)</span>
                   </label>
                   <select
                     id="budget"
                     name="budget"
                     value={formData.budget}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg bg-[color:var(--background)] border border-[color:var(--foreground)]/10 focus:border-[color:var(--accent)] focus:ring-2 focus:ring-[color:var(--accent)]/20 outline-none transition-all"
+                    className="w-full px-5 py-4 rounded-xl bg-black/20 border border-white/10 focus:border-[color:var(--accent)] focus:ring-4 focus:ring-[color:var(--accent)]/10 outline-none transition-all text-white appearance-none cursor-pointer"
                   >
-                    <option value="">Select budget range</option>
-                    <option value="less-than-5k">Less than $5,000</option>
-                    <option value="5k-10k">$5,000 - $10,000</option>
-                    <option value="10k-25k">$10,000 - $25,000</option>
-                    <option value="25k-50k">$25,000 - $50,000</option>
-                    <option value="50k-plus">$50,000+</option>
+                    <option value="" className="bg-[color:var(--background)]">Select budget range</option>
+                    <option value="less-than-5k" className="bg-[color:var(--background)]">Less than $5,000</option>
+                    <option value="5k-10k" className="bg-[color:var(--background)]">$5,000 - $10,000</option>
+                    <option value="10k-25k" className="bg-[color:var(--background)]">$10,000 - $25,000</option>
+                    <option value="25k-50k" className="bg-[color:var(--background)]">$25,000 - $50,000</option>
+                    <option value="50k-plus" className="bg-[color:var(--background)]">$50,000+</option>
                   </select>
+                  <div className="absolute right-4 bottom-4 pointer-events-none text-gray-500">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
                 </div>
-                <div>
+                <div className="relative group">
                   <label
                     htmlFor="timeline"
-                    className="block text-sm font-medium text-[color:var(--foreground)] mb-2"
+                    className="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-2 ml-1"
                   >
-                    Project Timeline <span className="text-gray-400 text-xs">(Optional)</span>
+                    Project Timeline <span className="text-gray-600">(Optional)</span>
                   </label>
                   <select
                     id="timeline"
                     name="timeline"
                     value={formData.timeline}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg bg-[color:var(--background)] border border-[color:var(--foreground)]/10 focus:border-[color:var(--accent)] focus:ring-2 focus:ring-[color:var(--accent)]/20 outline-none transition-all"
+                    className="w-full px-5 py-4 rounded-xl bg-black/20 border border-white/10 focus:border-[color:var(--accent)] focus:ring-4 focus:ring-[color:var(--accent)]/10 outline-none transition-all text-white appearance-none cursor-pointer"
                   >
-                    <option value="">Select timeline</option>
-                    <option value="asap">ASAP</option>
-                    <option value="1-3-months">1-3 Months</option>
-                    <option value="3-6-months">3-6 Months</option>
-                    <option value="6-plus-months">6+ Months</option>
-                    <option value="flexible">Flexible</option>
+                    <option value="" className="bg-[color:var(--background)]">Select timeline</option>
+                    <option value="asap" className="bg-[color:var(--background)]">ASAP</option>
+                    <option value="1-3-months" className="bg-[color:var(--background)]">1-3 Months</option>
+                    <option value="3-6-months" className="bg-[color:var(--background)]">3-6 Months</option>
+                    <option value="6-plus-months" className="bg-[color:var(--background)]">6+ Months</option>
+                    <option value="flexible" className="bg-[color:var(--background)]">Flexible</option>
                   </select>
-                </div>
-              </div>
-              <div>
-                <div className="flex justify-between items-center mb-2">
-                  <label
-                    htmlFor="message"
-                    className="block text-sm font-medium text-[color:var(--foreground)]"
-                  >
-                    Message <span className="text-red-500">*</span>
-                  </label>
-                  <div className="flex items-center gap-4">
-                    <button
-                        type="button"
-                        onClick={handleAIDraft}
-                        disabled={isDrafting || !formData.message.trim()}
-                        className="text-xs flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-purple-500/10 text-purple-500 border border-purple-500/20 hover:bg-purple-500/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                        {isDrafting ? (
-                            <>
-                                <svg className="animate-spin h-3 w-3" viewBox="0 0 24 24">
-                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"></circle>
-                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                </svg>
-                                Drafting...
-                            </>
-                        ) : (
-                            <>✨ Refine with AI</>
-                        )}
-                    </button>
-                    <span className={`text-[10px] ${formData.message.length > maxMessageLength ? 'text-red-500' : 'text-gray-400'}`}>
-                        {formData.message.length}/{maxMessageLength}
-                    </span>
+                  <div className="absolute right-4 bottom-4 pointer-events-none text-gray-500">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
                   </div>
                 </div>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  minLength={10}
-                  maxLength={maxMessageLength}
-                  rows={5}
-                  className="w-full px-4 py-3 rounded-lg bg-[color:var(--background)] border border-[color:var(--foreground)]/10 focus:border-[color:var(--accent)] focus:ring-2 focus:ring-[color:var(--accent)]/20 outline-none transition-all resize-none font-sans text-sm"
-                  placeholder="Tip: Type a few keywords and click 'Refine with AI'..."
-                ></textarea>
               </div>
-              <div className="text-center pt-4">
+              <FloatingTextarea
+                id="message"
+                name="message"
+                label="Message"
+                value={formData.message}
+                onChange={handleChange}
+                isRequired
+                required
+                minLength={10}
+                maxLength={maxMessageLength}
+                rows={6}
+                characterCount={formData.message.length}
+                maxCharacters={maxMessageLength}
+                onAIRefine={handleAIDraft}
+                isRefining={isDrafting}
+                className="bg-black/20"
+              />
+              <div className="text-center pt-8">
                 <Button
                   type="submit"
                   variant="primary"
                   size="lg"
                   loading={isSubmitting}
-                  className="w-full sm:w-auto rounded-full shadow-[0_0_25px_rgba(6,182,212,0.5)] hover:shadow-[0_0_40px_rgba(6,182,212,0.6)]"
+                  className="w-full sm:w-auto px-12 py-5 rounded-full shadow-[0_0_30px_rgba(99,102,241,0.4)] hover:shadow-[0_0_50px_rgba(99,102,241,0.6)] hover:scale-105 transition-all duration-500"
                   rightIcon={
                     !isSubmitting ? (
                       <svg
-                        className="w-5 h-5"
+                        className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -391,17 +342,17 @@ const Contact = () => {
                     ) : undefined
                   }
                 >
-                  Send Message
+                  Initiate Transmission
                 </Button>
               </div>
 
               {/* Status Message */}
               {submitStatus.type && (
-                <div className={`mt-4 p-4 rounded-lg ${submitStatus.type === 'success'
-                  ? 'bg-green-500/10 text-green-500 border border-green-500/20'
-                  : 'bg-red-500/10 text-red-500 border border-red-500/20'
+                <div className={`mt-8 p-5 rounded-2xl animate-fade-in-up ${submitStatus.type === 'success'
+                  ? 'bg-green-500/10 text-green-400 border border-green-500/20'
+                  : 'bg-red-500/10 text-red-400 border border-red-500/20'
                   }`}>
-                  <p className="font-medium text-center">
+                  <p className="font-bold text-center tracking-wide">
                     {submitStatus.message}
                   </p>
                 </div>
@@ -411,6 +362,7 @@ const Contact = () => {
         </div>
       </div>
     </section>
+
   );
 };
 

@@ -21,21 +21,21 @@ const Hero = () => {
       </div>
 
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
-        <div className="absolute top-[20%] left-[10%] w-48 sm:w-72 h-48 sm:h-72 bg-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-[20%] right-[10%] w-64 sm:w-96 h-64 sm:h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="hero-glow top-[10%] left-[-10%] opacity-50"></div>
+        <div className="hero-glow bottom-[10%] right-[-10%] opacity-50" style={{ '--accent-glow': 'var(--accent-glow-secondary)' } as any}></div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10" data-component="Content Wrapper" data-type="Layout">
         <div className="text-center space-y-8">
           <div className="inline-block animate-fade-in-up">
-            <span className="px-4 py-2 rounded-full glass text-sm font-medium text-[color:var(--accent)] border border-[color:var(--accent)]/20">
+            <span className="px-6 py-2 rounded-full glass text-sm font-medium text-[color:var(--accent)] border border-[color:var(--accent)]/30 shadow-lg shadow-[color:var(--accent-glow)]/20">
               👋 Hi, I&apos;m Abdullah Malik
             </span>
           </div>
 
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight animate-fade-in-up delay-100">
             Building the{' '}
-            <span className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+            <span className="text-shimmer">
               Future of AI
             </span>
             <br />

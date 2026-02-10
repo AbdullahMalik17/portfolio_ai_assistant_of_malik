@@ -18,13 +18,13 @@ interface ButtonProps extends Omit<HTMLMotionProps<'button'>, 'children'> {
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary:
-    'bg-gradient-to-r from-cyan-500 to-cyan-400 text-gray-900 font-bold hover:from-cyan-400 hover:to-cyan-300 shadow-lg shadow-cyan-500/30 hover:shadow-cyan-400/50',
+    'bg-gradient-button text-gray-900 font-bold hover:opacity-90 shadow-lg hover:shadow-xl transition-all',
   secondary:
-    'bg-[color:var(--background-secondary)] text-[color:var(--foreground)] hover:bg-cyan-500/10 border border-cyan-500/20 hover:border-cyan-400/40',
+    'bg-[color:var(--background-secondary)] text-[color:var(--foreground)] hover:bg-[color:var(--accent)]/10 border border-[color:var(--accent)]/20 hover:border-[color:var(--accent)]/40',
   ghost:
-    'bg-transparent text-[color:var(--foreground)] hover:bg-cyan-500/10 hover:text-cyan-400',
+    'bg-transparent text-[color:var(--foreground)] hover:bg-[color:var(--accent)]/10 hover:text-[color:var(--accent)]',
   outline:
-    'bg-transparent text-cyan-400 border-2 border-cyan-500/50 hover:bg-cyan-500/10 hover:border-cyan-400 hover:shadow-[0_0_20px_rgba(6,182,212,0.3)]',
+    'bg-transparent text-[color:var(--accent)] border-2 border-[color:var(--accent)]/50 hover:bg-[color:var(--accent)]/10 hover:border-[color:var(--accent)] hover:shadow-[0_0_20px_var(--accent-glow)]',
 };
 
 const sizeStyles: Record<ButtonSize, string> = {

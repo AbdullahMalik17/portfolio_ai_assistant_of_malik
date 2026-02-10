@@ -92,7 +92,7 @@ export default function ProjectModal({ isOpen, onClose, project }: ProjectModalP
                   </button>
 
                   {/* Header Image */}
-                  <div className="relative h-64 md:h-80 bg-gradient-to-br from-blue-500 to-purple-600 overflow-hidden">
+                  <div className="relative h-64 md:h-80 bg-gradient-primary overflow-hidden">
                     <div className="absolute inset-0 flex items-center justify-center">
                       <h2 className="text-4xl md:text-5xl font-bold text-white text-center px-6">
                         {project.title}

@@ -6,6 +6,7 @@ import PWAInstallPrompt from "./components/PWAInstallPrompt";
 import CommandPalette from "./components/CommandPalette";
 import ContextMenu from "./components/ContextMenu";
 import DeveloperTerminal from "./components/DeveloperTerminal";
+import ClientProviders from "./components/ClientProviders";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -111,12 +112,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
-        <DeveloperTerminal />
-        <ContextMenu />
-        <ChatbotWidget />
-        <PWAInstallPrompt />
-        <CommandPalette />
+        <ClientProviders>
+          {children}
+          <DeveloperTerminal />
+          <ContextMenu />
+          <ChatbotWidget />
+          <PWAInstallPrompt />
+          <CommandPalette />
+        </ClientProviders>
 
         {/* JSON-LD Structured Data */}
         <script

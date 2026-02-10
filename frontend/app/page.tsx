@@ -1,13 +1,73 @@
+import dynamic from 'next/dynamic';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import About from './components/About';
-import Skills from './components/Skills';
-import Projects from './components/Projects';
-import GitHubStats from './components/GitHubStats';
-import Testimonials from './components/Testimonials';
-import Contact from './components/Contact';
-import WhatsAppWidget from './components/WhatsAppWidget';
-import AchievementStats from './components/AchievementStats';
+
+// Dynamic imports with SSR for important above-fold content
+const About = dynamic(() => import('./components/About'), {
+  ssr: true,
+});
+
+const Skills = dynamic(() => import('./components/Skills'), {
+  ssr: true,
+});
+
+const AchievementStats = dynamic(() => import('./components/AchievementStats'), {
+  ssr: true,
+});
+
+const Projects = dynamic(() => import('./components/Projects'), {
+  ssr: true,
+});
+
+const Contact = dynamic(() => import('./components/Contact'), {
+  ssr: true,
+});
+
+// Dynamic imports for below-fold content (with loading states)
+const GitHubStats = dynamic(() => import('./components/GitHubStats'), {
+  loading: () => (
+    <section className="py-20 bg-[color:var(--background)]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="glass rounded-3xl p-8 md:p-12 animate-pulse">
+          <div className="h-6 bg-[color:var(--accent)]/10 rounded w-32 mx-auto mb-8"></div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="text-center space-y-2">
+                <div className="h-8 bg-[color:var(--accent)]/10 rounded-full w-12 mx-auto"></div>
+                <div className="h-3 bg-[color:var(--accent)]/5 rounded w-16 mx-auto"></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  ),
+});
+
+const Testimonials = dynamic(() => import('./components/Testimonials'), {
+  loading: () => (
+    <section className="py-20 bg-[color:var(--background)]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="h-6 bg-[color:var(--accent)]/10 rounded w-32 mx-auto mb-8 animate-pulse"></div>
+        <div className="max-w-4xl mx-auto">
+          <div className="glass rounded-2xl p-8 animate-pulse space-y-3">
+            <div className="h-20 bg-[color:var(--accent)]/5 rounded"></div>
+            <div className="h-3 bg-[color:var(--accent)]/5 rounded w-24 mx-auto"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  ),
+});
+
+// Non-critical widgets - load asynchronously
+const WhatsAppWidget = dynamic(() => import('./components/WhatsAppWidget'), {
+  loading: () => null,
+});
+
+const ChatbotWidget = dynamic(() => import('./components/ChatbotWidget'), {
+  loading: () => null,
+});
 
 export default function Home() {
   return (
@@ -66,6 +126,7 @@ export default function Home() {
       </footer>
       {/* Floating Widgets */}
       <WhatsAppWidget />
+      <ChatbotWidget />
       </main>
   );
 }

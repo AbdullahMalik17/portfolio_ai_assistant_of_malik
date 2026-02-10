@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useMemo } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import FadeInWhenVisible from './FadeInWhenVisible';
 import ProjectModal from './ProjectModal';
 import Button from './Button';
@@ -9,6 +9,10 @@ import ProjectCard3D from './ProjectCard3D';
 
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedTechs, setSelectedTechs] = useState<string[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const [sortBy, setSortBy] = useState<'recent' | 'alphabetical'>('recent');
 
   const projects = [
     {
@@ -206,6 +210,85 @@ const Projects = () => {
     },
   ];
 
+  // Extract all unique technologies
+  const allTechnologies = useMemo(() => {
+    const techSet = new Set<string>();
+    projects.forEach(project => {
+      project.tech.forEach(tech => techSet.add(tech));
+    });
+    return Array.from(techSet).sort();
+  }, []);
+
+  // Define categories
+  const categories = [
+    'All',
+    'AI Agents',
+    'Web Development',
+    'Education',
+  ];
+
+  // Category mapping
+  const getCategoryForProject = (project: typeof projects[0]) => {
+    const title = project.title.toLowerCase();
+    const desc = project.description.toLowerCase();
+
+    if (title.includes('fte') || title.includes('assistant') || title.includes('voice') || desc.includes('agent')) {
+      return 'AI Agents';
+    }
+    if (title.includes('platform') || title.includes('physical ai')) {
+      return 'Education';
+    }
+    return 'Web Development';
+  };
+
+  // Filter and sort projects
+  const filteredAndSortedProjects = useMemo(() => {
+    let filtered = projects.filter(project => {
+      // Search filter
+      const matchesSearch = searchQuery === '' ||
+        project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        project.tech.some(tech => tech.toLowerCase().includes(searchQuery.toLowerCase()));
+
+      // Category filter
+      const matchesCategory = selectedCategory === 'All' ||
+        getCategoryForProject(project) === selectedCategory;
+
+      // Tech filter
+      const matchesTech = selectedTechs.length === 0 ||
+        selectedTechs.every(tech => project.tech.includes(tech));
+
+      return matchesSearch && matchesCategory && matchesTech;
+    });
+
+    // Sort
+    if (sortBy === 'alphabetical') {
+      filtered = filtered.sort((a, b) => a.title.localeCompare(b.title));
+    }
+    // 'recent' keeps the original order
+
+    return filtered;
+  }, [projects, searchQuery, selectedCategory, selectedTechs, sortBy]);
+
+  // Toggle tech filter
+  const toggleTech = (tech: string) => {
+    setSelectedTechs(prev =>
+      prev.includes(tech)
+        ? prev.filter(t => t !== tech)
+        : [...prev, tech]
+    );
+  };
+
+  // Clear all filters
+  const clearFilters = () => {
+    setSearchQuery('');
+    setSelectedTechs([]);
+    setSelectedCategory('All');
+    setSortBy('recent');
+  };
+
+  const hasActiveFilters = searchQuery !== '' || selectedTechs.length > 0 || selectedCategory !== 'All' || sortBy !== 'recent';
+
   const containerVariants = {
     hidden: {},
     visible: {
@@ -233,101 +316,241 @@ const Projects = () => {
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[color:var(--foreground)] mb-4">
               Featured Projects
             </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-cyan-400 to-purple-500 mx-auto rounded-full shadow-[0_0_20px_rgba(6,182,212,0.5)]"></div>
             <p className="mt-6 text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
               A selection of projects showcasing my work in AI and web development
             </p>
           </div>
         </FadeInWhenVisible>
 
-        <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-50px' }}
-          data-component="Project Grid"
-          data-type="Layout"
-        >
-          {projects.map((project, index) => (
-            <motion.div
-              key={index}
-              variants={cardVariants}
-              className="h-full"
-              data-component="Project Card"
-              data-type="Interactive Component"
-              data-tech="Framer Motion"
-            >
-              <ProjectCard3D
-                className="group glass rounded-2xl p-8 hover:shadow-[0_0_40px_rgba(6,182,212,0.3)] transition-all duration-300 flex flex-col h-full bg-[color:var(--background-secondary)]/50 backdrop-blur-xl border border-cyan-500/10 hover:border-cyan-400/30"
-                glareColor="rgba(6, 182, 212, 0.4)"
+        {/* Filter Controls */}
+        <div className="mb-12 space-y-6">
+          {/* Search and Sort */}
+          <div className="flex flex-col sm:flex-row gap-4">
+            {/* Search Input */}
+            <div className="flex-1 relative">
+              <svg
+                className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
               >
-                <div className="text-6xl mb-6 transform group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
-                  {project.image}
-                </div>
-                <h3 className="text-2xl font-bold text-[color:var(--foreground)] mb-3 group-hover:text-[color:var(--accent)] transition-colors">
-                  {project.title}
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400 mb-6 flex-grow">
-                  {project.description}
-                </p>
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search projects..."
+                className="w-full pl-12 pr-4 py-3 rounded-lg bg-[color:var(--background-secondary)] border border-[color:var(--foreground)]/10 focus:border-[color:var(--accent)] focus:ring-2 focus:ring-[color:var(--accent)]/20 outline-none transition-all text-[color:var(--foreground)]"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[color:var(--foreground)] transition-colors"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              )}
+            </div>
 
-                <div className="space-y-4">
-                  <div className="flex flex-wrap gap-2" data-tech="Tech Stack List">
-                    {project.tech.map((tech, techIndex) => (
-                      <span
-                        key={techIndex}
-                        className="px-3 py-1 bg-[color:var(--accent)]/[0.1] text-[color:var(--accent)] rounded-full text-xs font-medium border border-[color:var(--accent)]/20"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
+            {/* Sort Dropdown */}
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as 'recent' | 'alphabetical')}
+              className="px-4 py-3 rounded-lg bg-[color:var(--background-secondary)] border border-[color:var(--foreground)]/10 focus:border-[color:var(--accent)] focus:ring-2 focus:ring-[color:var(--accent)]/20 outline-none transition-all text-[color:var(--foreground)] min-w-[160px]"
+            >
+              <option value="recent">Most Recent</option>
+              <option value="alphabetical">Alphabetical</option>
+            </select>
+          </div>
 
-                  <div className="flex gap-3 relative z-30">
-                    <Button
-                      variant="primary"
-                      size="sm"
-                      onClick={(e: React.MouseEvent) => {
-                         e.stopPropagation();
-                         setSelectedProject(index);
-                      }}
-                      rightIcon={
-                        <svg
-                          className="w-4 h-4"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                          />
-                        </svg>
-                      }
-                    >
-                      Learn More
-                    </Button>
-                    {project.link && (
-                      <a 
-                        href={project.link} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <Button variant="ghost" size="sm">
-                          View Code
-                        </Button>
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </ProjectCard3D>
+          {/* Category Filter */}
+          <div className="flex flex-wrap gap-3">
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => setSelectedCategory(category)}
+                className={`px-4 py-2 rounded-lg font-medium transition-all ${
+                  selectedCategory === category
+                    ? 'bg-gradient-button text-gray-900'
+                    : 'bg-[color:var(--background-secondary)] text-[color:var(--foreground)] border border-[color:var(--foreground)]/10 hover:border-[color:var(--accent)]/30'
+                }`}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+
+          {/* Technology Filter */}
+          <div>
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                Filter by Technology:
+              </span>
+              {selectedTechs.length > 0 && (
+                <button
+                  onClick={() => setSelectedTechs([])}
+                  className="text-xs text-[color:var(--accent)] hover:underline"
+                >
+                  Clear ({selectedTechs.length})
+                </button>
+              )}
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {allTechnologies.map((tech) => (
+                <button
+                  key={tech}
+                  onClick={() => toggleTech(tech)}
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
+                    selectedTechs.includes(tech)
+                      ? 'bg-[color:var(--accent)] text-white'
+                      : 'bg-[color:var(--accent)]/10 text-[color:var(--accent)] border border-[color:var(--accent)]/20 hover:bg-[color:var(--accent)]/20'
+                  }`}
+                >
+                  {tech}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Results Info and Clear Filters */}
+          <div className="flex items-center justify-between pt-4 border-t border-[color:var(--foreground)]/10">
+            <span className="text-sm text-gray-500 dark:text-gray-400">
+              Showing {filteredAndSortedProjects.length} of {projects.length} projects
+            </span>
+            {hasActiveFilters && (
+              <button
+                onClick={clearFilters}
+                className="text-sm text-[color:var(--accent)] hover:underline font-medium"
+              >
+                Clear all filters
+              </button>
+            )}
+          </div>
+        </div>
+
+        <AnimatePresence mode="wait">
+          {filteredAndSortedProjects.length === 0 ? (
+            <motion.div
+              key="no-results"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="text-center py-20"
+            >
+              <div className="text-6xl mb-4">🔍</div>
+              <h3 className="text-2xl font-bold text-[color:var(--foreground)] mb-2">
+                No projects found
+              </h3>
+              <p className="text-gray-500 dark:text-gray-400 mb-6">
+                Try adjusting your filters or search query
+              </p>
+              <Button onClick={clearFilters} variant="primary">
+                Clear Filters
+              </Button>
             </motion.div>
-          ))}
-        </motion.div>
+          ) : (
+            <motion.div
+              key="project-grid"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              data-component="Project Grid"
+              data-type="Layout"
+            >
+              {filteredAndSortedProjects.map((project, index) => {
+                const originalIndex = projects.findIndex(p => p.title === project.title);
+                return (
+                <motion.div
+                  key={project.title}
+                  variants={cardVariants}
+                  className="h-full"
+                  data-component="Project Card"
+                  data-type="Interactive Component"
+                  data-tech="Framer Motion"
+                >
+                  <ProjectCard3D
+                    className="group glass glow-card rounded-2xl p-8 hover:shadow-2xl transition-all duration-500 flex flex-col h-full bg-[color:var(--background-secondary)]/40 backdrop-blur-2xl border border-white/5 hover:border-[color:var(--accent)]/30"
+                    glareColor="rgba(99, 102, 241, 0.2)"
+                  >
+                    <div className="text-6xl mb-6 transform group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-500">
+                      {project.image}
+                    </div>
+                    <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-shimmer transition-all duration-300">
+                      {project.title}
+                    </h3>
+                    <p className="text-gray-400 group-hover:text-gray-300 mb-6 flex-grow transition-colors">
+                      {project.description}
+                    </p>
+
+                    <div className="space-y-4">
+                      <div className="flex flex-wrap gap-2" data-tech="Tech Stack List">
+                        {project.tech.map((tech, techIndex) => (
+                          <span
+                            key={techIndex}
+                            className="px-3 py-1 bg-[color:var(--accent)]/[0.1] text-[color:var(--accent)] rounded-full text-xs font-medium border border-[color:var(--accent)]/20"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+
+                      <div className="flex gap-3 relative z-30">
+                        <Button
+                          variant="primary"
+                          size="sm"
+                          onClick={(e: React.MouseEvent) => {
+                             e.stopPropagation();
+                             setSelectedProject(originalIndex);
+                          }}
+                          rightIcon={
+                            <svg
+                              className="w-4 h-4"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                              />
+                            </svg>
+                          }
+                        >
+                          Learn More
+                        </Button>
+                        {project.link && (
+                          <a
+                            href={project.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <Button variant="ghost" size="sm">
+                              View Code
+                            </Button>
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </ProjectCard3D>
+                </motion.div>
+              );
+            })}
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Project Modal */}
         {selectedProject !== null && (

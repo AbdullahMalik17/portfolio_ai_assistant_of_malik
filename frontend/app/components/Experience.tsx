@@ -89,7 +89,6 @@ const Experience = () => {
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
               Experience & Education
             </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full"></div>
             <p className="mt-6 text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
               My journey through education and hands-on project development
             </p>
@@ -98,7 +97,7 @@ const Experience = () => {
 
         <div className="relative">
           {/* Timeline line */}
-          <div className="absolute left-0 md:left-1/2 transform md:-translate-x-px h-full w-0.5 bg-gradient-to-b from-blue-500 via-purple-500 to-pink-500"></div>
+          <div className="absolute left-0 md:left-1/2 transform md:-translate-x-px h-full w-0.5 bg-gradient-hero"></div>
 
           {/* Experience items */}
           <div className="space-y-12">
@@ -170,7 +169,7 @@ const Experience = () => {
 
                   {/* Timeline dot */}
                   <div
-                    className={`absolute left-0 md:left-1/2 transform md:-translate-x-1/2 w-4 h-4 rounded-full bg-[color:var(--accent)] border-4 border-[color:var(--background)] ${
+                    className={`absolute left-0 md:left-1/2 transform md:-translate-x-1/2 w-4 h-4 rounded-full bg-[color:var(--accent)] border-2 border-[color:var(--background)] ${
                       index % 2 === 0 ? 'md:-translate-x-1/2' : 'md:-translate-x-1/2'
                     }`}
                     style={{ top: '2rem' }}

@@ -50,22 +50,21 @@ const Skills = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeInWhenVisible>
-          <div className="text-center mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[color:var(--foreground)] mb-4">
-              Technical Skills
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
+              Technical <span className="text-shimmer">Arsenal</span>
             </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto rounded-full"></div>
-            <p className="mt-6 text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            <p className="mt-6 text-base sm:text-lg text-gray-400 max-w-2xl mx-auto">
               A comprehensive toolkit for building modern, intelligent applications
             </p>
           </div>
         </FadeInWhenVisible>
 
-        <div className="flex flex-col lg:flex-row gap-12 items-center">
+        <div className="flex flex-col lg:flex-row gap-16 items-center">
             {/* Left Column: 3D Cloud */}
             <div className="w-full lg:w-1/2" data-component="3D Tag Cloud" data-type="Canvas/JS Animation">
                 <FadeInWhenVisible direction="right">
-                    <div className="glass rounded-3xl p-4 flex items-center justify-center bg-white/5 dark:bg-black/20">
+                    <div className="glass rounded-3xl p-6 flex items-center justify-center bg-white/5 border-white/10 shadow-2xl">
                         <SkillsCloud skills={allSkills} />
                     </div>
                 </FadeInWhenVisible>
@@ -86,19 +85,19 @@ const Skills = () => {
                 key={index}
                 variants={cardVariants}
                 whileHover={{ y: -8, transition: { duration: 0.2 } }}
-                className="glass rounded-2xl p-6 hover:shadow-[0_0_25px_rgba(59,130,246,0.15)] transition-shadow duration-300 border border-white/10"
+                className="glass glow-card rounded-2xl p-6 hover:shadow-[0_0_30px_rgba(99,102,241,0.2)] transition-all duration-300 border border-white/10 bg-white/5"
                 data-component="Skill Category Card"
                 data-tech="Framer Motion"
                 >
-                <h3 className="text-xl font-bold text-[color:var(--accent)] mb-4 text-center">
+                <h3 className="text-xl font-bold text-[color:var(--accent)] mb-4 text-center tracking-tight">
                     {category.title}
                 </h3>
                 <div className="flex flex-wrap gap-2 justify-center" data-tech="Skill Tags">
                     {category.skills.map((skill, skillIndex) => (
                     <motion.span
                         key={skillIndex}
-                        whileHover={{ scale: 1.05 }}
-                        className="px-2.5 py-1 bg-[color:var(--background)] text-[color:var(--foreground)] rounded-md text-xs font-medium border border-[color:var(--foreground)]/10 hover:border-[color:var(--accent)] hover:text-[color:var(--accent)] transition-colors cursor-default"
+                        whileHover={{ scale: 1.1, backgroundColor: 'rgba(99, 102, 241, 0.2)' }}
+                        className="px-3 py-1 bg-[color:var(--background)] text-[color:var(--foreground)] rounded-lg text-xs font-medium border border-white/5 hover:border-[color:var(--accent)]/50 transition-all cursor-default"
                     >
                         {skill}
                     </motion.span>

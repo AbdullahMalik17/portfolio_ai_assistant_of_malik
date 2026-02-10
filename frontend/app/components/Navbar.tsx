@@ -25,20 +25,20 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled || isMobileMenuOpen
-          ? 'glass shadow-lg'
-          : 'bg-transparent'
+          ? 'glass py-2 shadow-2xl border-b border-white/5'
+          : 'bg-transparent py-4'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="text-2xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent hover:scale-105 transition-transform cursor-default">
+          <div className="text-2xl font-black text-shimmer hover:scale-110 transition-transform cursor-pointer tracking-tighter">
             AI Portfolio
           </div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex space-x-8 items-center">
+          <div className="hidden md:flex space-x-10 items-center">
             {navItems.map((item) => (
               <Link
                 key={item.name}
@@ -47,10 +47,10 @@ const Navbar = () => {
                 smooth={true}
                 offset={-70}
                 duration={500}
-                className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-[color:var(--accent)] transition-all hover:-translate-y-0.5 relative group"
+                className="cursor-pointer text-[11px] uppercase tracking-[0.2em] font-bold text-gray-400 hover:text-white transition-all hover:-translate-y-0.5 relative group"
               >
                 {item.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[color:var(--accent)] transition-all group-hover:w-full"></span>
+                <span className="absolute -bottom-2 left-0 w-0 h-0.5 bg-gradient-to-r from-[color:var(--accent)] to-[color:var(--accent-secondary)] transition-all group-hover:w-full"></span>
               </Link>
             ))}
           </div>

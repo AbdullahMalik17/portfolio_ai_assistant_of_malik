@@ -66,7 +66,6 @@ const AchievementStats = () => {
             <h2 className="text-4xl md:text-5xl font-bold text-[color:var(--foreground)] mb-4">
               Achievements & Impact
             </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto rounded-full"></div>
             <p className="mt-6 text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
               Delivering quality solutions and continuous learning
             </p>

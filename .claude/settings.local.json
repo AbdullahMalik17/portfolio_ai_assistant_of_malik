@@ -16,7 +16,9 @@
       "Bash(cat:*)",
       "WebFetch(domain:www.zainattiq.com)",
       "mcp__github__get_file_contents",
-      "Bash(tree:*)"
+      "Bash(tree:*)",
+      "Bash(cd:*)",
+      "Bash(wc:*)"
     ]
   }
 }
