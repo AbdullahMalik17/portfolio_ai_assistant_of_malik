@@ -18,7 +18,8 @@
       "mcp__github__get_file_contents",
       "Bash(tree:*)",
       "Bash(cd:*)",
-      "Bash(wc:*)"
+      "Bash(wc:*)",
+      "Bash(git commit:*)"
     ]
   }
 }
