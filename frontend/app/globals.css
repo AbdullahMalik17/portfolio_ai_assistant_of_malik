@@ -284,3 +284,78 @@ button, a, input, textarea, select, .glass, .glow-card {
 .bg-gradient-hero {
   background: var(--gradient-hero);
 }
+
+/* === Chat Widget Styles === */
+.chat-msg-user {
+  background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+  color: white;
+  border-radius: 20px 20px 4px 20px;
+}
+
+.chat-msg-assistant {
+  background: var(--background-secondary);
+  color: var(--foreground);
+  border: 1px solid var(--card-border);
+  border-radius: 20px 20px 20px 4px;
+}
+
+.chat-typing-indicator {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 0;
+}
+
+.chat-typing-indicator span {
+  height: 7px;
+  width: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  animation: chat-bounce 1.4s infinite ease-in-out both;
+}
+
+.chat-typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+.chat-typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+.chat-typing-indicator span:nth-child(3) { animation-delay: 0s; }
+
+@keyframes chat-bounce {
+  0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+  40% { transform: scale(1.1); opacity: 1; }
+}
+
+.chat-toast {
+  position: fixed;
+  bottom: 80px;
+  right: 24px;
+  z-index: 60;
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  background: var(--accent);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 500;
+  animation: chat-toast-in 0.3s ease-out;
+  pointer-events: none;
+}
+
+@keyframes chat-toast-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.chat-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.chat-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chat-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--card-border);
+  border-radius: 4px;
+}
+
+.chat-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.15);
+}

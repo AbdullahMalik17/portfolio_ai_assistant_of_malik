@@ -1,283 +1,533 @@
 'use client';
 
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  Send, Bot, User, Loader2, Minimize2,
+  Sparkles, ThumbsUp, ThumbsDown, Copy,
+  RotateCcw, Mic,
+} from 'lucide-react';
 
-type ChatMessage = {
+// ---------- Types ----------
+interface Message {
+  id: string;
   role: 'user' | 'assistant';
   content: string;
-};
-
-const PUBLIC_BACKEND_URL =
-  (typeof process !== 'undefined' && process.env.NEXT_PUBLIC_BACKEND_URL) || '';
+  timestamp: Date;
+  reaction?: 'like' | 'dislike';
+}
 
 interface SpeechRecognitionEvent {
-  results: {
-    [index: number]: {
-      [index: number]: {
-        transcript: string;
-      };
-    };
-  };
+  results: { [i: number]: { [j: number]: { transcript: string } } };
 }
-
-interface SpeechRecognitionErrorEvent {
-  error: string;
-}
-
+interface SpeechRecognitionErrorEvent { error: string }
 interface SpeechRecognition {
-  continuous: boolean;
-  interimResults: boolean;
-  lang: string;
-  start: () => void;
-  stop: () => void;
+  continuous: boolean; interimResults: boolean; lang: string;
+  start: () => void; stop: () => void;
   onstart: (() => void) | null;
-  onresult: ((event: SpeechRecognitionEvent) => void) | null;
-  onerror: ((event: SpeechRecognitionErrorEvent) => void) | null;
+  onresult: ((e: SpeechRecognitionEvent) => void) | null;
+  onerror: ((e: SpeechRecognitionErrorEvent) => void) | null;
   onend: (() => void) | null;
 }
+interface IWebkitSpeechRecognition { new(): SpeechRecognition }
+declare global { interface Window { webkitSpeechRecognition: IWebkitSpeechRecognition } }
 
-interface IWebkitSpeechRecognition {
-  new (): SpeechRecognition;
+// ---------- Helpers ----------
+function cx(...c: (string | false | undefined | null)[]) { return c.filter(Boolean).join(' '); }
+
+const STORAGE_KEY = 'portfolio-chat-history';
+
+function loadMessages(): Message[] {
+  if (typeof window === 'undefined') return [];
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw) as Message[];
+    return parsed.map(m => ({ ...m, timestamp: new Date(m.timestamp) }));
+  } catch { return []; }
 }
 
-// Extend Window interface for Web Speech API
-declare global {
-  interface Window {
-    webkitSpeechRecognition: IWebkitSpeechRecognition;
-  }
+function saveMessages(msgs: Message[]) {
+  try {
+    // Keep last 50 messages to avoid bloating storage
+    const toSave = msgs.slice(-50);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(toSave));
+  } catch { /* quota exceeded - ignore */ }
 }
 
+const suggestedQuestions = [
+  'What are your top skills?',
+  'Tell me about your projects',
+  "What's your experience?",
+  'How can I contact you?',
+];
+
+// ---------- Component ----------
 export default function ChatbotWidget() {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<ChatMessage[]>([
-    {
-      role: 'assistant',
-      content:
-        "Hi! I'm your portfolio chatbot. Ask anything about me, my skills, projects, or experience.",
-    },
-  ]);
+  const welcomeMsg: Message = {
+    id: 'welcome',
+    role: 'assistant',
+    content: "Hi! I'm Abdullah's AI assistant. Ask me anything about his skills, projects, or experience.",
+    timestamp: new Date(),
+  };
+  const [messages, setMessages] = useState<Message[]>([welcomeMsg]);
+  const [hydrated, setHydrated] = useState(false);
+
+  // Load persisted messages on mount (client only)
+  useEffect(() => {
+    const saved = loadMessages();
+    if (saved.length > 0) setMessages(saved);
+    setHydrated(true);
+  }, []);
+
+  // Persist messages whenever they change
+  useEffect(() => {
+    if (hydrated) saveMessages(messages);
+  }, [messages, hydrated]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(true);
   const [isListening, setIsListening] = useState(false);
-  const [threadId, setThreadId] = useState<string | undefined>(undefined);
+  const [toast, setToast] = useState<string | null>(null);
+
   const scrollRef = useRef<HTMLDivElement | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const recognitionRef = useRef<SpeechRecognition | null>(null);
 
+  // Auto-scroll
   useEffect(() => {
-    if (!scrollRef.current) return;
-    scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
   }, [messages, isOpen]);
 
-  // Initialize Speech Recognition
+  // Hide suggestions after 2 messages
+  useEffect(() => { if (messages.length > 2) setShowSuggestions(false); }, [messages]);
+
+  // Toast auto-dismiss
+  useEffect(() => {
+    if (toast) { const t = setTimeout(() => setToast(null), 2500); return () => clearTimeout(t); }
+  }, [toast]);
+
+  // Speech Recognition
   useEffect(() => {
     if (typeof window !== 'undefined' && window.webkitSpeechRecognition) {
-      const recognition = new window.webkitSpeechRecognition();
-      recognition.continuous = false;
-      recognition.interimResults = false;
-      recognition.lang = 'en-US';
-
-      recognition.onstart = () => {
-        setIsListening(true);
-      };
-
-      recognition.onresult = (event: SpeechRecognitionEvent) => {
-        const transcript = event.results[0][0].transcript;
-        setInput(transcript);
-        // Optional: Auto-send after voice input
-        // sendMessage(transcript);
-      };
-
-      recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
-        console.error('Speech recognition error', event.error);
-        setIsListening(false);
-      };
-
-      recognition.onend = () => {
-        setIsListening(false);
-      };
-
-      recognitionRef.current = recognition;
+      const r = new window.webkitSpeechRecognition();
+      r.continuous = false; r.interimResults = false; r.lang = 'en-US';
+      r.onstart = () => setIsListening(true);
+      r.onresult = (e: SpeechRecognitionEvent) => { setInput(e.results[0][0].transcript); };
+      r.onerror = () => setIsListening(false);
+      r.onend = () => setIsListening(false);
+      recognitionRef.current = r;
     }
   }, []);
 
-  const sendMessage = useCallback(async (textOverride?: string) => {
-    const textToSend = textOverride || input;
-    const trimmed = textToSend.trim();
-    if (!trimmed || isLoading) return;
+  // Simulated fallback responses
+  function getSimulatedResponse(msg: string): string {
+    const m = msg.toLowerCase();
+    if (m.includes('skill') || m.includes('tech'))
+      return "Abdullah specializes in:\n\n• AI/ML: OpenAI GPT-4, Gemini, Claude, LangChain, pgvector\n• Backend: Python, FastAPI, PostgreSQL, Kafka, Docker\n• Frontend: Next.js 16, React 19, TypeScript, Tailwind CSS\n• Cloud: Vercel, Azure, Kubernetes, CI/CD\n\nWant to know about a specific technology?";
+    if (m.includes('project'))
+      return "Abdullah has built 7+ production AI projects:\n\n1. Digital FTE - AI agent for 24/7 personal automation\n2. Customer Success FTE - Multi-channel AI support (Email, WhatsApp, Web)\n3. Physical AI Platform - Educational robotics with RAG chatbot\n4. Voice Assistant - Privacy-first voice AI\n5. AI Code Assistant - Code generation & debugging\n\nAsk about any specific project for more details!";
+    if (m.includes('contact') || m.includes('email') || m.includes('reach'))
+      return "You can reach Abdullah at:\n\n• Email: muhammadabdullah51700@gmail.com\n• LinkedIn: linkedin.com/in/muhammad-abdullah-athar\n• GitHub: github.com/AbdullahMalik17\n\nOr use the contact form on this page!";
+    if (m.includes('experience') || m.includes('work'))
+      return "Abdullah is a Full-Stack Developer & AI Specialist building intelligent solutions. He combines AI/ML with modern web tech to create production-grade systems.\n\nHighlights:\n• Built autonomous AI agents with dual-architecture design\n• Implemented event-driven systems with Kafka\n• Deployed to Kubernetes with full CI/CD pipelines";
+    if (m.includes('hello') || m.includes('hi') || m.includes('hey'))
+      return "Hello! Great to meet you! I can tell you about Abdullah's:\n\n• Technical skills & expertise\n• AI/ML projects\n• Work experience\n• Contact information\n\nWhat would you like to know?";
+    return "Thanks for your interest! I can tell you about Abdullah's skills, projects, experience, or how to contact him. What would you like to know?";
+  }
 
-    const newMessages: ChatMessage[] = [...messages, { role: 'user', content: trimmed }];
-    setMessages(newMessages);
+  // Send message with streaming support
+  const sendMessage = useCallback(async (textOverride?: string) => {
+    const text = (textOverride || input).trim();
+    if (!text || isLoading) return;
+
+    const userMsg: Message = {
+      id: Date.now().toString(),
+      role: 'user',
+      content: text,
+      timestamp: new Date(),
+    };
+    setMessages(prev => [...prev, userMsg]);
     setInput('');
     setIsLoading(true);
+    setShowSuggestions(false);
+
+    const assistantId = (Date.now() + 1).toString();
+
     try {
-      const endpoint = PUBLIC_BACKEND_URL
-        ? `${PUBLIC_BACKEND_URL}/api/assistant/chat`
-        : `/api/chat`;
-      const response = await fetch(endpoint, {
+      // Build conversation history for persistent memory (exclude welcome msg)
+      const history = [...messages, userMsg]
+        .filter(m => m.id !== 'welcome')
+        .slice(-20) // send last 20 messages for context
+        .map(m => ({ role: m.role, content: m.content }));
+
+      const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          message: trimmed,
-          thread_id: threadId, // Include thread_id for conversation context
-        }),
-      });
+        body: JSON.stringify({ message: text, history: history.slice(0, -1) }), // history = prior messages, not current
+      }).catch(() => null);
 
-      if (!response.ok) {
-        throw new Error(`Request failed: ${response.status}`);
-      }
-      const data = (await response.json()) as { response?: string; thread_id?: string };
-      const assistantReply = data.response || 'Sorry, I could not generate a response.';
-
-      // Update thread_id for conversation continuity
-      if (data.thread_id) {
-        setThreadId(data.thread_id);
+      if (!res) {
+        // No connection - use simulated response
+        setMessages(prev => [...prev, {
+          id: assistantId, role: 'assistant',
+          content: getSimulatedResponse(text), timestamp: new Date(),
+        }]);
+        return;
       }
 
-      setMessages((prev) => [...prev, { role: 'assistant', content: assistantReply }]);
-    } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : 'Unknown error';
-      setMessages((prev) => [
-        ...prev,
-        { role: 'assistant', content: `I ran into an error: ${message}. Please try again.` },
-      ]);
+      const contentType = res.headers.get('content-type') || '';
+
+      if (contentType.includes('text/event-stream')) {
+        // Streaming response - show tokens in real-time
+        const reader = res.body?.getReader();
+        const decoder = new TextDecoder();
+        let fullText = '';
+
+        // Add empty assistant message to fill
+        setMessages(prev => [...prev, {
+          id: assistantId, role: 'assistant', content: '', timestamp: new Date(),
+        }]);
+
+        if (reader) {
+          setIsLoading(false); // Stop loading indicator once streaming starts
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            const chunk = decoder.decode(value, { stream: true });
+            const lines = chunk.split('\n');
+            for (const line of lines) {
+              if (line.startsWith('data: ') && line !== 'data: [DONE]') {
+                try {
+                  const data = JSON.parse(line.slice(6));
+                  if (data.text) {
+                    fullText += data.text;
+                    const captured = fullText;
+                    setMessages(prev =>
+                      prev.map(m => m.id === assistantId ? { ...m, content: captured } : m)
+                    );
+                  }
+                } catch { /* skip parse errors */ }
+              }
+            }
+          }
+        }
+        if (!fullText) {
+          setMessages(prev =>
+            prev.map(m => m.id === assistantId ? { ...m, content: getSimulatedResponse(text) } : m)
+          );
+        }
+      } else {
+        // JSON response (fallback mode)
+        const data = await res.json();
+        const reply = data.response || getSimulatedResponse(text);
+        setMessages(prev => [...prev, {
+          id: assistantId, role: 'assistant', content: reply, timestamp: new Date(),
+        }]);
+      }
+    } catch {
+      setMessages(prev => [...prev, {
+        id: assistantId, role: 'assistant',
+        content: getSimulatedResponse(text), timestamp: new Date(),
+      }]);
     } finally {
       setIsLoading(false);
+      inputRef.current?.focus();
     }
-  }, [input, isLoading, messages, threadId]);
+  }, [input, isLoading]);
 
-  // Handle Custom Event for Smart Search
+  // Custom event handler for CommandPalette / ContextMenu / DeveloperTerminal
   useEffect(() => {
-    const handleOpenChat = (event: CustomEvent) => {
+    const handler = (e: CustomEvent) => {
       setIsOpen(true);
-      if (event.detail) {
-        // Wait for state update then send
-        setTimeout(() => sendMessage(event.detail), 100);
-      }
+      if (e.detail) setTimeout(() => sendMessage(e.detail), 100);
     };
-
-    window.addEventListener('open-portfolio-chat', handleOpenChat as EventListener);
-    return () => {
-      window.removeEventListener('open-portfolio-chat', handleOpenChat as EventListener);
-    };
+    window.addEventListener('open-portfolio-chat', handler as EventListener);
+    return () => window.removeEventListener('open-portfolio-chat', handler as EventListener);
   }, [sendMessage]);
 
-  const toggleListening = () => {
-    if (!recognitionRef.current) {
-      alert('Speech recognition is not supported in this browser.');
-      return;
-    }
-
-    if (isListening) {
-      recognitionRef.current.stop();
-    } else {
-      recognitionRef.current.start();
-    }
+  const handleReaction = (id: string, reaction: 'like' | 'dislike') => {
+    setMessages(prev => prev.map(m =>
+      m.id === id ? { ...m, reaction: m.reaction === reaction ? undefined : reaction } : m
+    ));
+    setToast(reaction === 'like' ? 'Thanks for the feedback!' : "We'll improve!");
   };
 
-  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      sendMessage();
-    }
-  }
+  const copyMessage = (content: string) => {
+    navigator.clipboard.writeText(content);
+    setToast('Copied to clipboard!');
+  };
+
+  const clearChat = () => {
+    const freshMsg: Message = {
+      id: 'welcome-new', role: 'assistant',
+      content: "Chat cleared! Ask me anything about Abdullah's portfolio.",
+      timestamp: new Date(),
+    };
+    setMessages([freshMsg]);
+    setShowSuggestions(true);
+    setToast('Chat cleared!');
+    try { localStorage.removeItem(STORAGE_KEY); } catch { /* ignore */ }
+  };
+
+  const toggleListening = () => {
+    if (!recognitionRef.current) { alert('Speech recognition not supported in this browser.'); return; }
+    if (isListening) recognitionRef.current.stop(); else recognitionRef.current.start();
+  };
 
   return (
     <div className="fixed z-50 bottom-6 right-6">
-      {/* Toggle Button */}
-      <button
-        aria-label={isOpen ? 'Close chat' : 'Open chat'}
-        onClick={() => setIsOpen((v) => !v)}
-        className="h-14 w-14 rounded-full shadow-lg bg-[color:var(--accent)] text-white flex items-center justify-center hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[color:var(--accent)]"
-      >
-        {isOpen ? (
-          // Close icon
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-6 w-6">
-            <path
-              fillRule="evenodd"
-              d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z"
-              clipRule="evenodd"
-            />
-          </svg>
-        ) : (
-          // Chat icon
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-6 w-6">
-            <path d="M7.5 8.25a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm3.75.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm2.25.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" />
-            <path
-              fillRule="evenodd"
-              d="M12 1.5C6.201 1.5 1.5 5.548 1.5 10.5c0 2.39 1.144 4.553 3 6.138V21a.75.75 0 0 0 1.2.6l3.336-2.502c.93.254 1.917.402 2.964.402 5.799 0 10.5-4.048 10.5-9 0-4.952-4.701-9-10.5-9Zm-9 9c0-4.002 4.163-7.5 9-7.5s9 3.498 9 7.5-4.163 7.5-9 7.5c-1.08 0-2.097-.15-3.025-.424a.75.75 0 0 0-.627.106L6 19.11v-2.365a.75.75 0 0 0-.276-.578C4.15 14.873 3 12.81 3 10.5Z"
-              clipRule="evenodd"
-            />
-          </svg>
+      {/* Toast */}
+      <AnimatePresence>
+        {toast && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            className="chat-toast"
+          >
+            {toast}
+          </motion.div>
         )}
-      </button>
+      </AnimatePresence>
+
+      {/* Toggle Button */}
+      <AnimatePresence mode="wait">
+        {!isOpen && (
+          <motion.button
+            key="open"
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            exit={{ scale: 0 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={() => setIsOpen(true)}
+            className="h-14 w-14 rounded-full shadow-lg shadow-[color:var(--accent-glow)] flex items-center justify-center text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[color:var(--accent)]"
+            style={{ background: 'var(--gradient-button)' }}
+            aria-label="Open chat"
+          >
+            <Bot className="h-6 w-6" />
+          </motion.button>
+        )}
+      </AnimatePresence>
 
       {/* Chat Panel */}
-      {isOpen && (
-        <div className="mt-3 w-[280px] xs:w-[320px] sm:w-[380px] h-[440px] max-h-[90vh] bg-[color:var(--background)] border border-[color:var(--foreground)]/[0.1] rounded-2xl shadow-2xl flex flex-col overflow-hidden">
-          <div className="px-4 py-3 border-b border-[color:var(--foreground)]/[0.1] flex items-center justify-between">
-            <div className="text-sm">
-              <div className="font-semibold text-gray-900 dark:text-gray-100">Ask about me</div>
-              <div className="text-gray-500 dark:text-gray-400">Powered by OpenAI</div>
-            </div>
-            <span aria-live="polite" className={`text-xs ${isLoading ? 'text-[color:var(--accent)]' : 'text-gray-400'}`}>{isLoading ? 'Thinking…' : 'Online'}</span>
-          </div>
-
-          <div ref={scrollRef} className="flex-1 overflow-y-auto px-3 py-3 space-y-3">
-            {messages.map((m, idx) => (
-              <div key={idx} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div
-                  className={`${
-                    m.role === 'user'
-                      ? 'bg-[color:var(--accent)] text-white'
-                      : 'bg-[color:var(--background-secondary)] text-[color:var(--foreground)]'
-                  } max-w-[85%] rounded-2xl px-3.5 py-2.5 text-sm whitespace-pre-wrap`}
-                >
-                  {m.content}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            transition={{ duration: 0.25 }}
+            className="mt-3 w-[320px] sm:w-[400px] h-[520px] max-h-[85vh] rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-[color:var(--card-border)]"
+            style={{ background: 'var(--card-bg)', backdropFilter: 'blur(20px)' }}
+          >
+            {/* Header */}
+            <div
+              className="flex items-center justify-between px-5 py-3.5 text-white"
+              style={{ background: 'linear-gradient(135deg, var(--accent), var(--accent-secondary))' }}
+            >
+              <div className="flex items-center gap-3">
+                <div className="relative">
+                  <div className="h-10 w-10 rounded-full border-2 border-white/30 flex items-center justify-center bg-white/20 shadow-inner">
+                    <Sparkles className="h-5 w-5" />
+                  </div>
+                  <span className="absolute bottom-0 right-0 h-3 w-3 rounded-full bg-emerald-400 border-2 border-white animate-pulse" />
+                </div>
+                <div>
+                  <p className="font-bold text-sm tracking-tight">AI Assistant</p>
+                  <p className="text-[10px] text-white/80 uppercase tracking-widest">
+                    {isLoading ? 'Thinking...' : 'Online'}
+                  </p>
                 </div>
               </div>
-            ))}
-          </div>
+              <div className="flex items-center gap-1">
+                <button
+                  onClick={clearChat}
+                  className="h-8 w-8 rounded-lg flex items-center justify-center hover:bg-white/15 transition-colors"
+                  title="Clear chat"
+                >
+                  <RotateCcw className="h-4 w-4" />
+                </button>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="h-8 w-8 rounded-lg flex items-center justify-center hover:bg-white/15 transition-colors"
+                  title="Close"
+                >
+                  <Minimize2 className="h-4 w-4" />
+                </button>
+              </div>
+            </div>
 
-          <div className="p-3 border-t border-gray-200 dark:border-gray-800">
-            <div className="flex items-center gap-2">
-              <button
-                onClick={toggleListening}
-                className={`p-2 rounded-xl transition-all ${
-                  isListening 
-                    ? 'bg-red-500 text-white animate-pulse' 
-                    : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
-                }`}
-                title={isListening ? 'Stop listening' : 'Start voice input'}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-                  <path d="M8.25 4.5a3.75 3.75 0 1 1 7.5 0v8.25a3.75 3.75 0 1 1-7.5 0V4.5Z" />
-                  <path d="M6 10.5a.75.75 0 0 1 .75.75v1.5a5.25 5.25 0 1 0 10.5 0v-1.5a.75.75 0 0 1 1.5 0v1.5a6.751 6.751 0 0 1-6 6.709v2.291h3a.75.75 0 0 1 0 1.5h-7.5a.75.75 0 0 1 0-1.5h3v-2.291a6.751 6.751 0 0 1-6-6.709v-1.5A.75.75 0 0 1 6 10.5Z" />
-                </svg>
-              </button>
-              <input
-                type="text"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={handleKeyDown}
-                placeholder={isListening ? 'Listening...' : 'Ask anything about me...'}
-                className="flex-1 rounded-xl border border-[color:var(--foreground)]/[0.1] bg-[color:var(--background)] px-3 py-2 text-sm text-[color:var(--foreground)] outline-none focus:ring-2 focus:ring-[color:var(--accent)]"
-              />
-              <button
-                onClick={() => sendMessage()}
-                disabled={isLoading || input.trim().length === 0}
-                className="rounded-xl bg-[color:var(--accent)] text-white px-3 py-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                Send
-              </button>
+            {/* Messages */}
+            <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-3 space-y-3 chat-scrollbar">
+              <AnimatePresence initial={false}>
+                {messages.map((msg) => (
+                  <motion.div
+                    key={msg.id}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className={cx('flex gap-2.5', msg.role === 'user' ? 'flex-row-reverse' : 'flex-row')}
+                  >
+                    {/* Avatar */}
+                    <div className={cx(
+                      'h-7 w-7 rounded-full flex items-center justify-center shrink-0 text-white text-xs',
+                      msg.role === 'user'
+                        ? 'bg-[color:var(--accent)]/30'
+                        : ''
+                    )} style={msg.role === 'assistant' ? { background: 'var(--gradient-button)' } : {}}>
+                      {msg.role === 'user' ? <User className="h-3.5 w-3.5" /> : <Bot className="h-3.5 w-3.5" />}
+                    </div>
+
+                    {/* Bubble */}
+                    <div className={cx('max-w-[78%] group', msg.role === 'user' ? 'items-end' : 'items-start')}>
+                      <div className={cx(
+                        'px-3.5 py-2.5 text-sm whitespace-pre-wrap leading-relaxed',
+                        msg.role === 'user' ? 'chat-msg-user' : 'chat-msg-assistant'
+                      )}>
+                        {msg.content || (
+                          <div className="chat-typing-indicator">
+                            <span /><span /><span />
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Meta row */}
+                      <div className={cx(
+                        'flex items-center gap-1.5 mt-1 px-1',
+                        msg.role === 'user' ? 'justify-end' : 'justify-start'
+                      )}>
+                        <span className="text-[10px] text-gray-500">
+                          {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                        </span>
+                        {msg.role === 'assistant' && msg.content && (
+                          <div className="flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button
+                              onClick={() => handleReaction(msg.id, 'like')}
+                              className={cx('h-5 w-5 rounded flex items-center justify-center hover:bg-white/10 transition-colors', msg.reaction === 'like' && 'text-emerald-400')}
+                              title="Helpful"
+                            >
+                              <ThumbsUp className="h-3 w-3" />
+                            </button>
+                            <button
+                              onClick={() => handleReaction(msg.id, 'dislike')}
+                              className={cx('h-5 w-5 rounded flex items-center justify-center hover:bg-white/10 transition-colors', msg.reaction === 'dislike' && 'text-red-400')}
+                              title="Not helpful"
+                            >
+                              <ThumbsDown className="h-3 w-3" />
+                            </button>
+                            <button
+                              onClick={() => copyMessage(msg.content)}
+                              className="h-5 w-5 rounded flex items-center justify-center hover:bg-white/10 transition-colors"
+                              title="Copy"
+                            >
+                              <Copy className="h-3 w-3" />
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+
+              {/* Loading indicator */}
+              <AnimatePresence>
+                {isLoading && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    className="flex gap-2.5"
+                  >
+                    <div className="h-7 w-7 rounded-full flex items-center justify-center shrink-0 text-white text-xs" style={{ background: 'var(--gradient-button)' }}>
+                      <Bot className="h-3.5 w-3.5" />
+                    </div>
+                    <div className="chat-msg-assistant px-3.5 py-2.5">
+                      <div className="chat-typing-indicator">
+                        <span /><span /><span />
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
-            <div className="mt-2 text-[11px] text-gray-500 dark:text-gray-400">
-              Tip: Try &quot;What are your top skills?&quot; or &quot;Tell me about your projects&quot;.
-            </div>
-          </div>
-        </div>
-      )}
+
+            {/* Suggested Questions */}
+            <AnimatePresence>
+              {showSuggestions && !isLoading && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  className="px-4 py-2.5 border-t border-[color:var(--card-border)]"
+                >
+                  <p className="text-[10px] text-gray-500 mb-2 uppercase tracking-wider font-medium">Suggestions</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {suggestedQuestions.map((q) => (
+                      <motion.button
+                        key={q}
+                        whileHover={{ scale: 1.03 }}
+                        whileTap={{ scale: 0.97 }}
+                        onClick={() => sendMessage(q)}
+                        className="text-[11px] px-3 py-1.5 rounded-full border border-[color:var(--card-border)] text-gray-400 hover:text-white hover:border-[color:var(--accent)] hover:bg-[color:var(--accent)]/10 transition-all"
+                      >
+                        {q}
+                      </motion.button>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* Input */}
+            <form
+              onSubmit={(e) => { e.preventDefault(); sendMessage(); }}
+              className="p-3 border-t border-[color:var(--card-border)]"
+            >
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={toggleListening}
+                  className={cx(
+                    'h-10 w-10 rounded-xl flex items-center justify-center shrink-0 transition-all',
+                    isListening
+                      ? 'bg-red-500 text-white animate-pulse'
+                      : 'bg-[color:var(--background-secondary)] text-gray-400 hover:text-white hover:bg-[color:var(--accent)]/20'
+                  )}
+                  title={isListening ? 'Stop listening' : 'Voice input'}
+                >
+                  <Mic className="h-4 w-4" />
+                </button>
+                <input
+                  ref={inputRef}
+                  type="text"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  placeholder={isListening ? 'Listening...' : 'Ask about Abdullah...'}
+                  disabled={isLoading}
+                  className="flex-1 h-10 rounded-xl border border-[color:var(--card-border)] bg-[color:var(--background)] px-3 text-sm text-[color:var(--foreground)] placeholder-gray-500 outline-none focus:ring-2 focus:ring-[color:var(--accent)]/50 disabled:opacity-50 transition-all"
+                />
+                <motion.button
+                  type="submit"
+                  disabled={isLoading || !input.trim()}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="h-10 w-10 rounded-xl flex items-center justify-center text-white shrink-0 disabled:opacity-40 disabled:cursor-not-allowed shadow-lg transition-all"
+                  style={{ background: 'var(--gradient-button)' }}
+                >
+                  {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
+                </motion.button>
+              </div>
+              <p className="mt-1.5 text-center text-[10px] text-gray-600">
+                Powered by AI &bull; Press Enter to send
+              </p>
+            </form>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
-
-

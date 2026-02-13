@@ -1,18 +1,23 @@
 import { NextResponse } from 'next/server';
-import { chat, getFallbackResponse } from '@/app/lib/rag-service';
+import { GoogleGenerativeAI } from '@google/generative-ai';
+import { PORTFOLIO_SYSTEM_PROMPT } from '@/app/lib/portfolio-context';
 
-// Ensure this route runs on Node.js (not edge)
 export const runtime = 'nodejs';
+
+type ChatMessage = {
+  role: 'user' | 'assistant';
+  content: string;
+};
 
 type ChatRequest = {
   message: string;
-  thread_id?: string;
+  history?: ChatMessage[];
 };
 
 export async function POST(req: Request) {
   try {
     const body = (await req.json()) as ChatRequest;
-    const { message, thread_id } = body;
+    const { message, history = [] } = body;
 
     if (!message || typeof message !== 'string') {
       return NextResponse.json(
@@ -21,72 +26,81 @@ export async function POST(req: Request) {
       );
     }
 
-    // Check for API keys
-    const openaiKey = process.env.OPENAI_API_KEY;
-    const assistantId = process.env.OPENAI_ASSISTANT_ID;
-    const vectorStoreId = process.env.OPENAI_VECTOR_STORE_ID;
-
-    if (!openaiKey || !assistantId || !vectorStoreId) {
-      console.error('Missing OpenAI configuration:', {
-        hasKey: !!openaiKey,
-        hasAssistant: !!assistantId,
-        hasVectorStore: !!vectorStoreId
-      });
-
+    const geminiKey = process.env.GEMINI_API_KEY;
+    if (!geminiKey) {
       return NextResponse.json({
         success: true,
         response: getFallbackResponse(),
         model: 'fallback',
-        rag: {
-          enabled: false,
-          error: 'OpenAI not configured'
-        }
       });
     }
 
-    // Extract actual user query (remove system prefix if present)
-    const userQuery = message.split('User:').pop()?.trim() || message;
-
     try {
-      console.log('Sending message to OpenAI Assistant...');
-      console.log('Thread ID:', thread_id || 'new thread');
-      console.log('Query:', userQuery);
+      const genAI = new GoogleGenerativeAI(geminiKey);
+      const model = genAI.getGenerativeModel({
+        model: process.env.GEMINI_MODEL || 'gemini-2.0-flash',
+        systemInstruction: PORTFOLIO_SYSTEM_PROMPT,
+      });
 
-      // Chat with Assistant using File Search
-      const result = await chat(userQuery, thread_id);
+      // Build conversation history for persistent memory
+      const chatHistory = history.map((msg) => ({
+        role: msg.role === 'user' ? 'user' as const : 'model' as const,
+        parts: [{ text: msg.content }],
+      }));
 
-      console.log('✓ Received response from Assistant');
-      console.log('Thread ID:', result.threadId);
-      console.log('Citations:', result.citations.length);
+      const chat = model.startChat({ history: chatHistory });
 
-      return NextResponse.json({
-        success: true,
-        response: result.response,
-        thread_id: result.threadId,
-        model: result.model,
-        rag: {
-          enabled: true,
-          citations: result.citations.length,
-          threadBased: true
-        }
+      // Stream response
+      const result = await chat.sendMessageStream(message);
+
+      const encoder = new TextEncoder();
+      const readable = new ReadableStream({
+        async start(controller) {
+          try {
+            for await (const chunk of result.stream) {
+              const text = chunk.text();
+              if (text) {
+                controller.enqueue(encoder.encode(`data: ${JSON.stringify({ text })}\n\n`));
+              }
+            }
+            controller.enqueue(encoder.encode('data: [DONE]\n\n'));
+            controller.close();
+          } catch (err) {
+            console.error('Gemini stream error:', err);
+            controller.error(err);
+          }
+        },
+      });
+
+      return new Response(readable, {
+        headers: {
+          'Content-Type': 'text/event-stream',
+          'Cache-Control': 'no-cache',
+          Connection: 'keep-alive',
+        },
       });
     } catch (error) {
-      // If OpenAI fails, return fallback response
-      console.error('OpenAI Assistant error:', error);
-
+      console.error('Gemini Chat error:', error);
       return NextResponse.json({
         success: true,
         response: getFallbackResponse(),
         model: 'fallback',
-        rag: {
-          enabled: false,
-          error: error instanceof Error ? error.message : 'Unknown error'
-        }
       });
     }
   } catch (err) {
-    const message = err instanceof Error ? err.message : 'Unknown error';
-    console.error('Chat API error:', message);
-    return NextResponse.json({ success: false, error: message }, { status: 500 });
+    const msg = err instanceof Error ? err.message : 'Unknown error';
+    console.error('Chat API error:', msg);
+    return NextResponse.json({ success: false, error: msg }, { status: 500 });
   }
+}
+
+function getFallbackResponse(): string {
+  return `I'm Abdullah Malik's AI assistant. I can tell you about his skills, projects, and experience.
+
+Key highlights:
+- Full-Stack Developer & AI Specialist
+- Built 7+ production AI projects (Digital FTE, Customer Success AI, Physical AI Platform)
+- Tech: Python, FastAPI, Next.js, TypeScript, OpenAI, PostgreSQL, Kafka, Docker, Kubernetes
+
+Ask me anything specific about his work!`;
 }

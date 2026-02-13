@@ -1,10 +1,18 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
+    if (!process.env.RESEND_API_KEY) {
+      return NextResponse.json({
+        success: false,
+        error: 'RESEND_API_KEY not configured',
+      }, { status: 503 });
+    }
+
+    const resend = new Resend(process.env.RESEND_API_KEY);
     console.log('Testing email send...');
     console.log('RESEND_API_KEY exists:', !!process.env.RESEND_API_KEY);
     console.log('NOTIFICATION_EMAIL:', process.env.NOTIFICATION_EMAIL);
