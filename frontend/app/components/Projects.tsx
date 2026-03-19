@@ -236,7 +236,7 @@ const Projects = () => {
         'Successfully deployed as installable PWA',
       ],
     },
-  ];
+  ], []);
 
   // Extract all unique technologies
   const allTechnologies = useMemo(() => {
