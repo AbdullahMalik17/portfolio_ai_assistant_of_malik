@@ -14,7 +14,35 @@ const Projects = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [sortBy, setSortBy] = useState<'recent' | 'alphabetical'>('recent');
 
-  const projects = [
+  const projects = useMemo(() => [
+    {
+      title: 'MalikClaw',
+      description: 'Ultra-lightweight, high-performance agentic AI assistant optimized for edge hardware ($10 Raspberry Pi/Android) with Urdu-First support.',
+      longDescription: 'MalikClaw is a revolutionary personal AI assistant designed to bring advanced agentic capabilities to low-resource edge hardware. Built with Go for maximum performance, it features a privacy-first architecture, Urdu-First bilingual support, and mobile automation capabilities via ADB. It is 99% more efficient than traditional AI gateways, operating on less than 10MB of RAM.',
+      tech: ['Go', 'React', 'TypeScript', 'ADB', 'MCP'],
+      image: '🦅',
+      link: 'https://malikclaw.vercel.app/',
+      githubLink: 'https://github.com/AbdullahMalik17/malikclaw',
+      features: [
+        'Edge-Optimized Performance (<10MB RAM, <1s boot time)',
+        'Urdu-First Ecosystem with bilingual onboarding and RTL support',
+        'Mobile Automation via ADB (screenshots, taps, types, swipes)',
+        'Model Context Protocol (MCP) integration for Gmail and Odoo',
+        'Self-Evolution Engine for autonomous code improvement',
+        'Automated Heartbeat tasks and multi-channel support (10+ channels)',
+      ],
+      technologies: ['Go (Golang)', 'React', 'TypeScript', 'ADB', 'Docker', 'MCP', 'Shell Scripting'],
+      challenges: [
+        'Optimized AI agent logic for extremely low-resource environments (ARM/RISC-V)',
+        'Implemented native RTL support and Urdu-centric workflows for South Asian accessibility',
+        'Developed secure sandbox for autonomous file and command execution on edge devices',
+      ],
+      results: [
+        'Achieved 99% reduction in memory footprint compared to traditional AI gateways',
+        'Successfully deployed on $10 hardware (Raspberry Pi Zero) with full agentic capabilities',
+        'Built a unique "Urdu-First" AI entry point for the regional developer ecosystem',
+      ],
+    },
     {
       title: 'Digital FTE - Abdullah Junior',
       description: 'High-autonomy AI agent system acting as a Digital Employee that manages personal and business affairs 24/7 with self-evolving capabilities.',

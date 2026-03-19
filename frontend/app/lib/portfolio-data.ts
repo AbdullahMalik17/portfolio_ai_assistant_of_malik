@@ -51,6 +51,13 @@ export const PERSONAL_INFO: PersonalInfo = {
 // Projects
 export const PROJECTS: PortfolioProject[] = [
   {
+    title: "MalikClaw",
+    description: "Ultra-lightweight, high-performance agentic AI assistant optimized for edge hardware ($10 Raspberry Pi/Android). Features Urdu-First support, mobile automation via ADB, and a privacy-first self-evolution engine. 99% more efficient than traditional AI gateways.",
+    tech: ["Go", "React", "TypeScript", "ADB", "Model Context Protocol", "Docker"],
+    link: "https://malikclaw.vercel.app/",
+    category: "Agentic AI / Edge"
+  },
+  {
     title: "AI Assistant Dashboard",
     description: "Intelligent portfolio dashboard with OpenAI integration featuring natural language processing, RAG-based knowledge retrieval, and automated task management. Handles 24/7 visitor inquiries with context-aware responses.",
     tech: ["Next.js", "OpenAI SDK", "Python", "Vercel Postgres", "Vector Store"],
@@ -81,15 +88,15 @@ export const SKILLS: SkillCategory[] = [
   },
   {
     title: "Backend",
-    skills: ["Python", "Node.js", "FastAPI", "JavaScript", "Vercel Postgres", "Supabase", "REST APIs"]
+    skills: ["Python", "Go", "Node.js", "FastAPI", "JavaScript", "Vercel Postgres", "Supabase", "REST APIs"]
   },
   {
     title: "AI & ML",
-    skills: ["OpenAI Agent SDK", "OpenAI Agent Kit", "Langfuse", "N8N", "MEM0", "Vector Databases", "RAG Systems"]
+    skills: ["OpenAI Agent SDK", "OpenAI Agent Kit", "Model Context Protocol (MCP)", "Langfuse", "N8N", "MEM0", "Vector Databases", "RAG Systems"]
   },
   {
     title: "Tools & DevOps",
-    skills: ["Git", "Docker", "Kubernetes", "VS Code", "Figma", "Gemini CLI", "MCP Integration", "Vercel"]
+    skills: ["Git", "Docker", "ADB", "Kubernetes", "VS Code", "Figma", "Gemini CLI", "MCP Integration", "Vercel"]
   }
 ];
 
@@ -104,6 +111,7 @@ export const ABOUT: AboutInfo = {
 // GitHub Repositories
 export const GITHUB_REPOS = {
   main: "https://github.com/AbdullahMalik17/AbdullahMalik17",
+  malikclaw: "https://github.com/AbdullahMalik17/malikclaw",
   webProjects: "https://github.com/AbdullahMalik17/Projects-of-html",
   agenticAI: "https://github.com/AbdullahMalik17/Agentic_AI/tree/main/_Projects"
 };

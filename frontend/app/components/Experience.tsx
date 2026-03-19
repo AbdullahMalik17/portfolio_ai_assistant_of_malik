@@ -14,6 +14,19 @@ interface ExperienceItem {
 
 const experiences: ExperienceItem[] = [
   {
+    title: 'MalikClaw - Edge AI Assistant',
+    organization: 'Personal Project',
+    period: '2025 - Present',
+    description: [
+      'Developed ultra-lightweight agentic AI assistant optimized for $10 edge hardware',
+      'Implemented Urdu-First bilingual support and native RTL Web UI',
+      'Built cross-platform control via ADB for mobile automation and task execution',
+      'Achieved 99% reduction in RAM usage (<10MB) compared to traditional AI systems',
+    ],
+    technologies: ['Go', 'React', 'ADB', 'MCP', 'Docker'],
+    type: 'project',
+  },
+  {
     title: 'Agentic AI Development',
     organization: 'Panaversity',
     period: '2024 - Present',
