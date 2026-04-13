@@ -103,6 +103,7 @@ export default function Home() {
               <div className="space-y-2 text-sm">
                 <a href="#about" className="block text-gray-600 dark:text-gray-400 hover:text-[color:var(--accent)]">About</a>
                 <a href="#skills" className="block text-gray-600 dark:text-gray-400 hover:text-[color:var(--accent)]">Skills</a>
+                <a href="#certifications" className="block text-gray-600 dark:text-gray-400 hover:text-[color:var(--accent)]">Certifications</a>
                 <a href="#projects" className="block text-gray-600 dark:text-gray-400 hover:text-[color:var(--accent)]">Projects</a>
                 <a href="#contact" className="block text-gray-600 dark:text-gray-400 hover:text-[color:var(--accent)]">Contact</a>
               </div>
