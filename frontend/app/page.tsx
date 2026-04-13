@@ -11,6 +11,10 @@ const Skills = dynamic(() => import('./components/Skills'), {
   ssr: true,
 });
 
+const Certifications = dynamic(() => import('./components/Certifications'), {
+  ssr: true,
+});
+
 const AchievementStats = dynamic(() => import('./components/AchievementStats'), {
   ssr: true,
 });
@@ -76,6 +80,7 @@ export default function Home() {
       <Hero />
       <About />
       <Skills />
+      <Certifications />
       <AchievementStats />
       <Projects />
       <GitHubStats />
