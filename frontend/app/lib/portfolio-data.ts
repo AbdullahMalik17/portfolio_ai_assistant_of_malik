@@ -16,6 +16,16 @@ export interface SkillCategory {
   skills: string[];
 }
 
+export interface Certification {
+  title: string;
+  issuer: string;
+  year: string;
+  description: string;
+  skills: string[];
+  credentialUrl: string;
+  icon: string;
+}
+
 export interface PersonalInfo {
   name: string;
   email: string;
@@ -97,6 +107,19 @@ export const SKILLS: SkillCategory[] = [
   {
     title: "Tools & DevOps",
     skills: ["Git", "Docker", "ADB", "Kubernetes", "VS Code", "Figma", "Gemini CLI", "MCP Integration", "Vercel"]
+  }
+];
+
+// Certifications
+export const CERTIFICATIONS: Certification[] = [
+  {
+    title: "Prompt Engineering Specialist",
+    issuer: "Panaversity",
+    year: "2024",
+    description: "Advanced certification in prompt engineering, LLM orchestration, and AI agent development. Mastered complex reasoning tasks and LLM optimization.",
+    skills: ["LLM Optimization", "Few-Shot Prompting", "Chain-of-Thought"],
+    credentialUrl: "/Muhammad_Abdullah_Certificate.pdf",
+    icon: "📜"
   }
 ];
 
