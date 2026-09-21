@@ -1,0 +1,50 @@
+---
+description: "Agentic SEO skill. Activate when the user asks to perform SEO analysis, audit a URL/repo, review technical SEO, schema, Core Web Vitals, E-E-A-T, GEO, AEO, or hreflang."
+globs: []
+alwaysApply: false
+---
+# Agentic SEO Skill
+
+You have access to the Agentic SEO analysis skill (16 sub-skills, 10 specialist agents, 89 scripts).
+
+## When to activate
+
+Activate whenever the user asks to:
+- Perform an SEO analysis / audit on a URL, blog post, or GitHub repository
+- Review technical SEO (crawlability, indexability, Core Web Vitals, security headers)
+- Evaluate content quality, E-E-A-T, or AI-content signals
+- Validate / generate Schema.org JSON-LD
+- Analyse sitemaps, hreflang, image SEO, internal/external link profiles
+- Optimise for Generative Engine Optimisation (GEO) or Answer Engine Optimisation (AEO)
+- Audit a GitHub repository's metadata, README, community profile, or search ranking
+- Generate a prioritised SEO action plan
+
+## Invocation
+
+| Command | Sub-Skill | Description |
+|---------|-----------|-------------|
+| `seo audit <url>`       | Full audit          | Evidence-backed site/page audit            |
+| `seo page <url>`        | Page deep-dive      | Single-page SEO analysis                   |
+| `seo article <url>`     | Article SEO         | Content optimisation for a blog post       |
+| `seo technical <url>`   | Technical SEO       | Crawl, index, CWV, AI crawler checks       |
+| `seo content <url>`     | Content / E-E-A-T   | Quality, expertise, trust scoring          |
+| `seo schema <url>`      | Schema.org          | JSON-LD detection, validation, generation  |
+| `seo sitemap <url>`     | Sitemaps            | XML sitemap validation and quality gates   |
+| `seo images <url>`      | Images              | Alt text, formats, lazy loading, CLS       |
+| `seo geo <url>`         | GEO                 | AI Overviews / ChatGPT / Perplexity        |
+| `seo aeo <url>`         | AEO                 | Featured snippets, PAA, Knowledge Panel    |
+| `seo links <url>`       | Link profile        | Internal/backlink + anchor analysis        |
+| `seo hreflang <url>`    | International       | hreflang validation                        |
+| `seo github <repo>`     | GitHub SEO          | Repo metadata, README, community, traffic  |
+| `seo plan <topic>`      | Strategic plan      | Topical clusters, industry templates       |
+
+## Workflow
+
+Apply the rubric in `resources/references/llm-audit-rubric.md`:
+1. Collect page evidence (`read_url_content` first; bundled scripts as needed).
+2. Reason from explicit proof — every finding cites evidence.
+3. Label confidence: Confirmed / Likely / Hypothesis.
+4. Prioritise by impact and effort.
+5. Produce a structured action plan (`FULL-AUDIT-REPORT.md` + `ACTION-PLAN.md`).
+
+Read **SKILL.md** for the full multi-phase workflow.

@@ -89,9 +89,21 @@ export interface PersonalInfo {
   linkedin: string;
   github: string;
   twitter?: string;
+  avatar?: string;
   profession: string;
   tagline: string;
   specialty: string;
+}
+
+export interface GitHubAchievement {
+  id: string;
+  title: string;
+  tier?: string;
+  description: string;
+  repoOrContext: string;
+  url: string;
+  icon: 'star' | 'git-pull-request' | 'users';
+  badgeColor: string;
 }
 
 export interface AboutInfo {
@@ -104,13 +116,14 @@ export interface AboutInfo {
 // Personal Information
 export const PERSONAL_INFO: PersonalInfo = {
   name: "Abdullah Malik",
+  avatar: "/profile.jpg",
   email: "muhammadabdullah51700@gmail.com",
   whatsapp: "+923040705172",
   linkedin: "https://www.linkedin.com/in/muhammad-abdullah-athar",
   github: "https://github.com/AbdullahMalik17",
   twitter: "https://x.com/Ab4695Athar?t=nqRO0biMuBDrTIuzZOHq8A&s=08",
-  profession: "Agentic AI Engineer",
-  tagline: "Autonomous AI Agents • Multi-Agent Systems • MCP • Digital FTEs • AI Automation",
+  profession: "Agentic AI Engineer & Data Scientist",
+  tagline: "Autonomous AI Agents • BS Data Science (IUB) • Multi-Agent Systems • MCP • Digital FTEs",
   specialty: "I build autonomous AI systems, Digital FTEs, MCP-powered tools, and production-ready agentic workflows."
 };
 
@@ -503,10 +516,48 @@ export const CERTIFICATIONS: Certification[] = [
 // About Information
 export const ABOUT: AboutInfo = {
   experience: "2+ years",
-  journey: "Started coding at age 14 by mastering web fundamentals. Advanced into TypeScript, full-stack frameworks, and specialized in Agentic AI Development at Panaversity. Currently engineering autonomous digital FTEs, edge agent runtimes in Go, and multi-agent orchestration tools.",
-  education: ["Panaversity — Agentic AI Development", "PIAIC — Artificial Intelligence"],
+  journey: "Started coding at age 14 by mastering web fundamentals. Advanced into TypeScript, full-stack frameworks, and specialized in Agentic AI Development at Panaversity. Currently pursuing BS Data Science at Islamia University of Bahawalpur (IUB) while engineering autonomous digital FTEs, Go edge runtimes (MalikClaw), and multi-agent orchestration tools.",
+  education: [
+    "Islamia University of Bahawalpur (IUB) — BS Data Science",
+    "Panaversity — Agentic AI Development",
+    "PIAIC — Artificial Intelligence"
+  ],
   philosophy: "Building autonomous software systems that operate reliably, securely, and transparently to handle complex workflows without human bottlenecks."
 };
+
+// GitHub Achievements & Honors
+export const GITHUB_ACHIEVEMENTS: GitHubAchievement[] = [
+  {
+    id: "starstruck",
+    title: "Starstruck",
+    tier: "Bronze Tier",
+    description: "Awarded for MalikClaw earning 16+ GitHub stars from the global open-source developer community.",
+    repoOrContext: "AbdullahMalik17/malikclaw",
+    url: "https://github.com/users/AbdullahMalik17/achievements/starstruck",
+    icon: "star",
+    badgeColor: "from-amber-500/20 to-yellow-500/20 text-amber-300 border-amber-500/30"
+  },
+  {
+    id: "pull-shark",
+    title: "Pull Shark",
+    tier: "Active Contributor",
+    description: "Awarded for high-velocity merged pull requests during Hackathon 2 open source initiatives.",
+    repoOrContext: "Hackathon 2 (hacathan2)",
+    url: "https://github.com/users/AbdullahMalik17/achievements/pull-shark",
+    icon: "git-pull-request",
+    badgeColor: "from-cyan-500/20 to-blue-500/20 text-cyan-300 border-cyan-500/30"
+  },
+  {
+    id: "pair-extraordinaire",
+    title: "Pair Extraordinaire",
+    tier: "AI Co-Author",
+    description: "Awarded for autonomous AI pair programming and co-authored commits with Claude.",
+    repoOrContext: "Anthropic Claude Collaboration",
+    url: "https://github.com/users/AbdullahMalik17/achievements/pair-extraordinaire",
+    icon: "users",
+    badgeColor: "from-purple-500/20 to-pink-500/20 text-purple-300 border-purple-500/30"
+  }
+];
 
 // GitHub Repositories
 export const GITHUB_REPOS = {

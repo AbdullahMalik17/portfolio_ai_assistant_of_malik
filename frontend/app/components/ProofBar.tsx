@@ -1,35 +1,35 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Cpu, GitBranch, ShieldCheck, Globe2, ExternalLink } from 'lucide-react';
+import { Star, GraduationCap, ShieldCheck, Globe2, ExternalLink } from 'lucide-react';
 
 const proofItems = [
   {
-    value: '12+',
-    label: 'Agentic AI Systems',
-    subtext: 'Built with Go, Python & MCP',
-    icon: Cpu,
-    color: 'text-indigo-400',
-    borderColor: 'group-hover:border-indigo-500/40',
-    glowColor: 'rgba(99, 102, 241, 0.15)',
-    href: '#projects',
-    isExternal: false,
-  },
-  {
-    value: '30+',
-    label: 'GitHub Repositories',
-    subtext: 'Open-source tools & SDKs',
-    icon: GitBranch,
-    color: 'text-cyan-400',
-    borderColor: 'group-hover:border-cyan-500/40',
-    glowColor: 'rgba(6, 182, 212, 0.15)',
-    href: 'https://github.com/AbdullahMalik17',
+    value: '16+ Stars',
+    label: 'Starstruck Achievement',
+    subtext: 'MalikClaw on GitHub (Bronze)',
+    icon: Star,
+    color: 'text-amber-400',
+    borderColor: 'group-hover:border-amber-500/40',
+    glowColor: 'rgba(245, 158, 11, 0.15)',
+    href: 'https://github.com/users/AbdullahMalik17/achievements/starstruck',
     isExternal: true,
   },
   {
-    value: 'A2AS',
+    value: 'BS Data Science',
+    label: 'Islamia University (IUB)',
+    subtext: 'Machine Learning & Big Data',
+    icon: GraduationCap,
+    color: 'text-cyan-400',
+    borderColor: 'group-hover:border-cyan-500/40',
+    glowColor: 'rgba(6, 182, 212, 0.15)',
+    href: '#about',
+    isExternal: false,
+  },
+  {
+    value: 'A2AS Audited',
     label: 'Behavior Certified',
-    subtext: 'Audited AI agent safety policy',
+    subtext: 'AI agent governance policy',
     icon: ShieldCheck,
     color: 'text-emerald-400',
     borderColor: 'group-hover:border-emerald-500/40',

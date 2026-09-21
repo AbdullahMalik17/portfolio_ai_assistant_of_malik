@@ -1,11 +1,20 @@
-# *
 User-agent: *
 Allow: /
-
-# Disallow admin routes
-User-agent: *
 Disallow: /admin/
 Disallow: /api/admin/
 
-# Sitemap
-Sitemap: https://portfolio-ai-assistant-of-malik-five.vercel.app/sitemap.xml
+# AI Discovery & LLM Search Engine Crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# Canonical Sitemap
+Sitemap: https://portfolio-ai-assistant-of-malik.vercel.app/sitemap.xml

@@ -3,10 +3,11 @@
 import { useState, useEffect } from 'react';
 import { 
   Package, Flame, Users, Rocket, Github, 
-  Cpu, Layers, Globe2, ArrowUpRight 
+  Cpu, Layers, Globe2, ArrowUpRight, Trophy, Star, GitPullRequest 
 } from 'lucide-react';
 import FadeInWhenVisible from './FadeInWhenVisible';
 import AnimatedCounter from './AnimatedCounter';
+import { GITHUB_ACHIEVEMENTS } from '../lib/portfolio-data';
 
 interface GitHubProfile {
   public_repos: number;
@@ -114,6 +115,60 @@ export default function GitHubStats() {
                   </div>
                 );
               })}
+            </div>
+
+            {/* Official GitHub Achievements */}
+            <div className="mb-12">
+              <div className="flex items-center justify-between mb-4 px-1">
+                <div className="flex items-center gap-2">
+                  <Trophy className="w-4 h-4 text-amber-400" />
+                  <h3 className="text-xs sm:text-sm font-mono font-bold text-white uppercase tracking-wider">
+                    Official GitHub Achievements & Badges
+                  </h3>
+                </div>
+                <span className="text-[11px] font-mono text-cyan-400/90 font-semibold flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  Verified on GitHub Profile
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {GITHUB_ACHIEVEMENTS.map((ach) => (
+                  <a
+                    key={ach.id}
+                    href={ach.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-5 rounded-2xl glass border border-white/[0.08] hover:border-amber-500/40 bg-slate-950/60 transition-all duration-300 group relative overflow-hidden block hover:-translate-y-1 shadow-lg"
+                  >
+                    <div className="flex items-start justify-between gap-3 mb-3">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500/15 to-yellow-500/5 border border-amber-500/30 flex items-center justify-center text-amber-400 group-hover:scale-110 transition-transform shadow-inner">
+                          {ach.icon === 'star' && <Star className="w-5 h-5 text-amber-400 fill-amber-400/30" />}
+                          {ach.icon === 'git-pull-request' && <GitPullRequest className="w-5 h-5 text-cyan-400" />}
+                          {ach.icon === 'users' && <Users className="w-5 h-5 text-purple-400" />}
+                        </div>
+                        <div>
+                          <div className="text-sm font-bold text-white group-hover:text-amber-300 transition-colors flex items-center gap-1.5">
+                            {ach.title}
+                            <ArrowUpRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-amber-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+                          </div>
+                          <div className="text-[10px] font-mono text-amber-400/90 font-bold uppercase tracking-wide">
+                            {ach.tier}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <p className="text-xs text-slate-300 leading-relaxed mb-3">
+                      {ach.description}
+                    </p>
+                    <div className="text-[11px] font-mono text-slate-400 pt-2 border-t border-white/[0.06] flex items-center justify-between">
+                      <span>Scope:</span>
+                      <span className="text-slate-200 font-semibold">{ach.repoOrContext}</span>
+                    </div>
+                  </a>
+                ))}
+              </div>
             </div>
 
             {/* Quick Repository Links */}

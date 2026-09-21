@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Link } from 'react-scroll';
-import { Menu, X, Command, Cpu, Shield, Sparkles, Terminal, Code2, Mail } from 'lucide-react';
+import { Menu, X, Command, Cpu, Shield, Sparkles, Terminal, Code2, Mail, FileText } from 'lucide-react';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -98,6 +98,15 @@ const Navbar = () => {
             >
               Initiate Contact
             </Link>
+
+            <a
+              href="/resume"
+              className="glass px-3.5 py-1.5 rounded-xl border border-white/[0.08] hover:border-cyan-500/40 text-slate-300 hover:text-white text-xs font-semibold flex items-center gap-1.5 transition-all duration-200"
+              title="View Abdullah Malik's Resume"
+            >
+              <FileText className="w-3.5 h-3.5 text-cyan-400" />
+              <span>Resume</span>
+            </a>
           </div>
 
           {/* Mobile Menu Toggle Button */}
@@ -149,7 +158,7 @@ const Navbar = () => {
                 </Link>
               );
             })}
-            <div className="pt-2">
+            <div className="pt-2 space-y-2">
               <Link
                 to="contact"
                 smooth={true}
@@ -160,6 +169,14 @@ const Navbar = () => {
               >
                 Initiate Contact
               </Link>
+              <a
+                href="/resume"
+                className="w-full text-center flex items-center justify-center gap-2 px-4 py-2.5 glass border border-white/10 text-slate-200 text-xs font-semibold rounded-xl"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                <FileText className="w-3.5 h-3.5 text-cyan-400" />
+                <span>View Full Resume</span>
+              </a>
             </div>
           </div>
         </div>

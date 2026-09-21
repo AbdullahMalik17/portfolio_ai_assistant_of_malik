@@ -135,8 +135,8 @@ export default function ChatbotWidget() {
         }
         break;
       case 'open_resume':
-        window.open('/Abdullah_resume.pdf', '_blank');
-        setToast('Opening Abdullah Malik Resume PDF...');
+        window.open('/resume', '_blank');
+        setToast('Opening Abdullah Malik Resume...');
         break;
       case 'focus_contact_form':
         const contactSection = document.getElementById('contact');

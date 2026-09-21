@@ -1,6 +1,7 @@
 'use client';
 
-import { Terminal, Brain, CheckCircle2 } from 'lucide-react';
+import Image from 'next/image';
+import { Terminal, Brain, CheckCircle2, GraduationCap } from 'lucide-react';
 import Timeline, { TimelineEvent } from './Timeline';
 import FadeInWhenVisible from './FadeInWhenVisible';
 import AnimatedCounter from './AnimatedCounter';
@@ -22,18 +23,18 @@ export default function About() {
     },
     {
       year: '2024',
-      title: 'Agentic AI Specialization at Panaversity',
+      title: 'Agentic AI Specialization at Panaversity & PIAIC',
       description: 'Completed advanced Agentic AI program. Mastered OpenAI Agent SDK, LangChain, N8N, and autonomous tool calling schemas.',
     },
     {
       year: '2025',
-      title: 'Digital FTEs & Go Edge Gateways',
-      description: 'Engineered MalikClaw (Go edge runtime) and Digital FTE systems with Cloud Sentry + Local Executive dual-agent credential isolation.',
+      title: 'Digital FTEs & Go Edge Gateways (MalikClaw)',
+      description: 'Engineered MalikClaw (Go edge runtime, 16+ GitHub stars) and Digital FTE systems with Cloud Sentry + Local Executive dual-agent isolation.',
     },
     {
       year: 'Present',
-      title: 'Enterprise AI Swarms & Governance',
-      description: 'Scaling cloud-native agent orchestration (Docker, pgvector, Kafka, MCP) with audited A2AS behavior compliance.',
+      title: 'BS Data Science (IUB) & Enterprise AI Swarms',
+      description: 'Pursuing BS Data Science at Islamia University of Bahawalpur (IUB) while scaling cloud-native agent orchestration (Docker, pgvector, Kafka, MCP) with audited A2AS behavior compliance.',
     },
   ];
 
@@ -79,6 +80,42 @@ export default function About() {
 
           <FadeInWhenVisible direction="left" delay={0.2}>
             <div className="space-y-6">
+              {/* Profile Card & Academic Highlights */}
+              <div className="glass p-5 sm:p-6 rounded-2xl border border-white/[0.1] bg-slate-900/50 relative overflow-hidden flex flex-col sm:flex-row items-center sm:items-start gap-5 shadow-xl">
+                <div className="relative shrink-0">
+                  <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden ring-2 ring-cyan-500/30 shadow-lg relative bg-slate-950">
+                    <Image
+                      src="/profile.jpg"
+                      alt="Abdullah Malik — Agentic AI Engineer & Data Scientist"
+                      width={120}
+                      height={120}
+                      className="w-full h-full object-cover object-top"
+                    />
+                  </div>
+                  <div className="absolute -bottom-2 -right-2 px-2 py-0.5 rounded-full bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 text-[10px] font-mono font-bold uppercase tracking-wider backdrop-blur-md">
+                    Age 17
+                  </div>
+                </div>
+
+                <div className="space-y-2 text-center sm:text-left flex-1">
+                  <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+                    <h4 className="text-lg font-bold text-white tracking-tight">Abdullah Malik</h4>
+                    <span className="text-xs px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-mono">
+                      Data Scientist & AI Eng
+                    </span>
+                  </div>
+                  
+                  <div className="flex items-center justify-center sm:justify-start gap-1.5 text-xs text-cyan-300 font-medium">
+                    <GraduationCap className="w-4 h-4 text-cyan-400 shrink-0" />
+                    <span>BS Data Science — Islamia University of Bahawalpur (IUB)</span>
+                  </div>
+
+                  <p className="text-xs text-slate-400 leading-relaxed pt-1">
+                    Specialized in high-autonomy Agentic AI, Go edge daemons (&lt;10MB RAM), and Model Context Protocol. Trained via Panaversity & PIAIC.
+                  </p>
+                </div>
+              </div>
+
               <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
                 <div className="w-8 h-8 rounded-xl glass border border-white/10 flex items-center justify-center text-pink-400 bg-white/[0.02]">
                   <Brain className="w-4 h-4" />

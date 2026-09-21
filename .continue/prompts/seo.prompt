@@ -1,0 +1,16 @@
+name: seo
+description: Run Agentic SEO analysis on the supplied URL, blog post, or GitHub repository
+---
+You have the Agentic SEO skill loaded.
+
+{{{ input }}}
+
+Use the full SEO workflow:
+1. Identify the audit target (URL, page, article, or GitHub repo) from the user's request.
+2. Collect evidence first (`read_url_content`, then bundled scripts as needed).
+3. Run the appropriate sub-skill (audit / page / article / technical / content / schema /
+   sitemap / images / geo / aeo / links / hreflang / github / plan).
+4. Apply the llm-audit-rubric: evidence -> impact -> fix, with confidence labels.
+5. Produce FULL-AUDIT-REPORT.md and ACTION-PLAN.md with prioritised fixes.
+
+Read SKILL.md for the complete multi-phase workflow.

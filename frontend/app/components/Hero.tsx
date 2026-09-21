@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { 
   ArrowRight, MessageSquare, 
@@ -10,6 +11,7 @@ import Button from './Button';
 
 const TITLES = [
   'Agentic AI Engineer',
+  'BS Data Science @ IUB',
   'Autonomous Systems Architect',
   'Go & MCP Runtime Specialist',
   'Digital FTE Creator',
@@ -71,11 +73,39 @@ export default function Hero() {
       <div className="absolute inset-0 cyber-grid opacity-75 pointer-events-none" />
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        {/* Profile Avatar with Ambient Cyber Glow & Verified Badge */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+          className="relative inline-block mb-6 group cursor-pointer"
+          onClick={() => scrollToSection('about')}
+        >
+          <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-cyan-500 via-indigo-500 to-pink-500 opacity-70 blur-md group-hover:opacity-100 transition-all duration-700 animate-pulse" />
+          <div className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-full p-1 bg-slate-950/80 ring-2 ring-white/20 shadow-2xl overflow-hidden mx-auto">
+            <Image
+              src="/profile.jpg"
+              alt="Abdullah Malik (Muhammad Abdullah Athar) — Agentic AI Engineer & Data Scientist"
+              width={160}
+              height={160}
+              priority
+              className="w-full h-full object-cover object-top rounded-full transition-transform duration-500 group-hover:scale-105"
+            />
+          </div>
+          {/* Verified Badge */}
+          <div 
+            className="absolute bottom-1 right-1 sm:bottom-2 sm:right-2 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-slate-900 border-2 border-cyan-400 flex items-center justify-center text-cyan-300 shadow-lg"
+            title="BS Data Science @ IUB • A2AS Certified Agentic AI Engineer"
+          >
+            <ShieldCheck className="w-4 h-4 text-cyan-400" />
+          </div>
+        </motion.div>
+
         {/* Pulsating Availability Pill */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
           className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass border border-cyan-500/30 bg-slate-900/60 shadow-lg shadow-cyan-500/10 mb-8 cursor-pointer hover:border-cyan-400 transition-colors"
           onClick={() => scrollToSection('contact')}
         >
@@ -92,7 +122,7 @@ export default function Hero() {
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
           className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight text-white mb-4"
         >
           Muhammad <span className="text-shimmer">Abdullah Malik</span>

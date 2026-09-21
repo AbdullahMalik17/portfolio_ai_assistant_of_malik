@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 import { 
   ShieldCheck, Globe2, 
   Github, Linkedin, Mail, FileText, ArrowUpRight 
@@ -128,13 +129,21 @@ export default function Home() {
                   <span>A2AS Behavior Certificate</span>
                   <ArrowUpRight className="w-3 h-3 text-slate-500" />
                 </a>
+                <Link
+                  href="/resume"
+                  className="flex items-center gap-1.5 text-slate-400 hover:text-cyan-300 transition-colors"
+                >
+                  <FileText className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>Interactive Resume</span>
+                  <ArrowUpRight className="w-3 h-3 text-slate-500" />
+                </Link>
                 <a
                   href="/Abdullah_resume.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-1.5 text-slate-400 hover:text-cyan-300 transition-colors"
                 >
-                  <FileText className="w-3.5 h-3.5 text-cyan-400" />
+                  <FileText className="w-3.5 h-3.5 text-slate-500" />
                   <span>Resume PDF</span>
                   <ArrowUpRight className="w-3 h-3 text-slate-500" />
                 </a>

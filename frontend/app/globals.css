@@ -316,3 +316,25 @@ p {
     transparent 40%
   );
 }
+
+/* Print Optimization */
+@media print {
+  html, body {
+    background: #ffffff !important;
+    color: #0f172a !important;
+  }
+  body::before,
+  body::after {
+    display: none !important;
+  }
+  .glass {
+    background: transparent !important;
+    border-color: #e2e8f0 !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+  }
+  @page {
+    margin: 1cm;
+    size: auto;
+  }
+}

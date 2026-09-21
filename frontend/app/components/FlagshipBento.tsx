@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Cpu, Bot, MessageSquare, Terminal, ExternalLink, Github, 
   ShieldCheck, Globe2, CheckCircle2, 
-  Layers, HardDrive, ChevronRight, Activity
+  Layers, HardDrive, ChevronRight, Activity, Star
 } from 'lucide-react';
 import { PROJECTS, PortfolioProject } from '../lib/portfolio-data';
 
@@ -85,6 +85,17 @@ export default function FlagshipBento({ onSelectProject }: FlagshipBentoProps) {
                       <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-300 text-[10px] font-mono font-semibold flex items-center gap-1">
                         <ShieldCheck className="w-3 h-3" /> A2AS Verified
                       </span>
+                    )}
+                    {project.id === 'malikclaw' && (
+                      <a
+                        href="https://github.com/users/AbdullahMalik17/achievements/starstruck"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-2.5 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 text-[10px] font-mono font-bold flex items-center gap-1 hover:bg-amber-500/25 transition-colors"
+                        title="GitHub Starstruck Bronze Tier (16+ Stars)"
+                      >
+                        <Star className="w-3 h-3 text-amber-400 fill-amber-400/40" /> Starstruck Bronze (16+ Stars)
+                      </a>
                     )}
                   </div>
                   <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-2">
