@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Link } from 'react-scroll';
-import { Menu, X, Command, Cpu, Shield, Sparkles, Terminal, Code2, Mail, FileText } from 'lucide-react';
+import { Menu, X, Command, Cpu, Shield, Sparkles, Terminal, Code2, Mail, FileText, ShieldCheck } from 'lucide-react';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -22,6 +22,7 @@ const Navbar = () => {
     { name: 'Architecture', to: 'architecture', icon: Terminal },
     { name: 'Arsenal', to: 'skills', icon: Sparkles },
     { name: 'Governance', to: 'certifications', icon: Shield },
+    { name: 'Badges', to: 'registry', icon: ShieldCheck },
     { name: 'Contact', to: 'contact', icon: Mail },
   ];
 

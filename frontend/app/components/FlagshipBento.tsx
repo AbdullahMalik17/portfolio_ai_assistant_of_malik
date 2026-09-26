@@ -180,7 +180,7 @@ export default function FlagshipBento({ onSelectProject }: FlagshipBentoProps) {
 
                   {/* Spec Chips Categorized */}
                   {project.specChips && (
-                    <div>
+                    <div className="mb-4">
                       <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider block mb-2 font-semibold">
                         Architecture Specs
                       </span>
@@ -192,6 +192,35 @@ export default function FlagshipBento({ onSelectProject }: FlagshipBentoProps) {
                           >
                             {chip.name}
                           </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Live Upstream Badges & Scanners */}
+                  {project.badges && project.badges.length > 0 && (
+                    <div className="mb-2">
+                      <span className="text-[10px] font-mono text-emerald-400 uppercase tracking-wider block mb-2 font-bold flex items-center gap-1.5">
+                        <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                        <span>Live Scanners & Registry Shields</span>
+                      </span>
+                      <div className="flex flex-wrap items-center gap-2">
+                        {project.badges.map((b, bIdx) => (
+                          <a
+                            key={bIdx}
+                            href={b.targetUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:opacity-85 transition-opacity inline-flex items-center"
+                            title={b.name}
+                          >
+                            <img
+                              src={b.badgeUrl}
+                              alt={b.alt}
+                              className="h-5 max-w-full rounded shadow-sm"
+                              loading="lazy"
+                            />
+                          </a>
                         ))}
                       </div>
                     </div>

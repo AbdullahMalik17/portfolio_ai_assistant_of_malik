@@ -68,12 +68,14 @@ export async function POST(req: Request) {
       );
     }
 
-    const openRouterKey = process.env.OPENROUTER_API_KEY;
+    const openRouterKey = process.env.OPENROUTER_API_KEY?.trim();
     if (!openRouterKey) {
+      console.warn('OPENROUTER_API_KEY is not configured. Returning fallback response.');
       return NextResponse.json({
         success: true,
         response: getFallbackResponse(),
         model: 'fallback',
+        error: 'OPENROUTER_API_KEY is not configured in environment variables',
       });
     }
 
@@ -87,7 +89,7 @@ export async function POST(req: Request) {
         },
       });
 
-      const model = process.env.OPENROUTER_MODEL || 'google/gemini-2.0-flash-001';
+      const model = process.env.OPENROUTER_MODEL?.trim() || 'nex-agi/nex-n2.5-mini:free';
 
       // Build message array with system instructions and bounded history
       const messages: OpenAI.ChatCompletionMessageParam[] = [
@@ -166,11 +168,13 @@ export async function POST(req: Request) {
         },
       });
     } catch (error) {
-      console.error('OpenRouter Chat completion error:', error);
+      const errorMsg = error instanceof Error ? error.message : String(error);
+      console.error('OpenRouter Chat completion error:', errorMsg);
       return NextResponse.json({
         success: true,
         response: getFallbackResponse(),
         model: 'fallback',
+        error: errorMsg,
       });
     }
   } catch (err) {

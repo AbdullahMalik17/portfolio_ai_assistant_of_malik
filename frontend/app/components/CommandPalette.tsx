@@ -81,6 +81,14 @@ export default function CommandPalette() {
       keywords: ['certifications', 'a2as', 'panaversity', 'governance'],
     },
     {
+      id: 'registry',
+      label: '37 Badges & Trust Registry',
+      description: 'Audit live SVG badges, Skills Directory Grade A skills, and Go quality card',
+      icon: ShieldCheck,
+      action: () => scrollToSection('registry'),
+      keywords: ['badges', 'registry', 'skills directory', 'snyk', 'shield', 'audit', 'grade a'],
+    },
+    {
       id: 'github',
       label: 'GitHub Engineering Velocity',
       description: 'View repository statistics and open-source contributions',

@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Star, GraduationCap, ShieldCheck, Globe2, ExternalLink } from 'lucide-react';
+import { Star, ShieldCheck, Globe2, ExternalLink } from 'lucide-react';
 
 const proofItems = [
   {
@@ -16,24 +16,24 @@ const proofItems = [
     isExternal: true,
   },
   {
-    value: 'BS Data Science',
-    label: 'Islamia University (IUB)',
-    subtext: 'Machine Learning & Big Data',
-    icon: GraduationCap,
-    color: 'text-cyan-400',
-    borderColor: 'group-hover:border-cyan-500/40',
-    glowColor: 'rgba(6, 182, 212, 0.15)',
-    href: '#about',
-    isExternal: false,
+    value: '12 Grade A',
+    label: 'Skills Directory Author',
+    subtext: 'Audited Claude agent skills',
+    icon: ShieldCheck,
+    color: 'text-emerald-400',
+    borderColor: 'group-hover:border-emerald-500/40',
+    glowColor: 'rgba(16, 185, 129, 0.15)',
+    href: 'https://skillsdirectory.com/authors/abdullahmalik17',
+    isExternal: true,
   },
   {
     value: 'A2AS Audited',
     label: 'Behavior Certified',
     subtext: 'AI agent governance policy',
     icon: ShieldCheck,
-    color: 'text-emerald-400',
-    borderColor: 'group-hover:border-emerald-500/40',
-    glowColor: 'rgba(16, 185, 129, 0.15)',
+    color: 'text-teal-400',
+    borderColor: 'group-hover:border-teal-500/40',
+    glowColor: 'rgba(20, 184, 166, 0.15)',
     href: 'https://a2as.org/certified/agents/abdullahmalik17/deep-research-age',
     isExternal: true,
   },
@@ -45,7 +45,7 @@ const proofItems = [
     color: 'text-purple-400',
     borderColor: 'group-hover:border-purple-500/40',
     glowColor: 'rgba(139, 92, 246, 0.15)',
-    href: 'https://mcpmarket.com/ko/server/malikclaw',
+    href: 'https://mcpmarket.com/server/malikclaw',
     isExternal: true,
   },
 ];

@@ -17,7 +17,9 @@ export async function GET() {
 - GitHub Pull Shark: Merged pull requests during Hackathon 2
 - GitHub Pair Extraordinaire: Pair programming & co-authored commits with Claude
 - A2AS Behavior Certificate: Audited agent security & governance (https://a2as.org/certified/agents/abdullahmalik17/deep-research-age)
-- MCP Market Listed: MalikClaw officially listed on MCP Market (https://mcpmarket.com/ko/server/malikclaw)
+- Skills Directory Certified Author: 12 published Claude agent skills, Security Grade A (https://skillsdirectory.com/authors/abdullahmalik17)
+- MCP Market Listed: MalikClaw officially listed on MCP Market (https://mcpmarket.com/server/malikclaw)
+- Online Badges & Certification Registry: 37 total badges across Skills Directory, Go pkg.go.dev, Go Report Card, Snyk, and GitHub
 
 ## Key Projects
 - MalikClaw: Edge-native Go agent runtime (<10MB RAM footprint, Urdu-First, Android ADB automation)

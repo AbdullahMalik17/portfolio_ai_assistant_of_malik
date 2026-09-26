@@ -31,6 +31,13 @@ export interface SpecChip {
   category: 'runtime' | 'protocol' | 'hardware' | 'model' | 'infra' | 'data';
 }
 
+export interface ProjectBadge {
+  name: string;
+  badgeUrl: string;
+  targetUrl: string;
+  alt: string;
+}
+
 export interface PortfolioProject {
   id: string;
   title: string;
@@ -39,6 +46,7 @@ export interface PortfolioProject {
   longDescription?: string;
   tech: string[];
   specChips?: SpecChip[];
+  badges?: ProjectBadge[];
   githubUrl?: string | null;
   liveUrl?: string | null;
   category: string;
@@ -106,6 +114,42 @@ export interface GitHubAchievement {
   badgeColor: string;
 }
 
+export type BadgeScope = 
+  | 'skills-directory' 
+  | 'digital-fte' 
+  | 'malikclaw' 
+  | 'portfolio' 
+  | 'azan-shop' 
+  | 'unique-boutique' 
+  | 'github';
+
+export type BadgeStatus = 'active' | 'ready';
+
+export interface OnlineBadge {
+  id: string;
+  name: string;
+  project: string;
+  scope: BadgeScope;
+  category: string;
+  status: BadgeStatus;
+  badgeUrl: string;
+  targetUrl: string;
+  markdownSnippet: string;
+  htmlSnippet: string;
+  securityGrade?: string;
+  description: string;
+  missingFrom?: string;
+}
+
+export interface BadgesSummary {
+  total: number;
+  active: number;
+  ready: number;
+  skillsDirectoryCount: number;
+  gradeACount: number;
+  ecosystemCount: number;
+}
+
 export interface AboutInfo {
   experience: string;
   journey: string;
@@ -148,6 +192,13 @@ export const PROJECTS: PortfolioProject[] = [
     liveUrl: "https://malikclaw.vercel.app/",
     mcpMarketUrl: "https://mcpmarket.com/ko/server/malikclaw",
     certificateUrl: "/Muhammad_Abdullah_Certificate.pdf",
+    badges: [
+      { name: "pkg.go.dev Reference", badgeUrl: "https://pkg.go.dev/badge/github.com/AbdullahMalik17/malikclaw.svg", targetUrl: "https://pkg.go.dev/github.com/AbdullahMalik17/malikclaw", alt: "Go Reference" },
+      { name: "Go Report Card", badgeUrl: "https://goreportcard.com/badge/github.com/AbdullahMalik17/malikclaw", targetUrl: "https://goreportcard.com/report/github.com/AbdullahMalik17/malikclaw", alt: "Go Report Card" },
+      { name: "MCP Market Listing", badgeUrl: "https://img.shields.io/badge/MCP%20Market-malikclaw-6366f1?style=flat-square&logo=databricks&logoColor=white", targetUrl: "https://mcpmarket.com/server/malikclaw", alt: "MCP Market" },
+      { name: "License: MIT", badgeUrl: "https://img.shields.io/github/license/AbdullahMalik17/malikclaw?style=flat-square", targetUrl: "https://github.com/AbdullahMalik17/malikclaw/blob/main/LICENSE", alt: "License" },
+      { name: "GitHub Stars", badgeUrl: "https://img.shields.io/github/stars/AbdullahMalik17/malikclaw?style=flat-square", targetUrl: "https://github.com/AbdullahMalik17/malikclaw/stargazers", alt: "Stars" }
+    ],
     category: "Agentic AI",
     featured: true,
     iconName: "cpu",
@@ -213,6 +264,14 @@ export const PROJECTS: PortfolioProject[] = [
     ],
     githubUrl: "https://github.com/AbdullahMalik17/Digital-FTE",
     liveUrl: null,
+    badges: [
+      { name: "Skills Directory Author", badgeUrl: "https://img.shields.io/badge/Skills%20Directory-12%20Skills%20(Grade%20A)-10b981?style=flat-square&logo=claude&logoColor=white", targetUrl: "https://skillsdirectory.com/authors/abdullahmalik17", alt: "Skills Directory Author" },
+      { name: "Snyk Security", badgeUrl: "https://snyk.io/test/github/AbdullahMalik17/Digital-FTE/badge.svg", targetUrl: "https://snyk.io/test/github/AbdullahMalik17/Digital-FTE", alt: "Snyk Security" },
+      { name: "Python CI", badgeUrl: "https://github.com/AbdullahMalik17/Digital-FTE/actions/workflows/python-ci.yml/badge.svg", targetUrl: "https://github.com/AbdullahMalik17/Digital-FTE/actions/workflows/python-ci.yml", alt: "Python CI" },
+      { name: "License: MIT", badgeUrl: "https://img.shields.io/badge/License-MIT-green?style=flat-square", targetUrl: "https://opensource.org/licenses/MIT", alt: "MIT License" },
+      { name: "GitHub Stars", badgeUrl: "https://img.shields.io/github/stars/AbdullahMalik17/Digital-FTE?style=flat-square", targetUrl: "https://github.com/AbdullahMalik17/Digital-FTE/stargazers", alt: "Stars" },
+      { name: "GitHub Forks", badgeUrl: "https://img.shields.io/github/forks/AbdullahMalik17/Digital-FTE?style=flat-square", targetUrl: "https://github.com/AbdullahMalik17/Digital-FTE/network/members", alt: "Forks" }
+    ],
     category: "Agentic AI",
     featured: true,
     iconName: "bot",
@@ -412,6 +471,10 @@ export const PROJECTS: PortfolioProject[] = [
     ],
     githubUrl: "https://github.com/AbdullahMalik17/Portfolio-AI-Assistant",
     liveUrl: "https://portfolio-ai-assistant-of-malik.vercel.app/",
+    badges: [
+      { name: "Vercel Deployment", badgeUrl: "https://therealsujitk-vercel-badge.vercel.app/?app=portfolio-ai-assistant-of-malik-five", targetUrl: "https://portfolio-ai-assistant-of-malik-five.vercel.app/", alt: "Vercel Deployment" },
+      { name: "Next.js 14/15", badgeUrl: "https://img.shields.io/badge/Framework-Next.js%2014-black?style=flat-square&logo=next.js", targetUrl: "https://nextjs.org/", alt: "Next.js" }
+    ],
     category: "Web Development",
     featured: false,
     iconName: "zap"
@@ -430,6 +493,48 @@ export const PROJECTS: PortfolioProject[] = [
     githubUrl: "https://github.com/AbdullahMalik17/Asad-Ali",
     liveUrl: "https://github.com/AbdullahMalik17/Asad-Ali",
     category: "Web Development",
+    featured: false,
+    iconName: "globe"
+  },
+  {
+    id: "azan-shop-pos",
+    title: "Azan Shop POS Software",
+    subtitle: "Commercial Retail POS & Inventory Engine",
+    description: "Production commercial desktop point-of-sale and retail inventory system engineered for high-throughput billing and cash operations.",
+    longDescription: "A specialized commercial Point of Sale (POS) and inventory management system designed for Azan Shop retail operations, built with Python, featuring real-time receipt generation and barcode lookup.",
+    tech: ["Python", "PostgreSQL", "Tkinter", "Barcode Scanner", "Thermal Printing"],
+    specChips: [
+      { name: "Python", category: "runtime" },
+      { name: "PostgreSQL", category: "data" },
+      { name: "Private Commercial", category: "infra" }
+    ],
+    badges: [
+      { name: "Built With Python", badgeUrl: "https://img.shields.io/badge/Built%20With-Python-3776AB?style=flat-square&logo=python&logoColor=white", targetUrl: "https://github.com/AbdullahMalik17/Azan_Shop_Software-", alt: "Built With Python" },
+      { name: "Status: Private Commercial", badgeUrl: "https://img.shields.io/badge/Status-Private%20Commercial-red?style=flat-square", targetUrl: "https://github.com/AbdullahMalik17/Azan_Shop_Software-", alt: "Commercial Status" }
+    ],
+    githubUrl: "https://github.com/AbdullahMalik17/Azan_Shop_Software-",
+    liveUrl: null,
+    category: "Commercial Systems",
+    featured: false,
+    iconName: "code"
+  },
+  {
+    id: "unique-boutique",
+    title: "Unique Boutique Platform",
+    subtitle: "Apparel & Retail Management Platform",
+    description: "Custom e-commerce and inventory management platform powering catalog management, orders, and sales tracking.",
+    longDescription: "Full-cycle digital boutique and catalog application designed to manage custom apparel stock, customer orders, and retail distribution.",
+    tech: ["Next.js", "TypeScript", "Tailwind CSS", "PostgreSQL"],
+    specChips: [
+      { name: "TypeScript", category: "runtime" },
+      { name: "E-Commerce", category: "protocol" }
+    ],
+    badges: [
+      { name: "E-Commerce: Unique Boutique", badgeUrl: "https://img.shields.io/badge/E--Commerce-Unique%20Boutique-pink?style=flat-square", targetUrl: "https://github.com/AbdullahMalik17/unique-boutique", alt: "Unique Boutique" }
+    ],
+    githubUrl: "https://github.com/AbdullahMalik17/unique-boutique",
+    liveUrl: null,
+    category: "Commercial Systems",
     featured: false,
     iconName: "globe"
   }
@@ -510,6 +615,17 @@ export const CERTIFICATIONS: Certification[] = [
     credentialUrl: "/Muhammad_Abdullah_Certificate.pdf",
     iconName: "award",
     badge: "Panaversity Certified"
+  },
+  {
+    title: "Skills Directory Certified Author — 12 Grade A Skills",
+    issuer: "Skills Directory (skillsdirectory.com)",
+    year: "2026",
+    description: "Verified author credentials with 12 published Claude agent skills passing automated static analysis, prompt injection defense, and malware screening with Grade A certification.",
+    skills: ["Agent Security", "Claude Skills", "Static Analysis", "Prompt Injection Defense", "MCP Automation"],
+    credentialUrl: "https://skillsdirectory.com/authors/abdullahmalik17",
+    iconName: "shield-check",
+    badge: "12 Skills (Grade A)",
+    agentId: "authors/abdullahmalik17"
   }
 ];
 
@@ -567,3 +683,557 @@ export const GITHUB_REPOS = {
   customerSuccess: "https://github.com/AbdullahMalik17/Hacathan_5",
   agenticAI: "https://github.com/AbdullahMalik17/Agentic_AI"
 };
+
+// Summary metrics for badges
+export const BADGES_SUMMARY: BadgesSummary = {
+  total: 37,
+  active: 35,
+  ready: 2,
+  skillsDirectoryCount: 12,
+  gradeACount: 12,
+  ecosystemCount: 6
+};
+
+// Full Online Badges & Certification Registry (37 Items)
+export const ONLINE_BADGES: OnlineBadge[] = [
+  // --- Skills Directory (12 Verified Grade A Skills) ---
+  {
+    id: "sd-digital-fte-orchestrator",
+    name: "Digital FTE Orchestrator",
+    project: "Digital FTE",
+    scope: "skills-directory",
+    category: "Agentic AI Security",
+    status: "active",
+    securityGrade: "A",
+    badgeUrl: "https://www.skillsdirectory.com/api/skills/abdullahmalik17-digital-fte-orchestrator/badge",
+    targetUrl: "https://www.skillsdirectory.com/skills/abdullahmalik17-digital-fte-orchestrator",
+    markdownSnippet: "[![Security: A · Skills Directory](https://www.skillsdirectory.com/api/skills/abdullahmalik17-digital-fte-orchestrator/badge)](https://www.skillsdirectory.com/skills/abdullahmalik17-digital-fte-orchestrator)",
+    htmlSnippet: '<a href="https://www.skillsdirectory.com/skills/abdullahmalik17-digital-fte-orchestrator"><img src="https://www.skillsdirectory.com/api/skills/abdullahmalik17-digital-fte-orchestrator/badge" alt="Security: A · Skills Directory" /></a>',
+    description: "Security Grade: A (Malware & injection tested)",
+    missingFrom: "Digital-FTE/README.md, AbdullahMalik17/README.md"
+  },
+  {
+    id: "sd-managing-calendar",
+    name: "Managing Calendar",
+    project: "Digital FTE",
+    scope: "skills-directory",
+    category: "Google Calendar MCP",
+    status: "active",
+    securityGrade: "A",
+    badgeUrl: "https://www.skillsdirectory.com/api/skills/abdullahmalik17-managing-calendar/badge",
+    targetUrl: "https://www.skillsdirectory.com/skills/abdullahmalik17-managing-calendar",
+    markdownSnippet: "[![Security: A · Skills Directory](https://www.skillsdirectory.com/api/skills/abdullahmalik17-managing-calendar/badge)](https://www.skillsdirectory.com/skills/abdullahmalik17-managing-calendar)",
+    htmlSnippet: '<a href="https://www.skillsdirectory.com/skills/abdullahmalik17-managing-calendar"><img src="https://www.skillsdirectory.com/api/skills/abdullahmalik17-managing-calendar/badge" alt="Security: A · Skills Directory" /></a>',
+    description: "Security Grade: A (Google Calendar MCP)",
+    missingFrom: "Digital-FTE/README.md, .claude/skills/managing-calendar/SKILL.md"
+  },
+  {
+    id: "sd-managing-services",
+    name: "Managing Services",
+    project: "Digital FTE",
+    scope: "skills-directory",
+    category: "Service Supervisor",
+    status: "active",
+    securityGrade: "A",
+    badgeUrl: "https://www.skillsdirectory.com/api/skills/abdullahmalik17-managing-services/badge",
+    targetUrl: "https://www.skillsdirectory.com/skills/abdullahmalik17-managing-services",
+    markdownSnippet: "[![Security: A · Skills Directory](https://www.skillsdirectory.com/api/skills/abdullahmalik17-managing-services/badge)](https://www.skillsdirectory.com/skills/abdullahmalik17-managing-services)",
+    htmlSnippet: '<a href="https://www.skillsdirectory.com/skills/abdullahmalik17-managing-services"><img src="https://www.skillsdirectory.com/api/skills/abdullahmalik17-managing-services/badge" alt="Security: A · Skills Directory" /></a>',
+    description: "Security Grade: A (Service process supervisor)",
+    missingFrom: "Digital-FTE/README.md, .claude/skills/managing-services/SKILL.md"
+  },
+  {
+    id: "sd-posting-facebook",
+    name: "Posting Facebook",
+    project: "Digital FTE",
+    scope: "skills-directory",
+    category: "Meta Graph API",
+    status: "active",
+    securityGrade: "A",
+    badgeUrl: "https://www.skillsdirectory.com/api/skills/abdullahmalik17-posting-facebook/badge",
+    targetUrl: "https://www.skillsdirectory.com/skills/abdullahmalik17-posting-facebook",
+    markdownSnippet: "[![Security: A · Skills Directory](https://www.skillsdirectory.com/api/skills/abdullahmalik17-posting-facebook/badge)](https://www.skillsdirectory.com/skills/abdullahmalik17-posting-facebook)",
+    htmlSnippet: '<a href="https://www.skillsdirectory.com/skills/abdullahmalik17-posting-facebook"><img src="https://www.skillsdirectory.com/api/skills/abdullahmalik17-posting-facebook/badge" alt="Security: A · Skills Directory" /></a>',
+    description: "Security Grade: A (Meta Graph API)",
+    missingFrom: "Digital-FTE/README.md, .claude/skills/posting-facebook/SKILL.md"
+  },
+  {
+    id: "sd-posting-instagram",
+    name: "Posting Instagram",
+    project: "Digital FTE",
+    scope: "skills-directory",
+    category: "Meta Media API",
+    status: "active",
+    securityGrade: "A",
+    badgeUrl: "https://www.skillsdirectory.com/api/skills/abdullahmalik17-posting-instagram/badge",
+    targetUrl: "https://www.skillsdirectory.com/skills/abdullahmalik17-posting-instagram",
+    markdownSnippet: "[![Security: A · Skills Directory](https://www.skillsdirectory.com/api/skills/abdullahmalik17-posting-instagram/badge)](https://www.skillsdirectory.com/skills/abdullahmalik17-posting-instagram)",
+    htmlSnippet: '<a href="https://www.skillsdirectory.com/skills/abdullahmalik17-posting-instagram"><img src="https://www.skillsdirectory.com/api/skills/abdullahmalik17-posting-instagram/badge" alt="Security: A · Skills Directory" /></a>',
+    description: "Security Grade: A (Meta Graph API media)",
+    missingFrom: "Digital-FTE/README.md, .claude/skills/posting-instagram/SKILL.md"
+  },
+  {
+    id: "sd-posting-linkedin",
+    name: "Posting LinkedIn",
+    project: "Digital FTE",
+    scope: "skills-directory",
+    category: "Playwright Automation",
+    status: "active",
+    securityGrade: "A",
+    badgeUrl: "https://www.skillsdirectory.com/api/skills/abdullahmalik17-posting-linkedin/badge",
+    targetUrl: "https://www.skillsdirectory.com/skills/abdullahmalik17-posting-linkedin",
+    markdownSnippet: "[![Security: A · Skills Directory](https://www.skillsdirectory.com/api/skills/abdullahmalik17-posting-linkedin/badge)](https://www.skillsdirectory.com/skills/abdullahmalik17-posting-linkedin)",
+    htmlSnippet: '<a href="https://www.skillsdirectory.com/skills/abdullahmalik17-posting-linkedin"><img src="https://www.skillsdirectory.com/api/skills/abdullahmalik17-posting-linkedin/badge" alt="Security: A · Skills Directory" /></a>',
+    description: "Security Grade: A (Playwright automation)",
+    missingFrom: "Digital-FTE/README.md, .claude/skills/posting-linkedin/SKILL.md"
+  },
+  {
+    id: "sd-posting-twitter",
+    name: "Posting Twitter",
+    project: "Digital FTE",
+    scope: "skills-directory",
+    category: "Twitter API v2",
+    status: "active",
+    securityGrade: "A",
+    badgeUrl: "https://www.skillsdirectory.com/api/skills/abdullahmalik17-posting-twitter/badge",
+    targetUrl: "https://www.skillsdirectory.com/skills/abdullahmalik17-posting-twitter",
+    markdownSnippet: "[![Security: A · Skills Directory](https://www.skillsdirectory.com/api/skills/abdullahmalik17-posting-twitter/badge)](https://www.skillsdirectory.com/skills/abdullahmalik17-posting-twitter)",
+    htmlSnippet: '<a href="https://www.skillsdirectory.com/skills/abdullahmalik17-posting-twitter"><img src="https://www.skillsdirectory.com/api/skills/abdullahmalik17-posting-twitter/badge" alt="Security: A · Skills Directory" /></a>',
+    description: "Security Grade: A (Twitter API v2)",
+    missingFrom: "Digital-FTE/README.md, .claude/skills/posting-twitter/SKILL.md"
+  },
+  {
+    id: "sd-project-designer",
+    name: "Project Designer",
+    project: "Digital FTE",
+    scope: "skills-directory",
+    category: "Architecture Planning",
+    status: "active",
+    securityGrade: "A",
+    badgeUrl: "https://www.skillsdirectory.com/api/skills/abdullahmalik17-project-designer/badge",
+    targetUrl: "https://www.skillsdirectory.com/skills/abdullahmalik17-project-designer",
+    markdownSnippet: "[![Security: A · Skills Directory](https://www.skillsdirectory.com/api/skills/abdullahmalik17-project-designer/badge)](https://www.skillsdirectory.com/skills/abdullahmalik17-project-designer)",
+    htmlSnippet: '<a href="https://www.skillsdirectory.com/skills/abdullahmalik17-project-designer"><img src="https://www.skillsdirectory.com/api/skills/abdullahmalik17-project-designer/badge" alt="Security: A · Skills Directory" /></a>',
+    description: "Security Grade: A (Architecture planning)",
+    missingFrom: "Digital-FTE/README.md, .claude/skills/project-designer/SKILL.md"
+  },
+  {
+    id: "sd-project-designer-digital-fte",
+    name: "Project Designer Digital FTE",
+    project: "Digital FTE",
+    scope: "skills-directory",
+    category: "FTE System Architecture",
+    status: "active",
+    securityGrade: "A",
+    badgeUrl: "https://www.skillsdirectory.com/api/skills/abdullahmalik17-project-designer-digital-fte/badge",
+    targetUrl: "https://www.skillsdirectory.com/skills/abdullahmalik17-project-designer-digital-fte",
+    markdownSnippet: "[![Security: A · Skills Directory](https://www.skillsdirectory.com/api/skills/abdullahmalik17-project-designer-digital-fte/badge)](https://www.skillsdirectory.com/skills/abdullahmalik17-project-designer-digital-fte)",
+    htmlSnippet: '<a href="https://www.skillsdirectory.com/skills/abdullahmalik17-project-designer-digital-fte"><img src="https://www.skillsdirectory.com/api/skills/abdullahmalik17-project-designer-digital-fte/badge" alt="Security: A · Skills Directory" /></a>',
+    description: "Security Grade: A (FTE system architecture)",
+    missingFrom: "Digital-FTE/README.md, .claude/skills/digital-fte-orchestrator/SKILL.md"
+  },
+  {
+    id: "sd-watching-filesystem",
+    name: "Watching Filesystem",
+    project: "Digital FTE",
+    scope: "skills-directory",
+    category: "Filesystem Observer",
+    status: "active",
+    securityGrade: "A",
+    badgeUrl: "https://www.skillsdirectory.com/api/skills/abdullahmalik17-watching-filesystem/badge",
+    targetUrl: "https://www.skillsdirectory.com/skills/abdullahmalik17-watching-filesystem",
+    markdownSnippet: "[![Security: A · Skills Directory](https://www.skillsdirectory.com/api/skills/abdullahmalik17-watching-filesystem/badge)](https://www.skillsdirectory.com/skills/abdullahmalik17-watching-filesystem)",
+    htmlSnippet: '<a href="https://www.skillsdirectory.com/skills/abdullahmalik17-watching-filesystem"><img src="https://www.skillsdirectory.com/api/skills/abdullahmalik17-watching-filesystem/badge" alt="Security: A · Skills Directory" /></a>',
+    description: "Security Grade: A (Filesystem observer)",
+    missingFrom: "Digital-FTE/README.md, .claude/skills/watching-filesystem/SKILL.md"
+  },
+  {
+    id: "sd-watching-gmail",
+    name: "Watching Gmail",
+    project: "Digital FTE",
+    scope: "skills-directory",
+    category: "IMAP Email Watcher",
+    status: "active",
+    securityGrade: "A",
+    badgeUrl: "https://www.skillsdirectory.com/api/skills/abdullahmalik17-watching-gmail/badge",
+    targetUrl: "https://www.skillsdirectory.com/skills/abdullahmalik17-watching-gmail",
+    markdownSnippet: "[![Security: A · Skills Directory](https://www.skillsdirectory.com/api/skills/abdullahmalik17-watching-gmail/badge)](https://www.skillsdirectory.com/skills/abdullahmalik17-watching-gmail)",
+    htmlSnippet: '<a href="https://www.skillsdirectory.com/skills/abdullahmalik17-watching-gmail"><img src="https://www.skillsdirectory.com/api/skills/abdullahmalik17-watching-gmail/badge" alt="Security: A · Skills Directory" /></a>',
+    description: "Security Grade: A (IMAP email watcher)",
+    missingFrom: "Digital-FTE/README.md, .claude/skills/watching-gmail/SKILL.md"
+  },
+  {
+    id: "sd-watching-whatsapp",
+    name: "Watching WhatsApp",
+    project: "Digital FTE",
+    scope: "skills-directory",
+    category: "WhatsApp Automation",
+    status: "active",
+    securityGrade: "A",
+    badgeUrl: "https://www.skillsdirectory.com/api/skills/abdullahmalik17-watching-whatsapp/badge",
+    targetUrl: "https://www.skillsdirectory.com/skills/abdullahmalik17-watching-whatsapp",
+    markdownSnippet: "[![Security: A · Skills Directory](https://www.skillsdirectory.com/api/skills/abdullahmalik17-watching-whatsapp/badge)](https://www.skillsdirectory.com/skills/abdullahmalik17-watching-whatsapp)",
+    htmlSnippet: '<a href="https://www.skillsdirectory.com/skills/abdullahmalik17-watching-whatsapp"><img src="https://www.skillsdirectory.com/api/skills/abdullahmalik17-watching-whatsapp/badge" alt="Security: A · Skills Directory" /></a>',
+    description: "Security Grade: A (WhatsApp automation)",
+    missingFrom: "Digital-FTE/README.md, .claude/skills/watching-whatsapp/SKILL.md"
+  },
+
+  // --- Digital-FTE Badges (9 Badges) ---
+  {
+    id: "fte-skills-author",
+    name: "Skills Directory Author",
+    project: "Digital-FTE",
+    scope: "digital-fte",
+    category: "Security & Skills",
+    status: "active",
+    badgeUrl: "https://img.shields.io/badge/Skills%20Directory-12%20Skills%20(Grade%20A)-10b981?style=flat-square&logo=claude&logoColor=white",
+    targetUrl: "https://skillsdirectory.com/authors/abdullahmalik17",
+    markdownSnippet: "[![Skills Directory Author](https://img.shields.io/badge/Skills%20Directory-12%20Skills%20(Grade%20A)-10b981?style=flat-square&logo=claude&logoColor=white)](https://skillsdirectory.com/authors/abdullahmalik17)",
+    htmlSnippet: '<a href="https://skillsdirectory.com/authors/abdullahmalik17"><img src="https://img.shields.io/badge/Skills%20Directory-12%20Skills%20(Grade%20A)-10b981?style=flat-square&logo=claude&logoColor=white" alt="Skills Directory Author" /></a>',
+    description: "12 Verified Skills Summary (Grade A)",
+    missingFrom: "Digital-FTE/README.md, AbdullahMalik17/README.md"
+  },
+  {
+    id: "fte-snyk-security",
+    name: "Snyk Security",
+    project: "Digital-FTE",
+    scope: "digital-fte",
+    category: "Vulnerability Scanning",
+    status: "active",
+    badgeUrl: "https://snyk.io/test/github/AbdullahMalik17/Digital-FTE/badge.svg",
+    targetUrl: "https://snyk.io/test/github/AbdullahMalik17/Digital-FTE",
+    markdownSnippet: "[![Snyk Security](https://snyk.io/test/github/AbdullahMalik17/Digital-FTE/badge.svg)](https://snyk.io/test/github/AbdullahMalik17/Digital-FTE)",
+    htmlSnippet: '<a href="https://snyk.io/test/github/AbdullahMalik17/Digital-FTE"><img src="https://snyk.io/test/github/AbdullahMalik17/Digital-FTE/badge.svg" alt="Snyk Security" /></a>',
+    description: "Vulnerability & dependency scanning",
+    missingFrom: "Digital-FTE/README.md"
+  },
+  {
+    id: "fte-python-ci",
+    name: "Python CI",
+    project: "Digital-FTE",
+    scope: "digital-fte",
+    category: "Continuous Integration",
+    status: "active",
+    badgeUrl: "https://github.com/AbdullahMalik17/Digital-FTE/actions/workflows/python-ci.yml/badge.svg",
+    targetUrl: "https://github.com/AbdullahMalik17/Digital-FTE/actions/workflows/python-ci.yml",
+    markdownSnippet: "[![Python CI](https://github.com/AbdullahMalik17/Digital-FTE/actions/workflows/python-ci.yml/badge.svg)](https://github.com/AbdullahMalik17/Digital-FTE/actions/workflows/python-ci.yml)",
+    htmlSnippet: '<a href="https://github.com/AbdullahMalik17/Digital-FTE/actions/workflows/python-ci.yml"><img src="https://github.com/AbdullahMalik17/Digital-FTE/actions/workflows/python-ci.yml/badge.svg" alt="Python CI" /></a>',
+    description: "GitHub Actions CI build & tests status"
+  },
+  {
+    id: "fte-mit-license",
+    name: "MIT License",
+    project: "Digital-FTE",
+    scope: "digital-fte",
+    category: "Open Source License",
+    status: "active",
+    badgeUrl: "https://img.shields.io/badge/License-MIT-green?style=flat-square",
+    targetUrl: "https://opensource.org/licenses/MIT",
+    markdownSnippet: "[![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)](https://opensource.org/licenses/MIT)",
+    htmlSnippet: '<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="License: MIT" /></a>',
+    description: "Open-source license indicator"
+  },
+  {
+    id: "fte-stars",
+    name: "GitHub Stars",
+    project: "Digital-FTE",
+    scope: "digital-fte",
+    category: "Community Traction",
+    status: "active",
+    badgeUrl: "https://img.shields.io/github/stars/AbdullahMalik17/Digital-FTE?style=flat-square",
+    targetUrl: "https://github.com/AbdullahMalik17/Digital-FTE/stargazers",
+    markdownSnippet: "[![Stars](https://img.shields.io/github/stars/AbdullahMalik17/Digital-FTE?style=flat-square)](https://github.com/AbdullahMalik17/Digital-FTE/stargazers)",
+    htmlSnippet: '<a href="https://github.com/AbdullahMalik17/Digital-FTE/stargazers"><img src="https://img.shields.io/github/stars/AbdullahMalik17/Digital-FTE?style=flat-square" alt="Stars" /></a>',
+    description: "Repository stargazers counter"
+  },
+  {
+    id: "fte-forks",
+    name: "GitHub Forks",
+    project: "Digital-FTE",
+    scope: "digital-fte",
+    category: "Community Traction",
+    status: "active",
+    badgeUrl: "https://img.shields.io/github/forks/AbdullahMalik17/Digital-FTE?style=flat-square",
+    targetUrl: "https://github.com/AbdullahMalik17/Digital-FTE/network/members",
+    markdownSnippet: "[![Forks](https://img.shields.io/github/forks/AbdullahMalik17/Digital-FTE?style=flat-square)](https://github.com/AbdullahMalik17/Digital-FTE/network/members)",
+    htmlSnippet: '<a href="https://github.com/AbdullahMalik17/Digital-FTE/network/members"><img src="https://img.shields.io/github/forks/AbdullahMalik17/Digital-FTE?style=flat-square" alt="Forks" /></a>',
+    description: "Repository forks counter",
+    missingFrom: "Digital-FTE/README.md"
+  },
+  {
+    id: "fte-issues",
+    name: "GitHub Issues",
+    project: "Digital-FTE",
+    scope: "digital-fte",
+    category: "Issue Tracking",
+    status: "active",
+    badgeUrl: "https://img.shields.io/github/issues/AbdullahMalik17/Digital-FTE?style=flat-square",
+    targetUrl: "https://github.com/AbdullahMalik17/Digital-FTE/issues",
+    markdownSnippet: "[![Issues](https://img.shields.io/github/issues/AbdullahMalik17/Digital-FTE?style=flat-square)](https://github.com/AbdullahMalik17/Digital-FTE/issues)",
+    htmlSnippet: '<a href="https://github.com/AbdullahMalik17/Digital-FTE/issues"><img src="https://img.shields.io/github/issues/AbdullahMalik17/Digital-FTE?style=flat-square" alt="Issues" /></a>',
+    description: "Open issues tracker",
+    missingFrom: "Digital-FTE/README.md"
+  },
+  {
+    id: "fte-codefactor",
+    name: "CodeFactor Quality",
+    project: "Digital-FTE",
+    scope: "digital-fte",
+    category: "Code Quality",
+    status: "ready",
+    badgeUrl: "https://www.codefactor.io/repository/github/AbdullahMalik17/Digital-FTE/badge",
+    targetUrl: "https://www.codefactor.io/repository/github/AbdullahMalik17/Digital-FTE",
+    markdownSnippet: "[![CodeFactor](https://www.codefactor.io/repository/github/AbdullahMalik17/Digital-FTE/badge)](https://www.codefactor.io/repository/github/AbdullahMalik17/Digital-FTE)",
+    htmlSnippet: '<a href="https://www.codefactor.io/repository/github/AbdullahMalik17/Digital-FTE"><img src="https://www.codefactor.io/repository/github/AbdullahMalik17/Digital-FTE/badge" alt="CodeFactor" /></a>',
+    description: "Automated code quality grade (Ready to Activate)",
+    missingFrom: "Digital-FTE/README.md"
+  },
+  {
+    id: "fte-codecov",
+    name: "Codecov Coverage",
+    project: "Digital-FTE",
+    scope: "digital-fte",
+    category: "Test Coverage",
+    status: "ready",
+    badgeUrl: "https://codecov.io/gh/AbdullahMalik17/Digital-FTE/branch/main/graph/badge.svg",
+    targetUrl: "https://codecov.io/gh/AbdullahMalik17/Digital-FTE",
+    markdownSnippet: "[![codecov](https://codecov.io/gh/AbdullahMalik17/Digital-FTE/branch/main/graph/badge.svg)](https://codecov.io/gh/AbdullahMalik17/Digital-FTE)",
+    htmlSnippet: '<a href="https://codecov.io/gh/AbdullahMalik17/Digital-FTE"><img src="https://codecov.io/gh/AbdullahMalik17/Digital-FTE/branch/main/graph/badge.svg" alt="codecov" /></a>',
+    description: "Automated test coverage percentage (Ready to Activate)",
+    missingFrom: "Digital-FTE/README.md"
+  },
+
+  // --- malikclaw Badges (5 Badges) ---
+  {
+    id: "malikclaw-pkg-go-dev",
+    name: "pkg.go.dev Reference",
+    project: "malikclaw",
+    scope: "malikclaw",
+    category: "Go Documentation",
+    status: "active",
+    badgeUrl: "https://pkg.go.dev/badge/github.com/AbdullahMalik17/malikclaw.svg",
+    targetUrl: "https://pkg.go.dev/github.com/AbdullahMalik17/malikclaw",
+    markdownSnippet: "[![Go Reference](https://pkg.go.dev/badge/github.com/AbdullahMalik17/malikclaw.svg)](https://pkg.go.dev/github.com/AbdullahMalik17/malikclaw)",
+    htmlSnippet: '<a href="https://pkg.go.dev/github.com/AbdullahMalik17/malikclaw"><img src="https://pkg.go.dev/badge/github.com/AbdullahMalik17/malikclaw.svg" alt="Go Reference" /></a>',
+    description: "Official Go documentation & API index",
+    missingFrom: "malikclaw/README.md, portfolio"
+  },
+  {
+    id: "malikclaw-goreportcard",
+    name: "Go Report Card",
+    project: "malikclaw",
+    scope: "malikclaw",
+    category: "Go Code Quality",
+    status: "active",
+    badgeUrl: "https://goreportcard.com/badge/github.com/AbdullahMalik17/malikclaw",
+    targetUrl: "https://goreportcard.com/report/github.com/AbdullahMalik17/malikclaw",
+    markdownSnippet: "[![Go Report Card](https://goreportcard.com/badge/github.com/AbdullahMalik17/malikclaw)](https://goreportcard.com/report/github.com/AbdullahMalik17/malikclaw)",
+    htmlSnippet: '<a href="https://goreportcard.com/report/github.com/AbdullahMalik17/malikclaw"><img src="https://goreportcard.com/badge/github.com/AbdullahMalik17/malikclaw" alt="Go Report Card" /></a>',
+    description: "Automated Go code quality & formatting grade",
+    missingFrom: "malikclaw/README.md"
+  },
+  {
+    id: "malikclaw-mcpmarket",
+    name: "MCP Market Listing",
+    project: "malikclaw",
+    scope: "malikclaw",
+    category: "Model Context Protocol",
+    status: "active",
+    badgeUrl: "https://img.shields.io/badge/MCP%20Market-malikclaw-6366f1?style=flat-square&logo=databricks&logoColor=white",
+    targetUrl: "https://mcpmarket.com/server/malikclaw",
+    markdownSnippet: "[![MCP Market](https://img.shields.io/badge/MCP%20Market-malikclaw-6366f1?style=flat-square&logo=databricks&logoColor=white)](https://mcpmarket.com/server/malikclaw)",
+    htmlSnippet: '<a href="https://mcpmarket.com/server/malikclaw"><img src="https://img.shields.io/badge/MCP%20Market-malikclaw-6366f1?style=flat-square&logo=databricks&logoColor=white" alt="MCP Market" /></a>',
+    description: "Official Model Context Protocol Market registry",
+    missingFrom: "malikclaw/README.md, Digital-FTE/README.md"
+  },
+  {
+    id: "malikclaw-license",
+    name: "GitHub License",
+    project: "malikclaw",
+    scope: "malikclaw",
+    category: "Open Source License",
+    status: "active",
+    badgeUrl: "https://img.shields.io/github/license/AbdullahMalik17/malikclaw?style=flat-square",
+    targetUrl: "https://github.com/AbdullahMalik17/malikclaw/blob/main/LICENSE",
+    markdownSnippet: "[![License](https://img.shields.io/github/license/AbdullahMalik17/malikclaw?style=flat-square)](https://github.com/AbdullahMalik17/malikclaw/blob/main/LICENSE)",
+    htmlSnippet: '<a href="https://github.com/AbdullahMalik17/malikclaw/blob/main/LICENSE"><img src="https://img.shields.io/github/license/AbdullahMalik17/malikclaw?style=flat-square" alt="License" /></a>',
+    description: "Open-source license indicator",
+    missingFrom: "malikclaw/README.md"
+  },
+  {
+    id: "malikclaw-stars",
+    name: "GitHub Stars",
+    project: "malikclaw",
+    scope: "malikclaw",
+    category: "Community Traction",
+    status: "active",
+    badgeUrl: "https://img.shields.io/github/stars/AbdullahMalik17/malikclaw?style=flat-square",
+    targetUrl: "https://github.com/AbdullahMalik17/malikclaw/stargazers",
+    markdownSnippet: "[![Stars](https://img.shields.io/github/stars/AbdullahMalik17/malikclaw?style=flat-square)](https://github.com/AbdullahMalik17/malikclaw/stargazers)",
+    htmlSnippet: '<a href="https://github.com/AbdullahMalik17/malikclaw/stargazers"><img src="https://img.shields.io/github/stars/AbdullahMalik17/malikclaw?style=flat-square" alt="Stars" /></a>',
+    description: "Repository stargazers counter",
+    missingFrom: "malikclaw/README.md"
+  },
+
+  // --- Portfolio AI Assistant Badges (2 Badges) ---
+  {
+    id: "portfolio-vercel",
+    name: "Vercel Deployment",
+    project: "portfolio-ai-assistant-of-malik",
+    scope: "portfolio",
+    category: "Cloud Deployment",
+    status: "active",
+    badgeUrl: "https://therealsujitk-vercel-badge.vercel.app/?app=portfolio-ai-assistant-of-malik-five",
+    targetUrl: "https://portfolio-ai-assistant-of-malik-five.vercel.app/",
+    markdownSnippet: "[![Vercel Deployment](https://therealsujitk-vercel-badge.vercel.app/?app=portfolio-ai-assistant-of-malik-five)](https://portfolio-ai-assistant-of-malik-five.vercel.app/)",
+    htmlSnippet: '<a href="https://portfolio-ai-assistant-of-malik-five.vercel.app/"><img src="https://therealsujitk-vercel-badge.vercel.app/?app=portfolio-ai-assistant-of-malik-five" alt="Vercel Deployment" /></a>',
+    description: "Live web production deployment status",
+    missingFrom: "portfolio_ai_assistant_of_malik/README.md, site footer"
+  },
+  {
+    id: "portfolio-nextjs",
+    name: "Next.js Stack",
+    project: "portfolio-ai-assistant-of-malik",
+    scope: "portfolio",
+    category: "Web Framework",
+    status: "active",
+    badgeUrl: "https://img.shields.io/badge/Framework-Next.js%2014-black?style=flat-square&logo=next.js",
+    targetUrl: "https://nextjs.org/",
+    markdownSnippet: "[![Next.js](https://img.shields.io/badge/Framework-Next.js%2014-black?style=flat-square&logo=next.js)](https://nextjs.org/)",
+    htmlSnippet: '<a href="https://nextjs.org/"><img src="https://img.shields.io/badge/Framework-Next.js%2014-black?style=flat-square&logo=next.js" alt="Next.js" /></a>',
+    description: "Technology stack indicator",
+    missingFrom: "portfolio_ai_assistant_of_malik/README.md"
+  },
+
+  // --- Azan Shop POS Badges (2 Badges) ---
+  {
+    id: "azan-built-python",
+    name: "Built With Python",
+    project: "Azan Shop POS",
+    scope: "azan-shop",
+    category: "Architecture",
+    status: "active",
+    badgeUrl: "https://img.shields.io/badge/Built%20With-Python-3776AB?style=flat-square&logo=python&logoColor=white",
+    targetUrl: "https://github.com/AbdullahMalik17/Azan_Shop_Software-",
+    markdownSnippet: "[![Python](https://img.shields.io/badge/Built%20With-Python-3776AB?style=flat-square&logo=python&logoColor=white)](https://github.com/AbdullahMalik17/Azan_Shop_Software-)",
+    htmlSnippet: '<a href="https://github.com/AbdullahMalik17/Azan_Shop_Software-"><img src="https://img.shields.io/badge/Built%20With-Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Built With Python" /></a>',
+    description: "Core software architecture badge",
+    missingFrom: "Azan_Shop_Software-/README.md"
+  },
+  {
+    id: "azan-commercial-status",
+    name: "Commercial Status",
+    project: "Azan Shop POS",
+    scope: "azan-shop",
+    category: "Confidentiality",
+    status: "active",
+    badgeUrl: "https://img.shields.io/badge/Status-Private%20Commercial-red?style=flat-square",
+    targetUrl: "https://github.com/AbdullahMalik17/Azan_Shop_Software-",
+    markdownSnippet: "[![Status](https://img.shields.io/badge/Status-Private%20Commercial-red?style=flat-square)](https://github.com/AbdullahMalik17/Azan_Shop_Software-)",
+    htmlSnippet: '<a href="https://github.com/AbdullahMalik17/Azan_Shop_Software-"><img src="https://img.shields.io/badge/Status-Private%20Commercial-red?style=flat-square" alt="Status" /></a>',
+    description: "Repository confidentiality indicator",
+    missingFrom: "Azan_Shop_Software-/README.md"
+  },
+
+  // --- Unique Boutique Badges (1 Badge) ---
+  {
+    id: "unique-boutique-ecommerce",
+    name: "E-Commerce Software",
+    project: "Unique Boutique",
+    scope: "unique-boutique",
+    category: "Business Solution",
+    status: "active",
+    badgeUrl: "https://img.shields.io/badge/E--Commerce-Unique%20Boutique-pink?style=flat-square",
+    targetUrl: "https://github.com/AbdullahMalik17/unique-boutique",
+    markdownSnippet: "[![App](https://img.shields.io/badge/E--Commerce-Unique%20Boutique-pink?style=flat-square)](https://github.com/AbdullahMalik17/unique-boutique)",
+    htmlSnippet: '<a href="https://github.com/AbdullahMalik17/unique-boutique"><img src="https://img.shields.io/badge/E--Commerce-Unique%20Boutique-pink?style=flat-square" alt="Unique Boutique" /></a>',
+    description: "Business solution indicator",
+    missingFrom: "unique-boutique/README.md"
+  },
+
+  // --- GitHub Profile & Achievements (6 Badges) ---
+  {
+    id: "github-starstruck",
+    name: "Achievement: Starstruck",
+    project: "GitHub Profile",
+    scope: "github",
+    category: "GitHub Honor",
+    status: "active",
+    badgeUrl: "https://github.githubassets.com/assets/starstruck-default-b6610abad518.png",
+    targetUrl: "https://github.com/AbdullahMalik17?achievement=starstruck&tab=achievements",
+    markdownSnippet: "[![Starstruck](https://github.githubassets.com/assets/starstruck-default-b6610abad518.png)](https://github.com/AbdullahMalik17?achievement=starstruck&tab=achievements)",
+    htmlSnippet: '<a href="https://github.com/AbdullahMalik17?achievement=starstruck&tab=achievements"><img src="https://github.githubassets.com/assets/starstruck-default-b6610abad518.png" width="60" alt="Starstruck" /></a>',
+    description: "Earned for receiving stars on repositories",
+    missingFrom: "Profile README, Portfolio website"
+  },
+  {
+    id: "github-pull-shark",
+    name: "Achievement: Pull Shark",
+    project: "GitHub Profile",
+    scope: "github",
+    category: "GitHub Honor",
+    status: "active",
+    badgeUrl: "https://github.githubassets.com/assets/pull-shark-default-498c279a747d.png",
+    targetUrl: "https://github.com/AbdullahMalik17?achievement=pull-shark&tab=achievements",
+    markdownSnippet: "[![Pull Shark](https://github.githubassets.com/assets/pull-shark-default-498c279a747d.png)](https://github.com/AbdullahMalik17?achievement=pull-shark&tab=achievements)",
+    htmlSnippet: '<a href="https://github.com/AbdullahMalik17?achievement=pull-shark&tab=achievements"><img src="https://github.githubassets.com/assets/pull-shark-default-498c279a747d.png" width="60" alt="Pull Shark" /></a>',
+    description: "Earned for merged pull requests",
+    missingFrom: "Profile README, Portfolio website"
+  },
+  {
+    id: "github-pair-extraordinaire",
+    name: "Achievement: Pair Extraordinaire",
+    project: "GitHub Profile",
+    scope: "github",
+    category: "GitHub Honor",
+    status: "active",
+    badgeUrl: "https://github.githubassets.com/assets/pair-extraordinaire-default-579438a20e01.png",
+    targetUrl: "https://github.com/AbdullahMalik17?achievement=pair-extraordinaire&tab=achievements",
+    markdownSnippet: "[![Pair Extraordinaire](https://github.githubassets.com/assets/pair-extraordinaire-default-579438a20e01.png)](https://github.com/AbdullahMalik17?achievement=pair-extraordinaire&tab=achievements)",
+    htmlSnippet: '<a href="https://github.com/AbdullahMalik17?achievement=pair-extraordinaire&tab=achievements"><img src="https://github.githubassets.com/assets/pair-extraordinaire-default-579438a20e01.png" width="60" alt="Pair Extraordinaire" /></a>',
+    description: "Earned for co-authored merged pull requests",
+    missingFrom: "Profile README, Portfolio website"
+  },
+  {
+    id: "github-followers",
+    name: "GitHub Followers",
+    project: "GitHub Profile",
+    scope: "github",
+    category: "Community Reach",
+    status: "active",
+    badgeUrl: "https://img.shields.io/github/followers/AbdullahMalik17?label=Follow%20%40AbdullahMalik17&style=social",
+    targetUrl: "https://github.com/AbdullahMalik17",
+    markdownSnippet: "[![GitHub Followers](https://img.shields.io/github/followers/AbdullahMalik17?label=Follow%20%40AbdullahMalik17&style=social)](https://github.com/AbdullahMalik17)",
+    htmlSnippet: '<a href="https://github.com/AbdullahMalik17"><img src="https://img.shields.io/github/followers/AbdullahMalik17?label=Follow%20%40AbdullahMalik17&style=social" alt="GitHub Followers" /></a>',
+    description: "Community followers count",
+    missingFrom: "Profile README, Portfolio website"
+  },
+  {
+    id: "github-stats-card",
+    name: "GitHub Readme Stats",
+    project: "GitHub Profile",
+    scope: "github",
+    category: "Profile Metrics",
+    status: "active",
+    badgeUrl: "https://github-readme-stats.vercel.app/api?username=AbdullahMalik17&show_icons=true&theme=radical",
+    targetUrl: "https://github.com/AbdullahMalik17",
+    markdownSnippet: "[![GitHub Stats](https://github-readme-stats.vercel.app/api?username=AbdullahMalik17&show_icons=true&theme=radical)](https://github.com/AbdullahMalik17)",
+    htmlSnippet: '<a href="https://github.com/AbdullahMalik17"><img src="https://github-readme-stats.vercel.app/api?username=AbdullahMalik17&show_icons=true&theme=radical" alt="GitHub Stats" /></a>',
+    description: "Comprehensive GitHub statistics card",
+    missingFrom: "Profile README, Portfolio website"
+  },
+  {
+    id: "github-top-langs",
+    name: "Top Languages Card",
+    project: "GitHub Profile",
+    scope: "github",
+    category: "Language Breakdown",
+    status: "active",
+    badgeUrl: "https://github-readme-stats.vercel.app/api/top-langs/?username=AbdullahMalik17&layout=compact&theme=radical",
+    targetUrl: "https://github.com/AbdullahMalik17",
+    markdownSnippet: "[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=AbdullahMalik17&layout=compact&theme=radical)](https://github.com/AbdullahMalik17)",
+    htmlSnippet: '<a href="https://github.com/AbdullahMalik17"><img src="https://github-readme-stats.vercel.app/api/top-langs/?username=AbdullahMalik17&layout=compact&theme=radical" alt="Top Langs" /></a>',
+    description: "Language percentage breakdown card",
+    missingFrom: "Profile README, Portfolio website"
+  }
+];

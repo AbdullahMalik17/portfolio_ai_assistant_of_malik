@@ -229,6 +229,16 @@ export default function ResumePage() {
                 Audited agent security compliance by A2AS Registry; MalikClaw cataloged on the official MCP Market.
               </p>
             </div>
+
+            <div className="p-3 rounded-xl glass border border-white/[0.06] bg-slate-950/40 print:border-slate-300 print:bg-slate-50">
+              <div className="flex items-center gap-2 mb-1 font-bold text-teal-300 print:text-teal-800">
+                <ShieldCheck className="w-3.5 h-3.5 text-teal-400" />
+                <span>Skills Directory (12 Grade A Skills)</span>
+              </div>
+              <p className="text-slate-400 print:text-slate-600 text-[11px] leading-relaxed">
+                Certified author on Skills Directory with 12 published Claude agent skills passing automated malware and injection screening.
+              </p>
+            </div>
           </div>
         </section>
 

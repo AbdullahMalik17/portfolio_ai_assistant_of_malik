@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { 
   Package, Flame, Users, Rocket, Github, 
-  Cpu, Layers, Globe2, ArrowUpRight, Trophy, Star, GitPullRequest 
+  Cpu, Layers, Globe2, ArrowUpRight, Trophy 
 } from 'lucide-react';
 import FadeInWhenVisible from './FadeInWhenVisible';
 import AnimatedCounter from './AnimatedCounter';
@@ -118,21 +118,37 @@ export default function GitHubStats() {
             </div>
 
             {/* Official GitHub Achievements */}
-            <div className="mb-12">
-              <div className="flex items-center justify-between mb-4 px-1">
+            <div className="mb-10">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 px-1">
                 <div className="flex items-center gap-2">
                   <Trophy className="w-4 h-4 text-amber-400" />
                   <h3 className="text-xs sm:text-sm font-mono font-bold text-white uppercase tracking-wider">
                     Official GitHub Achievements & Badges
                   </h3>
                 </div>
-                <span className="text-[11px] font-mono text-cyan-400/90 font-semibold flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  Verified on GitHub Profile
-                </span>
+                <div className="flex items-center gap-3">
+                  <a
+                    href="https://github.com/AbdullahMalik17"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:opacity-85 transition-opacity"
+                    title="Follow @AbdullahMalik17 on GitHub"
+                  >
+                    <img
+                      src="https://img.shields.io/github/followers/AbdullahMalik17?label=Follow%20%40AbdullahMalik17&style=social"
+                      alt="GitHub Followers"
+                      className="h-5"
+                      loading="lazy"
+                    />
+                  </a>
+                  <span className="text-[11px] font-mono text-cyan-400/90 font-semibold flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    Verified on GitHub Profile
+                  </span>
+                </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                 {GITHUB_ACHIEVEMENTS.map((ach) => (
                   <a
                     key={ach.id}
@@ -143,10 +159,19 @@ export default function GitHubStats() {
                   >
                     <div className="flex items-start justify-between gap-3 mb-3">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500/15 to-yellow-500/5 border border-amber-500/30 flex items-center justify-center text-amber-400 group-hover:scale-110 transition-transform shadow-inner">
-                          {ach.icon === 'star' && <Star className="w-5 h-5 text-amber-400 fill-amber-400/30" />}
-                          {ach.icon === 'git-pull-request' && <GitPullRequest className="w-5 h-5 text-cyan-400" />}
-                          {ach.icon === 'users' && <Users className="w-5 h-5 text-purple-400" />}
+                        <div className="w-12 h-12 rounded-xl bg-slate-900 border border-white/10 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner p-1 shrink-0">
+                          <img
+                            src={
+                              ach.id === 'starstruck'
+                                ? 'https://github.githubassets.com/assets/starstruck-default-b6610abad518.png'
+                                : ach.id === 'pull-shark'
+                                ? 'https://github.githubassets.com/assets/pull-shark-default-498c279a747d.png'
+                                : 'https://github.githubassets.com/assets/pair-extraordinaire-default-579438a20e01.png'
+                            }
+                            alt={ach.title}
+                            className="w-10 h-10 object-contain drop-shadow"
+                            loading="lazy"
+                          />
                         </div>
                         <div>
                           <div className="text-sm font-bold text-white group-hover:text-amber-300 transition-colors flex items-center gap-1.5">
@@ -168,6 +193,36 @@ export default function GitHubStats() {
                     </div>
                   </a>
                 ))}
+              </div>
+
+              {/* GitHub Readme Dynamic Stats & Language Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <a
+                  href="https://github.com/AbdullahMalik17"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-4 rounded-2xl glass border border-white/[0.08] hover:border-cyan-500/40 bg-slate-950/60 transition-all flex items-center justify-center overflow-hidden group shadow-md"
+                >
+                  <img
+                    src="https://github-readme-stats.vercel.app/api?username=AbdullahMalik17&show_icons=true&theme=radical"
+                    alt="Abdullah Malik GitHub Stats"
+                    className="w-full max-w-sm sm:max-w-md object-contain rounded-xl group-hover:scale-[1.02] transition-transform"
+                    loading="lazy"
+                  />
+                </a>
+                <a
+                  href="https://github.com/AbdullahMalik17"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-4 rounded-2xl glass border border-white/[0.08] hover:border-cyan-500/40 bg-slate-950/60 transition-all flex items-center justify-center overflow-hidden group shadow-md"
+                >
+                  <img
+                    src="https://github-readme-stats.vercel.app/api/top-langs/?username=AbdullahMalik17&layout=compact&theme=radical"
+                    alt="Abdullah Malik Top Languages"
+                    className="w-full max-w-sm sm:max-w-md object-contain rounded-xl group-hover:scale-[1.02] transition-transform"
+                    loading="lazy"
+                  />
+                </a>
               </div>
             </div>
 

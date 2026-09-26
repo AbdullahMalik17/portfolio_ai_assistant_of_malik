@@ -15,6 +15,7 @@ const SystemArchitecture = dynamic(() => import('./components/SystemArchitecture
 const EngineeringCredibility = dynamic(() => import('./components/EngineeringCredibility'), { ssr: true });
 const Skills = dynamic(() => import('./components/Skills'), { ssr: true });
 const Certifications = dynamic(() => import('./components/Certifications'), { ssr: true });
+const BadgesRegistry = dynamic(() => import('./components/BadgesRegistry'), { ssr: true });
 const About = dynamic(() => import('./components/About'), { ssr: true });
 const Contact = dynamic(() => import('./components/Contact'), { ssr: true });
 
@@ -55,6 +56,7 @@ export default function Home() {
       <EngineeringCredibility />
       <Skills />
       <Certifications />
+      <BadgesRegistry />
       <About />
       <GitHubStats />
       <Contact />
@@ -110,6 +112,16 @@ export default function Home() {
               </h4>
               <div className="space-y-2.5 text-xs font-medium">
                 <a
+                  href="https://skillsdirectory.com/authors/abdullahmalik17"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 text-slate-400 hover:text-emerald-300 transition-colors"
+                >
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Skills Directory (12 Grade A)</span>
+                  <ArrowUpRight className="w-3 h-3 text-slate-500" />
+                </a>
+                <a
                   href="https://mcpmarket.com/ko/server/malikclaw"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -127,6 +139,14 @@ export default function Home() {
                 >
                   <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
                   <span>A2AS Behavior Certificate</span>
+                  <ArrowUpRight className="w-3 h-3 text-slate-500" />
+                </a>
+                <a
+                  href="#registry"
+                  className="flex items-center gap-1.5 text-slate-400 hover:text-cyan-300 transition-colors"
+                >
+                  <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>37 Badges Registry</span>
                   <ArrowUpRight className="w-3 h-3 text-slate-500" />
                 </a>
                 <Link
