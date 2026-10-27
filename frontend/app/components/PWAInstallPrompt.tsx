@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { RefreshCw, Smartphone } from 'lucide-react';
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -113,80 +114,80 @@ export default function PWAInstallPrompt() {
   }, []);
 
   return (
-    <AnimatePresence>
-      {/* Install Prompt */}
-      {showPrompt && deferredPrompt && (
-        <motion.div
-          key="install-prompt"
-          initial={{ y: 100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 100, opacity: 0 }}
-          className="fixed bottom-20 left-4 right-4 md:left-auto md:right-4 md:max-w-sm z-50"
-        >
-          <div className="glass rounded-2xl p-6 shadow-2xl border-2 border-[color:var(--accent)]/20">
-            <div className="flex items-start gap-4">
-              <div className="text-4xl">📱</div>
+    <div className="fixed bottom-4 left-4 right-4 z-40 flex flex-col gap-3 md:right-auto md:w-[22rem]">
+      <AnimatePresence initial={false}>
+        {showPrompt && deferredPrompt && (
+          <motion.div
+            key="install-prompt"
+            initial={{ y: 24, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 24, opacity: 0 }}
+            className="glass rounded-[var(--radius-card)] p-5"
+          >
+            <div className="flex gap-4">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent">
+                <Smartphone className="h-5 w-5" />
+              </div>
               <div className="flex-1">
-                <h3 className="font-bold text-lg mb-2">Install Portfolio App</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                  Install this app on your device for quick access and offline viewing!
+                <h3 className="mb-1.5 text-[15px] font-semibold text-ink">Install Portfolio App</h3>
+                <p className="mb-4 text-sm text-ink-muted">
+                  Add this to your device for quick access and offline viewing.
                 </p>
                 <div className="flex gap-2">
                   <button
                     onClick={handleInstall}
-                    className="px-4 py-2 bg-[color:var(--accent)] text-white rounded-lg font-semibold hover:opacity-90 transition-opacity"
+                    className="rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-accent-ink transition-colors hover:bg-accent-bright"
                   >
                     Install
                   </button>
                   <button
                     onClick={handleDismiss}
-                    className="px-4 py-2 glass rounded-lg font-semibold hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                    className="rounded-lg px-4 py-2 text-sm font-medium text-ink-muted transition-colors hover:bg-white/5 hover:text-ink"
                   >
                     Maybe Later
                   </button>
                 </div>
               </div>
             </div>
-          </div>
-        </motion.div>
-      )}
+          </motion.div>
+        )}
 
-      {/* Update Prompt */}
-      {showUpdatePrompt && (
-        <motion.div
-          key="update-prompt"
-          initial={{ y: 100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 100, opacity: 0 }}
-          className="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:max-w-sm z-50"
-        >
-          <div className="glass rounded-2xl p-6 shadow-2xl border-2 border-[color:var(--accent)]/20 bg-[color:var(--background-secondary)]">
-            <div className="flex items-start gap-4">
-              <div className="text-4xl">🔄</div>
+        {showUpdatePrompt && (
+          <motion.div
+            key="update-prompt"
+            initial={{ y: 24, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 24, opacity: 0 }}
+            className="glass rounded-[var(--radius-card)] p-5"
+          >
+            <div className="flex gap-4">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-ok/10 text-ok">
+                <RefreshCw className="h-5 w-5" />
+              </div>
               <div className="flex-1">
-                <h3 className="font-bold text-lg mb-2 text-[color:var(--foreground)]">Update Available</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                  A new version of the app is available. Update now to get the latest features and improvements.
+                <h3 className="mb-1.5 text-[15px] font-semibold text-ink">Update Available</h3>
+                <p className="mb-4 text-sm text-ink-muted">
+                  A new version is ready. Update to get the latest work and improvements.
                 </p>
                 <div className="flex gap-2">
                   <button
                     onClick={handleUpdate}
-                    className="px-4 py-2 bg-gradient-button text-gray-900 rounded-lg font-semibold hover:opacity-90 transition-opacity"
+                    className="rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-accent-ink transition-colors hover:bg-accent-bright"
                   >
                     Update Now
                   </button>
                   <button
                     onClick={dismissUpdate}
-                    className="px-4 py-2 glass rounded-lg font-semibold hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-[color:var(--foreground)]"
+                    className="rounded-lg px-4 py-2 text-sm font-medium text-ink-muted transition-colors hover:bg-white/5 hover:text-ink"
                   >
                     Later
                   </button>
                 </div>
               </div>
             </div>
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }

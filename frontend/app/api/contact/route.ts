@@ -29,6 +29,13 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    if (name.length > 120 || email.length > 160 || message.length > 5000) {
+      return NextResponse.json(
+        { success: false, error: 'One or more fields exceed the allowed length' },
+        { status: 413 }
+      );
+    }
+
     // Save to database first - this is the primary action
     console.log('Saving contact to database...');
     const dbResult = await saveContact({ name, email, message });

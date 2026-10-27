@@ -1,117 +1,79 @@
 'use client';
 
+import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Star, ShieldCheck, Globe2, ExternalLink } from 'lucide-react';
+import { ArrowUpRight, Award, BadgeCheck, Star } from 'lucide-react';
+import { GITHUB_PROFILE } from '@/app/lib/portfolio-data';
 
 const proofItems = [
   {
-    value: '16+ Stars',
-    label: 'Starstruck Achievement',
-    subtext: 'MalikClaw on GitHub (Bronze)',
     icon: Star,
-    color: 'text-amber-400',
-    borderColor: 'group-hover:border-amber-500/40',
-    glowColor: 'rgba(245, 158, 11, 0.15)',
+    value: `${GITHUB_PROFILE.malikclawStars} stars`,
+    label: 'GitHub Starstruck — Bronze',
     href: 'https://github.com/users/AbdullahMalik17/achievements/starstruck',
-    isExternal: true,
   },
   {
-    value: '12 Grade A',
-    label: 'Skills Directory Author',
-    subtext: 'Audited Claude agent skills',
-    icon: ShieldCheck,
-    color: 'text-emerald-400',
-    borderColor: 'group-hover:border-emerald-500/40',
-    glowColor: 'rgba(16, 185, 129, 0.15)',
+    icon: BadgeCheck,
+    value: '12 Grade A skills',
+    label: 'Skills Directory author',
     href: 'https://skillsdirectory.com/authors/abdullahmalik17',
-    isExternal: true,
   },
   {
-    value: 'A2AS Audited',
-    label: 'Behavior Certified',
-    subtext: 'AI agent governance policy',
-    icon: ShieldCheck,
-    color: 'text-teal-400',
-    borderColor: 'group-hover:border-teal-500/40',
-    glowColor: 'rgba(20, 184, 166, 0.15)',
-    href: 'https://a2as.org/certified/agents/abdullahmalik17/deep-research-age',
-    isExternal: true,
+    icon: Award,
+    value: 'A2AS audited',
+    label: 'Agent behavior certificate',
+    href: 'https://a2as.org/certified/agents/abdullahmalik17/deep-research-agent',
   },
   {
-    value: 'MCP Market',
-    label: 'Global Registry',
-    subtext: 'Official server registration',
-    icon: Globe2,
-    color: 'text-purple-400',
-    borderColor: 'group-hover:border-purple-500/40',
-    glowColor: 'rgba(139, 92, 246, 0.15)',
+    icon: BadgeCheck,
+    value: 'MCP Market listed',
+    label: 'Registered MCP server',
     href: 'https://mcpmarket.com/server/malikclaw',
-    isExternal: true,
   },
 ];
 
 const ProofBar = () => {
   return (
-    <section className="py-8 relative z-20 border-y border-white/[0.06] bg-slate-950/40 backdrop-blur-xl">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+    <section className="relative z-20 border-y border-line">
+      <div className="mx-auto max-w-[var(--shell)] px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-5 py-7 lg:grid-cols-5">
           {proofItems.map((item, index) => {
             const Icon = item.icon;
-
-            const card = (
-              <motion.div
-                initial={{ opacity: 0, y: 15 }}
+            return (
+              <motion.a
+                key={item.label}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.08, duration: 0.4 }}
-                whileHover={{ y: -3 }}
-                className={`group glass p-4 sm:p-5 rounded-2xl border border-white/[0.08] ${item.borderColor} transition-all duration-300 flex items-center gap-4 bg-slate-900/40 relative overflow-hidden`}
+                transition={{ delay: index * 0.06, duration: 0.4 }}
+                className="group flex items-center gap-3"
               >
-                {/* Micro Ambient Glow */}
-                <div
-                  className="absolute -right-6 -bottom-6 w-20 h-20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
-                  style={{ background: item.glowColor }}
-                />
-
-                {/* Duotone Icon Badge */}
-                <div className={`w-11 h-11 rounded-xl glass border border-white/10 flex items-center justify-center shrink-0 ${item.color} group-hover:scale-110 transition-transform duration-300 bg-white/[0.03]`}>
-                  <Icon className="w-5 h-5" />
-                </div>
-
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-lg sm:text-xl font-extrabold text-white tracking-tight">
-                      {item.value}
-                    </span>
-                    {item.isExternal && (
-                      <ExternalLink className="w-3 h-3 text-slate-500 group-hover:text-cyan-400 transition-colors" />
-                    )}
-                  </div>
-                  <p className="text-xs font-semibold text-slate-200 truncate tracking-tight">
+                <Icon className="h-4 w-4 shrink-0 text-accent" />
+                <span className="min-w-0">
+                  <span className="block truncate text-sm font-semibold text-ink">
+                    {item.value}
+                  </span>
+                  <span className="block truncate font-mono text-[11px] text-ink-subtle">
                     {item.label}
-                  </p>
-                  <p className="text-[11px] text-slate-500 font-mono truncate">
-                    {item.subtext}
-                  </p>
-                </div>
-              </motion.div>
+                  </span>
+                </span>
+                <ArrowUpRight className="ml-auto hidden h-3.5 w-3.5 shrink-0 text-ink-subtle transition-colors group-hover:text-accent sm:block" />
+              </motion.a>
             );
-
-            if (item.href) {
-              return (
-                <a
-                  key={index}
-                  href={item.href}
-                  target={item.isExternal ? '_blank' : undefined}
-                  rel={item.isExternal ? 'noopener noreferrer' : undefined}
-                  className="block focus:outline-none"
-                >
-                  {card}
-                </a>
-              );
-            }
-            return <div key={index}>{card}</div>;
           })}
+
+          <Link
+            href="/credentials"
+            className="group flex items-center gap-2 lg:justify-end"
+          >
+            <span className="font-mono text-[11px] uppercase tracking-wider text-ink-subtle transition-colors group-hover:text-accent">
+              All 37 credentials
+            </span>
+            <ArrowUpRight className="h-3.5 w-3.5 text-ink-subtle transition-colors group-hover:text-accent" />
+          </Link>
         </div>
       </div>
     </section>

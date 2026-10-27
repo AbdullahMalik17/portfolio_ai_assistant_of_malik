@@ -1,22 +1,22 @@
 import { NextResponse } from 'next/server';
 
 export async function GET() {
-  const content = `# Abdullah Malik — Agentic AI Engineer & Data Scientist
+  const content = `# Abdullah Malik — Agentic AI Engineer & Data Science Undergraduate
 > Personal Portfolio and Agentic AI Architecture Showcase
 
 ## Profile
 - Name: Abdullah Malik (Muhammad Abdullah Athar)
-- Role: Agentic AI Engineer & Data Science Student
+- Role: Agentic AI Engineer & Data Science Undergraduate
 - University: Islamia University of Bahawalpur (IUB) — BS Data Science
 - Certifications: Panaversity (Agentic AI Specialist), PIAIC (Artificial Intelligence)
 - Official GitHub Profile: https://github.com/AbdullahMalik17
 - Portfolio URL: https://portfolio-ai-assistant-of-malik.vercel.app/
 
 ## Honors & Recognitions
-- GitHub Starstruck (Bronze Tier): Awarded for MalikClaw earning 16+ GitHub stars (https://github.com/users/AbdullahMalik17/achievements/starstruck)
+- GitHub Starstruck (Bronze Tier): Awarded when MalikClaw passed 16 GitHub stars (now 20) (https://github.com/users/AbdullahMalik17/achievements/starstruck)
 - GitHub Pull Shark: Merged pull requests during Hackathon 2
 - GitHub Pair Extraordinaire: Pair programming & co-authored commits with Claude
-- A2AS Behavior Certificate: Audited agent security & governance (https://a2as.org/certified/agents/abdullahmalik17/deep-research-age)
+- A2AS Behavior Certificate: Audited agent security & governance (https://a2as.org/certified/agents/abdullahmalik17/deep-research-agent)
 - Skills Directory Certified Author: 12 published Claude agent skills, Security Grade A (https://skillsdirectory.com/authors/abdullahmalik17)
 - MCP Market Listed: MalikClaw officially listed on MCP Market (https://mcpmarket.com/server/malikclaw)
 - Online Badges & Certification Registry: 37 total badges across Skills Directory, Go pkg.go.dev, Go Report Card, Snyk, and GitHub

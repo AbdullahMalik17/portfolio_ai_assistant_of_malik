@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { FormEvent, useCallback, useEffect, useState } from 'react';
 
 interface Contact {
   id: number;
@@ -13,17 +13,45 @@ interface Contact {
   created_at: string;
 }
 
+const TOKEN_KEY = 'admin-token';
+
 export default function AdminContactsPage() {
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [filter, setFilter] = useState<'all' | 'new' | 'read' | 'replied'>('all');
+  const [token, setToken] = useState<string | null>(null);
+  const [draftToken, setDraftToken] = useState('');
+
+  useEffect(() => {
+    setToken(sessionStorage.getItem(TOKEN_KEY));
+  }, []);
+
+  const request = useCallback(async (path: string, init?: RequestInit) => {
+    const response = await fetch(path, {
+      ...init,
+      headers: {
+        ...init?.headers,
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+    });
+    if (response.status === 401 || response.status === 503) {
+      sessionStorage.removeItem(TOKEN_KEY);
+      setToken(null);
+      throw new Error(
+        response.status === 503
+          ? 'This deployment has no ADMIN_TOKEN configured, so the inbox is unavailable.'
+          : 'Invalid admin token.'
+      );
+    }
+    return response;
+  }, [token]);
 
   const fetchContacts = useCallback(async () => {
     try {
       setLoading(true);
       const filterParam = filter !== 'all' ? `?status=${filter}` : '';
-      const response = await fetch(`/api/admin/contacts${filterParam}`);
+      const response = await request(`/api/admin/contacts${filterParam}`);
       const data = await response.json();
 
       if (data.success) {
@@ -32,20 +60,26 @@ export default function AdminContactsPage() {
         setError(data.error || 'Failed to fetch contacts');
       }
     } catch (err) {
-      setError('Failed to fetch contacts');
-      console.error(err);
+      setError(err instanceof Error ? err.message : 'Failed to fetch contacts');
     } finally {
       setLoading(false);
     }
-  }, [filter]);
+  }, [filter, request]);
 
   useEffect(() => {
-    fetchContacts();
-  }, [fetchContacts]);
+    if (token) fetchContacts();
+  }, [token, fetchContacts]);
+
+  const submitToken = (e: FormEvent) => {
+    e.preventDefault();
+    sessionStorage.setItem(TOKEN_KEY, draftToken.trim());
+    setToken(draftToken.trim());
+    setError(null);
+  };
 
   const updateStatus = async (id: number, status: 'new' | 'read' | 'replied') => {
     try {
-      const response = await fetch(`/api/admin/contacts/${id}`, {
+      const response = await request(`/api/admin/contacts/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status }),
@@ -63,7 +97,7 @@ export default function AdminContactsPage() {
     if (!confirm('Are you sure you want to delete this contact?')) return;
 
     try {
-      const response = await fetch(`/api/admin/contacts/${id}`, {
+      const response = await request(`/api/admin/contacts/${id}`, {
         method: 'DELETE',
       });
 
@@ -74,6 +108,35 @@ export default function AdminContactsPage() {
       console.error('Failed to delete contact:', err);
     }
   };
+
+  if (!token) {
+    return (
+      <div className="min-h-screen bg-canvas text-ink flex items-center justify-center px-4">
+        <form onSubmit={submitToken} className="w-full max-w-sm glass rounded-2xl p-8 space-y-4">
+          <h1 className="text-xl font-bold">Contact inbox</h1>
+          <p className="text-sm text-ink-muted">
+            Enter the admin token to load submissions. It stays in this browser tab.
+          </p>
+          <input
+            type="password"
+            value={draftToken}
+            onChange={(e) => setDraftToken(e.target.value)}
+            className="w-full rounded-lg border border-line bg-canvas/60 px-3 py-2 text-sm outline-none focus:border-accent"
+            placeholder="ADMIN_TOKEN"
+            autoComplete="current-password"
+          />
+          {error && <p className="text-sm text-accent">{error}</p>}
+          <button
+            type="submit"
+            disabled={!draftToken.trim()}
+            className="w-full rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-accent-ink disabled:opacity-40"
+          >
+            Unlock
+          </button>
+        </form>
+      </div>
+    );
+  }
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -93,7 +156,7 @@ export default function AdminContactsPage() {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">
+          <h1 className="text-4xl font-bold text-gray-900 dark:text-ink mb-2">
             Contact Submissions
           </h1>
           <p className="text-gray-600 dark:text-gray-400">
@@ -109,7 +172,7 @@ export default function AdminContactsPage() {
               onClick={() => setFilter(f as 'all' | 'new' | 'read' | 'replied')}
               className={`px-4 py-2 rounded-lg font-medium transition-all ${
                 filter === f
-                  ? 'bg-blue-500 text-white shadow-lg'
+                  ? 'bg-blue-500 text-ink shadow-lg'
                   : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
               }`}
             >
@@ -150,7 +213,7 @@ export default function AdminContactsPage() {
                   <div className="flex justify-between items-start mb-4">
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
-                        <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                        <h3 className="text-xl font-semibold text-gray-900 dark:text-ink">
                           {contact.subject}
                         </h3>
                         <span
@@ -179,7 +242,7 @@ export default function AdminContactsPage() {
                       </select>
                       <button
                         onClick={() => deleteContact(contact.id)}
-                        className="px-3 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors text-sm"
+                        className="px-3 py-1 bg-red-500 text-ink rounded-lg hover:bg-red-600 transition-colors text-sm"
                       >
                         Delete
                       </button>
@@ -189,7 +252,7 @@ export default function AdminContactsPage() {
                   <div className="grid md:grid-cols-2 gap-4 mb-4">
                     <div>
                       <p className="text-sm text-gray-500 dark:text-gray-400">Name</p>
-                      <p className="font-medium text-gray-900 dark:text-white">
+                      <p className="font-medium text-gray-900 dark:text-ink">
                         {contact.name}
                       </p>
                     </div>

@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "index-portfolio": "node -e \"fetch('http://localhost:3000/api/index-portfolio', { method: 'POST' }).then(r => r.json()).then(console.log)\""
+    "index-portfolio": "node -e \"fetch('http://localhost:3000/api/index-portfolio',{method:'POST',headers:{Authorization:'Bearer '+process.env.ADMIN_TOKEN}}).then(r=>r.json()).then(console.log)\""
   },
   "dependencies": {
     "@google/generative-ai": "^0.21.0",

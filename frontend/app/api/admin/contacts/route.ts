@@ -1,8 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getContacts } from '@/app/lib/db';
+import { requireAdmin } from '@/app/lib/admin-auth';
 
 export async function GET(request: NextRequest) {
   try {
+    const denied = requireAdmin(request);
+    if (denied) return denied;
+
     const { searchParams } = new URL(request.url);
     const status = searchParams.get('status') || undefined;
 

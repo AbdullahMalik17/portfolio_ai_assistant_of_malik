@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   FileText, Github, ExternalLink, 
-  Cpu, Bot, MessageSquare, Check,
+  Cpu, Bot, MessageSquare, Check, Globe2,
   type LucideIcon
 } from 'lucide-react';
 import FadeInWhenVisible from './FadeInWhenVisible';
@@ -15,7 +15,6 @@ interface CaseStudy {
   subtitle: string;
   badge: string;
   icon: LucideIcon;
-  accentColor: string;
   problem: string;
   requirements: string[];
   architecture: string;
@@ -31,7 +30,6 @@ interface CaseStudy {
   githubUrl: string;
   liveUrl?: string | null;
   mcpUrl?: string;
-  certUrl?: string;
 }
 
 const caseStudies: CaseStudy[] = [
@@ -41,7 +39,6 @@ const caseStudies: CaseStudy[] = [
     subtitle: 'Ultra-lightweight AI Assistant Gateway for Edge Devices with Urdu-First Support',
     badge: 'MCP Market Listed • A2AS Certified',
     icon: Cpu,
-    accentColor: 'from-indigo-500 to-cyan-400',
     problem: 'Standard Python agent frameworks (e.g. LangChain, CrewAI) consume 300MB–1GB+ RAM, making them unusable on cheap $10 Raspberry Pi Zero or Android hardware.',
     requirements: [
       'Memory footprint <15MB RAM',
@@ -66,7 +63,6 @@ const caseStudies: CaseStudy[] = [
     githubUrl: 'https://github.com/AbdullahMalik17/malikclaw',
     liveUrl: 'https://malikclaw.vercel.app/',
     mcpUrl: 'https://mcpmarket.com/ko/server/malikclaw',
-    certUrl: '/Muhammad_Abdullah_Certificate.pdf',
   },
   {
     id: 'digital-fte',
@@ -74,7 +70,6 @@ const caseStudies: CaseStudy[] = [
     subtitle: 'Autonomous 24/7 Digital Employee with Cloud Sentry + Local Executive Architecture',
     badge: 'Dual-Agent Architecture',
     icon: Bot,
-    accentColor: 'from-pink-500 to-rose-400',
     problem: 'Businesses and founders waste hours manually sorting incoming communications (Email, WhatsApp, LinkedIn) and performing administrative bookkeeping across SaaS tools.',
     requirements: [
       'Continuous 24/7 background monitoring without exposing local system tokens to cloud endpoints',
@@ -104,7 +99,6 @@ const caseStudies: CaseStudy[] = [
     subtitle: 'Enterprise Multi-Channel AI Support System with pgvector & Kafka Async Queues',
     badge: '100% Complete (117/117 Tasks)',
     icon: MessageSquare,
-    accentColor: 'from-cyan-500 to-emerald-400',
     problem: 'Customer support teams suffer from slow response times, disjointed cross-channel customer histories, and high operational costs for recurring support queries.',
     requirements: [
       'Asynchronous message processing to withstand peak load spikes without dropping requests',
@@ -137,18 +131,18 @@ export default function CaseStudies() {
   const SelectedIcon = selectedStudy.icon;
 
   return (
-    <section id="case-studies" className="py-24 relative overflow-hidden bg-slate-950/60">
+    <section id="case-studies" className="py-16 relative overflow-hidden bg-canvas/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeInWhenVisible>
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-mono font-bold uppercase tracking-wider mb-4 shadow-sm shadow-cyan-500/10">
-              <FileText className="w-3.5 h-3.5 text-cyan-400" />
+          <div className="text-center mb-10">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-accent/10 border border-accent/30 text-accent text-xs font-mono font-bold uppercase tracking-wider mb-4 shadow-sm shadow-accent/10">
+              <FileText className="w-3.5 h-3.5 text-accent" />
               Deep Engineering Insights
             </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-ink tracking-tight">
               Engineering <span className="text-shimmer">Case Studies</span>
             </h2>
-            <p className="mt-4 text-base sm:text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed">
+            <p className="mt-4 text-base sm:text-lg text-ink-muted max-w-3xl mx-auto leading-relaxed">
               Architectural breakdowns of flagship autonomous AI systems built for production performance, security isolation, and edge efficiency.
             </p>
           </div>
@@ -166,8 +160,8 @@ export default function CaseStudies() {
                 onClick={() => setActiveTab(cs.id)}
                 className={`px-5 py-3 rounded-2xl text-xs sm:text-sm font-bold transition-all duration-300 flex items-center gap-2.5 cursor-pointer ${
                   isSelected
-                    ? 'bg-gradient-to-r from-indigo-500 via-indigo-600 to-cyan-500 text-white shadow-lg shadow-indigo-500/30 scale-105 border border-white/20'
-                    : 'glass text-slate-400 hover:text-white hover:bg-white/[0.08] border border-white/[0.08]'
+                    ? 'bg-accent text-accent-ink shadow-lg shadow-accent/30 scale-105 border border-line-strong'
+                    : 'glass text-ink-muted hover:text-ink hover:bg-white/5 border border-line'
                 }`}
               >
                 <Icon className="w-4 h-4" />
@@ -186,22 +180,22 @@ export default function CaseStudies() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="glass rounded-3xl p-6 sm:p-10 border border-white/10 bg-slate-950/80 shadow-2xl"
+            className="glass rounded-3xl p-6 sm:p-10 border border-line bg-canvas/80 shadow-2xl"
           >
             {/* Case Study Header */}
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-8 border-b border-white/[0.08]">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-8 border-b border-line">
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-2xl glass border border-white/10 flex items-center justify-center text-cyan-400 bg-white/[0.02] shrink-0">
+                <div className="w-12 h-12 rounded-2xl glass border border-line flex items-center justify-center text-accent bg-white/5 shrink-0">
                   <SelectedIcon className="w-6 h-6" />
                 </div>
                 <div>
-                  <span className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-widest block mb-1">
+                  <span className="text-xs font-mono font-bold text-accent uppercase tracking-widest block mb-1">
                     {selectedStudy.badge}
                   </span>
-                  <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                  <h3 className="text-2xl sm:text-3xl font-extrabold text-ink tracking-tight">
                     {selectedStudy.title}
                   </h3>
-                  <p className="text-sm text-slate-400 mt-1 font-medium">
+                  <p className="text-sm text-ink-muted mt-1 font-medium">
                     {selectedStudy.subtitle}
                   </p>
                 </div>
@@ -213,9 +207,9 @@ export default function CaseStudies() {
                     href={selectedStudy.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-4 py-2.5 rounded-xl glass hover:bg-white/10 border border-white/10 text-white text-xs font-bold transition-all flex items-center gap-2"
+                    className="px-4 py-2.5 rounded-xl glass hover:bg-white/10 border border-line text-ink text-xs font-bold transition-all flex items-center gap-2"
                   >
-                    <Github className="w-4 h-4 text-slate-400" />
+                    <Github className="w-4 h-4 text-ink-muted" />
                     <span>Repository</span>
                   </a>
                 )}
@@ -224,10 +218,21 @@ export default function CaseStudies() {
                     href={selectedStudy.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-indigo-500 to-cyan-500 text-white text-xs font-bold transition-all hover:opacity-90 flex items-center gap-2 shadow-md shadow-indigo-500/25"
+                    className="px-4 py-2.5 rounded-xl bg-accent text-accent-ink text-xs font-bold transition-all hover:opacity-90 flex items-center gap-2 shadow-md shadow-accent/25"
                   >
                     <ExternalLink className="w-4 h-4" />
                     <span>Live System</span>
+                  </a>
+                )}
+                {selectedStudy.mcpUrl && (
+                  <a
+                    href={selectedStudy.mcpUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2.5 rounded-xl glass hover:bg-white/10 border border-line text-ink text-xs font-bold transition-all flex items-center gap-2"
+                  >
+                    <Globe2 className="w-4 h-4 text-accent" />
+                    <span>MCP Market</span>
                   </a>
                 )}
               </div>
@@ -236,18 +241,18 @@ export default function CaseStudies() {
             {/* 12-Point Engineering Breakdown Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-8">
               {/* 01. Problem */}
-              <div className="p-5 rounded-2xl glass border border-white/5 bg-slate-900/40 space-y-2">
-                <span className="text-[10px] font-mono text-pink-400 font-extrabold tracking-widest uppercase">01. Problem</span>
-                <p className="text-xs text-slate-300 leading-relaxed font-normal">{selectedStudy.problem}</p>
+              <div className="p-5 rounded-2xl glass border border-line bg-surface/40 space-y-2">
+                <span className="text-[10px] font-mono text-accent font-extrabold tracking-widest uppercase">01. Problem</span>
+                <p className="text-xs text-ink leading-relaxed font-normal">{selectedStudy.problem}</p>
               </div>
 
               {/* 02. Requirements */}
-              <div className="p-5 rounded-2xl glass border border-white/5 bg-slate-900/40 space-y-2">
-                <span className="text-[10px] font-mono text-pink-400 font-extrabold tracking-widest uppercase">02. Requirements</span>
+              <div className="p-5 rounded-2xl glass border border-line bg-surface/40 space-y-2">
+                <span className="text-[10px] font-mono text-accent font-extrabold tracking-widest uppercase">02. Requirements</span>
                 <ul className="space-y-1.5">
                   {selectedStudy.requirements.map((req, idx) => (
-                    <li key={idx} className="text-xs text-slate-300 flex items-start gap-2">
-                      <span className="text-cyan-400 font-bold">•</span>
+                    <li key={idx} className="text-xs text-ink flex items-start gap-2">
+                      <span className="text-accent font-bold">•</span>
                       <span>{req}</span>
                     </li>
                   ))}
@@ -255,23 +260,23 @@ export default function CaseStudies() {
               </div>
 
               {/* 03. Architecture */}
-              <div className="p-5 rounded-2xl glass border border-white/5 bg-slate-900/40 space-y-2">
-                <span className="text-[10px] font-mono text-pink-400 font-extrabold tracking-widest uppercase">03. System Architecture</span>
-                <p className="text-xs text-slate-300 font-mono leading-relaxed bg-[#070b14] p-3 rounded-xl border border-white/5">{selectedStudy.architecture}</p>
+              <div className="p-5 rounded-2xl glass border border-line bg-surface/40 space-y-2">
+                <span className="text-[10px] font-mono text-accent font-extrabold tracking-widest uppercase">03. System Architecture</span>
+                <p className="text-xs text-ink font-mono leading-relaxed bg-[#070b14] p-3 rounded-xl border border-line">{selectedStudy.architecture}</p>
               </div>
 
               {/* 04. Agent Design */}
-              <div className="p-5 rounded-2xl glass border border-white/5 bg-slate-900/40 space-y-2">
-                <span className="text-[10px] font-mono text-cyan-400 font-extrabold tracking-widest uppercase">04. Agent Design</span>
-                <p className="text-xs text-slate-300 leading-relaxed font-normal">{selectedStudy.agentDesign}</p>
+              <div className="p-5 rounded-2xl glass border border-line bg-surface/40 space-y-2">
+                <span className="text-[10px] font-mono text-accent font-extrabold tracking-widest uppercase">04. Agent Design</span>
+                <p className="text-xs text-ink leading-relaxed font-normal">{selectedStudy.agentDesign}</p>
               </div>
 
               {/* 05. Tools */}
-              <div className="p-5 rounded-2xl glass border border-white/5 bg-slate-900/40 space-y-2">
-                <span className="text-[10px] font-mono text-cyan-400 font-extrabold tracking-widest uppercase">05. Tool Integrations</span>
+              <div className="p-5 rounded-2xl glass border border-line bg-surface/40 space-y-2">
+                <span className="text-[10px] font-mono text-accent font-extrabold tracking-widest uppercase">05. Tool Integrations</span>
                 <div className="flex flex-wrap gap-1.5 pt-1">
                   {selectedStudy.tools.map((tool, idx) => (
-                    <span key={idx} className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-[11px] font-mono text-slate-200">
+                    <span key={idx} className="px-2.5 py-1 rounded-lg bg-white/5 border border-line text-[11px] font-mono text-ink">
                       {tool}
                     </span>
                   ))}
@@ -279,42 +284,42 @@ export default function CaseStudies() {
               </div>
 
               {/* 06. Memory */}
-              <div className="p-5 rounded-2xl glass border border-white/5 bg-slate-900/40 space-y-2">
-                <span className="text-[10px] font-mono text-cyan-400 font-extrabold tracking-widest uppercase">06. Memory & State</span>
-                <p className="text-xs text-slate-300 leading-relaxed font-normal">{selectedStudy.memory}</p>
+              <div className="p-5 rounded-2xl glass border border-line bg-surface/40 space-y-2">
+                <span className="text-[10px] font-mono text-accent font-extrabold tracking-widest uppercase">06. Memory & State</span>
+                <p className="text-xs text-ink leading-relaxed font-normal">{selectedStudy.memory}</p>
               </div>
 
               {/* 07. MCP Integration */}
-              <div className="p-5 rounded-2xl glass border border-white/5 bg-slate-900/40 space-y-2">
-                <span className="text-[10px] font-mono text-indigo-400 font-extrabold tracking-widest uppercase">07. MCP Protocol</span>
-                <p className="text-xs text-slate-300 leading-relaxed font-normal">{selectedStudy.mcpIntegration}</p>
+              <div className="p-5 rounded-2xl glass border border-line bg-surface/40 space-y-2">
+                <span className="text-[10px] font-mono text-accent font-extrabold tracking-widest uppercase">07. MCP Protocol</span>
+                <p className="text-xs text-ink leading-relaxed font-normal">{selectedStudy.mcpIntegration}</p>
               </div>
 
               {/* 08. Model Strategy */}
-              <div className="p-5 rounded-2xl glass border border-white/5 bg-slate-900/40 space-y-2">
-                <span className="text-[10px] font-mono text-indigo-400 font-extrabold tracking-widest uppercase">08. Model Strategy</span>
-                <p className="text-xs text-slate-300 leading-relaxed font-normal">{selectedStudy.modelStrategy}</p>
+              <div className="p-5 rounded-2xl glass border border-line bg-surface/40 space-y-2">
+                <span className="text-[10px] font-mono text-accent font-extrabold tracking-widest uppercase">08. Model Strategy</span>
+                <p className="text-xs text-ink leading-relaxed font-normal">{selectedStudy.modelStrategy}</p>
               </div>
 
               {/* 09. Error Handling */}
-              <div className="p-5 rounded-2xl glass border border-white/5 bg-slate-900/40 space-y-2">
-                <span className="text-[10px] font-mono text-indigo-400 font-extrabold tracking-widest uppercase">09. Resilience & Fallbacks</span>
-                <p className="text-xs text-slate-300 leading-relaxed font-normal">{selectedStudy.errorHandling}</p>
+              <div className="p-5 rounded-2xl glass border border-line bg-surface/40 space-y-2">
+                <span className="text-[10px] font-mono text-accent font-extrabold tracking-widest uppercase">09. Resilience & Fallbacks</span>
+                <p className="text-xs text-ink leading-relaxed font-normal">{selectedStudy.errorHandling}</p>
               </div>
 
               {/* 10. Evaluation */}
-              <div className="p-5 rounded-2xl glass border border-white/5 bg-slate-900/40 space-y-2">
-                <span className="text-[10px] font-mono text-emerald-400 font-extrabold tracking-widest uppercase">10. Benchmarks & Evaluation</span>
-                <p className="text-xs text-slate-300 leading-relaxed font-normal">{selectedStudy.evaluation}</p>
+              <div className="p-5 rounded-2xl glass border border-line bg-surface/40 space-y-2">
+                <span className="text-[10px] font-mono text-accent font-extrabold tracking-widest uppercase">10. Benchmarks & Evaluation</span>
+                <p className="text-xs text-ink leading-relaxed font-normal">{selectedStudy.evaluation}</p>
               </div>
 
               {/* 11. Key Decisions */}
-              <div className="p-5 rounded-2xl glass border border-white/5 bg-slate-900/40 space-y-2">
-                <span className="text-[10px] font-mono text-emerald-400 font-extrabold tracking-widest uppercase">11. Engineering Decisions</span>
+              <div className="p-5 rounded-2xl glass border border-line bg-surface/40 space-y-2">
+                <span className="text-[10px] font-mono text-accent font-extrabold tracking-widest uppercase">11. Engineering Decisions</span>
                 <ul className="space-y-1.5">
                   {selectedStudy.keyDecisions.map((dec, idx) => (
-                    <li key={idx} className="text-xs text-slate-300 flex items-start gap-2">
-                      <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
+                    <li key={idx} className="text-xs text-ink flex items-start gap-2">
+                      <Check className="w-3.5 h-3.5 text-accent shrink-0 mt-0.5" />
                       <span>{dec}</span>
                     </li>
                   ))}
@@ -322,9 +327,9 @@ export default function CaseStudies() {
               </div>
 
               {/* 12. Result */}
-              <div className="p-5 rounded-2xl bg-emerald-950/20 border border-emerald-500/30 space-y-2">
-                <span className="text-[10px] font-mono text-emerald-400 font-extrabold tracking-widest uppercase">12. Measured Impact</span>
-                <p className="text-xs text-emerald-200 font-semibold leading-relaxed">{selectedStudy.result}</p>
+              <div className="p-5 rounded-2xl bg-accent/10 border border-accent/30 space-y-2">
+                <span className="text-[10px] font-mono text-accent font-extrabold tracking-widest uppercase">12. Measured Impact</span>
+                <p className="text-xs text-ink font-semibold leading-relaxed">{selectedStudy.result}</p>
               </div>
             </div>
           </motion.div>

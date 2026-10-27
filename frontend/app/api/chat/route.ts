@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
 import { PORTFOLIO_SYSTEM_PROMPT } from '@/app/lib/portfolio-context';
+import { GITHUB_PROFILE } from '@/app/lib/portfolio-data';
 
 export const runtime = 'nodejs';
 
@@ -189,7 +190,7 @@ function getFallbackResponse(): string {
 
 Here are his core highlights:
 - **Education**: Pursuing BS Data Science at Islamia University of Bahawalpur (IUB). Mastered Agentic AI at Panaversity & PIAIC.
-- **GitHub Honors**: Starstruck (Bronze Tier — MalikClaw 16+ Stars), Pull Shark (Hackathon 2), Pair Extraordinaire (Claude collaboration).
+- **GitHub Honors**: Starstruck (Bronze Tier — MalikClaw, ${GITHUB_PROFILE.malikclawStars} stars), Pull Shark (Hackathon 2), Pair Extraordinaire (Claude collaboration).
 - **Flagship Systems**: MalikClaw (Go edge runtime <10MB RAM, MCP Market listed), Digital FTE (Cloud Sentry + Local Executive), and Customer Success AI.
 - **Stack**: Python, Go, TypeScript, Next.js, Model Context Protocol (MCP), Kafka, pgvector, Docker.
 

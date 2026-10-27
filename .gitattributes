@@ -1,0 +1,22 @@
+# Git for Windows installs core.autocrlf=true, which wants to rewrite every
+# LF file in this repo to CRLF on checkout. Declaring LF here keeps the working
+# copy byte-identical to the blob and to the Linux deploy target.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.pdf binary
+*.zip binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.mp3 binary
+*.mp4 binary
+
+# Windows batch scripts only run with CRLF.
+*.bat text eol=crlf
+*.cmd text eol=crlf

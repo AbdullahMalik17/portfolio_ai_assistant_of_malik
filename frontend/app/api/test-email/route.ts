@@ -1,9 +1,12 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import { requireAdmin } from '@/app/lib/admin-auth';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const denied = requireAdmin(request);
+  if (denied) return denied;
   try {
     if (!process.env.RESEND_API_KEY) {
       return NextResponse.json({

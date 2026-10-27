@@ -104,12 +104,12 @@ export default function ContextMenu() {
           exit={{ opacity: 0, scale: 0.95 }}
           transition={{ duration: 0.12 }}
           style={{ top: position.y, left: position.x }}
-          className="fixed z-[9999] w-56 glass border border-white/15 rounded-2xl shadow-2xl backdrop-blur-2xl bg-slate-950/95 overflow-hidden p-1.5"
+          className="fixed z-[9999] w-56 glass border border-white/15 rounded-2xl shadow-2xl backdrop-blur-2xl bg-canvas/95 overflow-hidden p-1.5"
         >
           <div className="space-y-0.5">
             {menuItems.map((item, index) => {
               if (item.separator) {
-                return <div key={index} className="h-px bg-white/[0.08] my-1" />;
+                return <div key={index} className="h-px bg-white/5 my-1" />;
               }
 
               const Icon = item.icon!;
@@ -118,9 +118,9 @@ export default function ContextMenu() {
                 <button
                   key={index}
                   onClick={item.action}
-                  className="w-full text-left px-3 py-2 rounded-xl text-xs text-slate-300 hover:text-white hover:bg-white/[0.08] transition-colors flex items-center gap-2.5 cursor-pointer font-sans"
+                  className="w-full text-left px-3 py-2 rounded-xl text-xs text-ink hover:text-ink hover:bg-white/5 transition-colors flex items-center gap-2.5 cursor-pointer font-sans"
                 >
-                  <Icon className="w-4 h-4 text-cyan-400 shrink-0" />
+                  <Icon className="w-4 h-4 text-accent shrink-0" />
                   <span>{item.label}</span>
                 </button>
               );

@@ -4,7 +4,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { scroller } from 'react-scroll';
 import {
-  Send, Bot, Minimize2,
+  Send, Bot, X,
   Copy, Check, RotateCcw, Mic, MicOff,
   Zap
 } from 'lucide-react';
@@ -350,17 +350,21 @@ export default function ChatbotWidget() {
         whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen((prev) => !prev)}
-        className="fixed bottom-6 right-6 z-50 p-4 rounded-2xl bg-gradient-to-r from-indigo-500 via-indigo-600 to-cyan-500 text-white shadow-2xl shadow-cyan-500/30 hover:shadow-cyan-500/50 border border-white/20 flex items-center gap-3 cursor-pointer group"
+        className="fixed bottom-[calc(1.25rem+env(safe-area-inset-bottom))] right-4 sm:right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-accent text-accent-ink shadow-[0_8px_28px_-10px_rgba(34,211,238,0.65)] ring-1 ring-accent/40 transition-colors hover:bg-accent-bright cursor-pointer group"
         aria-label="Toggle AI Assistant"
+        title="Ask the AI assistant"
       >
-        <span className="relative flex h-3 w-3">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-300 opacity-75"></span>
-          <span className="relative inline-flex rounded-full h-3 w-3 bg-cyan-400"></span>
-        </span>
-        <Bot className="w-6 h-6 group-hover:rotate-12 transition-transform duration-300" />
-        <span className="text-xs font-mono font-bold uppercase tracking-wider hidden sm:inline">
-          Ask AI Assistant
-        </span>
+        {isOpen ? (
+          <X className="w-6 h-6" />
+        ) : (
+          <>
+            <span className="absolute right-1 top-1 flex h-3 w-3">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-ink/40 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
+            </span>
+            <Bot className="w-6 h-6 group-hover:rotate-12 transition-transform duration-300" />
+          </>
+        )}
       </motion.button>
 
       {/* Chatbot Window */}
@@ -371,26 +375,26 @@ export default function ChatbotWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 25, scale: 0.95 }}
             transition={{ duration: 0.25, ease: 'easeOut' }}
-            className="fixed bottom-24 right-4 sm:right-6 w-[94vw] sm:w-[440px] h-[600px] max-h-[82vh] z-50 glass rounded-3xl border border-white/10 bg-slate-950/95 shadow-2xl flex flex-col overflow-hidden backdrop-blur-2xl"
+            className="fixed bottom-[calc(6.25rem+env(safe-area-inset-bottom))] right-4 sm:right-6 z-50 flex h-[600px] max-h-[78vh] w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-[var(--radius-panel)] glass-strong sm:w-[440px]"
           >
             {/* Window Header */}
-            <div className="px-5 py-4 bg-slate-900/90 border-b border-white/[0.08] flex items-center justify-between">
+            <div className="px-5 py-4 border-b border-line flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-500 to-cyan-400 flex items-center justify-center text-white shadow-md">
+                <div className="w-9 h-9 rounded-xl bg-accent/12 flex items-center justify-center text-accent">
                   <Bot className="w-5 h-5" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <h3 className="text-sm font-bold text-white tracking-tight">
-                      Portfolio Digital FTE
+                    <h3 className="text-sm font-bold text-ink tracking-tight">
+                      Portfolio AI Assistant
                     </h3>
-                    <span className="px-2 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-[9px] font-mono font-semibold">
-                      Gemini 2.5
+                    <span className="px-2 py-0.5 rounded-full bg-accent/10 border border-accent/20 text-accent text-[9px] font-mono font-semibold">
+                      RAG
                     </span>
                   </div>
-                  <span className="text-[11px] font-mono text-emerald-400 flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                    Autonomous RAG & Function Calling
+                  <span className="text-[11px] font-mono text-ok flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-ok animate-pulse" />
+                    Grounded in this portfolio
                   </span>
                 </div>
               </div>
@@ -398,17 +402,17 @@ export default function ChatbotWidget() {
               <div className="flex items-center gap-1">
                 <button
                   onClick={handleResetChat}
-                  className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-colors cursor-pointer"
+                  className="p-2 rounded-xl text-ink-muted hover:text-ink hover:bg-white/5 transition-colors cursor-pointer"
                   title="Reset Conversation"
                 >
                   <RotateCcw className="w-4 h-4" />
                 </button>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-colors cursor-pointer"
-                  title="Minimize Assistant"
+                  className="p-2 rounded-xl text-ink-muted hover:text-ink hover:bg-white/5 transition-colors cursor-pointer"
+                  title="Close Assistant"
                 >
-                  <Minimize2 className="w-4 h-4" />
+                  <X className="w-4 h-4" />
                 </button>
               </div>
             </div>
@@ -429,19 +433,19 @@ export default function ChatbotWidget() {
                     <div
                       className={`max-w-[86%] p-4 rounded-2xl leading-relaxed whitespace-pre-wrap ${
                         isUser
-                          ? 'bg-gradient-to-r from-indigo-600 to-cyan-600 text-white rounded-br-sm shadow-md'
-                          : 'glass bg-slate-900/70 border border-white/[0.08] text-slate-200 rounded-bl-sm shadow-sm'
+                          ? 'bg-accent text-accent-ink rounded-br-sm'
+                          : 'bg-surface-raised border border-line text-ink rounded-bl-sm'
                       }`}
                     >
                       {/* Tool Calls Execution Badge */}
                       {msg.toolCalls && msg.toolCalls.length > 0 && (
-                        <div className="mb-2.5 pb-2 border-b border-white/10 space-y-1">
+                        <div className="mb-2.5 pb-2 border-b border-line space-y-1">
                           {msg.toolCalls.map((tc, tcIdx) => (
                             <span
                               key={tcIdx}
-                              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-cyan-950/40 border border-cyan-500/30 text-cyan-300 text-[10px] font-mono font-medium block"
+                              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-accent/10 border border-accent/20 text-accent text-[10px] font-mono font-medium block"
                             >
-                              <Zap className="w-3 h-3 text-cyan-400" />
+                              <Zap className="w-3 h-3 text-accent" />
                               <span>Tool Executed: {tc.action}</span>
                             </span>
                           ))}
@@ -453,15 +457,15 @@ export default function ChatbotWidget() {
 
                     {/* Message Actions */}
                     {!isUser && msg.content && (
-                      <div className="flex items-center gap-2 mt-1.5 pl-1 text-slate-500 text-[10px] font-mono">
+                      <div className="flex items-center gap-2 mt-1.5 pl-1 text-ink-subtle text-[10px] font-mono">
                         <button
                           onClick={() => handleCopyText(msg.content, index)}
-                          className="hover:text-slate-300 flex items-center gap-1 transition-colors cursor-pointer"
+                          className="hover:text-ink flex items-center gap-1 transition-colors cursor-pointer"
                         >
                           {copiedIndex === index ? (
                             <>
-                              <Check className="w-3 h-3 text-emerald-400" />
-                              <span className="text-emerald-400">Copied</span>
+                              <Check className="w-3 h-3 text-ok" />
+                              <span className="text-ok">Copied</span>
                             </>
                           ) : (
                             <>
@@ -480,15 +484,15 @@ export default function ChatbotWidget() {
 
               {/* Active Tool Execution Indicator */}
               {activeTool && (
-                <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-cyan-950/30 border border-cyan-500/30 text-cyan-300 text-[11px] font-mono animate-pulse">
-                  <Zap className="w-3.5 h-3.5 text-cyan-400 animate-spin" />
+                <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-accent/10 border border-accent/20 text-accent text-[11px] font-mono animate-pulse">
+                  <Zap className="w-3.5 h-3.5 text-accent animate-spin" />
                   <span>{activeTool}</span>
                 </div>
               )}
 
               {/* Typing bounce */}
               {isLoading && !activeTool && (
-                <div className="glass p-3 rounded-2xl border border-white/5 bg-slate-900/40 max-w-[100px] flex items-center justify-center">
+                <div className="p-3 rounded-2xl bg-surface-raised border border-line max-w-[100px] flex items-center justify-center">
                   <div className="chat-typing-indicator">
                     <span />
                     <span />
@@ -499,13 +503,13 @@ export default function ChatbotWidget() {
             </div>
 
             {/* Quick Prompt Starter Chips */}
-            <div className="px-4 py-2 border-t border-white/[0.06] bg-slate-900/60 overflow-x-auto flex gap-2 custom-scrollbar">
+            <div className="px-4 py-2 border-t border-line overflow-x-auto flex gap-2 custom-scrollbar">
               {quickPromptChips.map((chip, idx) => (
                 <button
                   key={idx}
                   onClick={() => sendMessage(chip)}
                   disabled={isLoading}
-                  className="px-3 py-1.5 rounded-xl glass border border-white/[0.08] hover:border-cyan-500/40 text-[11px] text-slate-300 hover:text-white whitespace-nowrap transition-all duration-200 cursor-pointer shrink-0 disabled:opacity-50"
+                  className="px-3 py-1.5 rounded-xl border border-line bg-white/5 hover:border-accent/40 text-[11px] text-ink-muted hover:text-ink whitespace-nowrap transition-colors duration-200 cursor-pointer shrink-0 disabled:opacity-50"
                 >
                   {chip}
                 </button>
@@ -518,15 +522,15 @@ export default function ChatbotWidget() {
                 e.preventDefault();
                 sendMessage();
               }}
-              className="p-3 bg-slate-950 border-t border-white/[0.08] flex items-center gap-2"
+              className="p-3 border-t border-line flex items-center gap-2"
             >
               <button
                 type="button"
                 onClick={toggleVoiceInput}
                 className={`p-2.5 rounded-xl border transition-all cursor-pointer ${
                   isListening
-                    ? 'bg-rose-500/20 border-rose-500/50 text-rose-400 animate-pulse'
-                    : 'glass border-white/[0.08] text-slate-400 hover:text-white'
+                    ? 'bg-danger/15 border-danger/40 text-danger animate-pulse'
+                    : 'border-line bg-white/5 text-ink-muted hover:text-ink'
                 }`}
                 title={isListening ? 'Stop listening' : 'Voice Input'}
               >
@@ -538,14 +542,14 @@ export default function ChatbotWidget() {
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask about MalikClaw, MCP, or Digital FTEs..."
-                className="flex-1 bg-slate-900/80 border border-white/[0.08] rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500/50 transition-colors font-sans"
+                placeholder="Ask about MalikClaw, MCP, or my projects..."
+                className="flex-1 bg-white/5 border border-line rounded-xl px-4 py-2.5 text-sm text-ink placeholder:text-ink-subtle focus:outline-none focus:border-accent/50 transition-colors font-sans"
               />
 
               <button
                 type="submit"
                 disabled={!input.trim() || isLoading}
-                className="p-2.5 rounded-xl bg-gradient-to-r from-indigo-500 to-cyan-500 text-white disabled:opacity-40 disabled:cursor-not-allowed hover:opacity-90 transition-opacity cursor-pointer shadow-md shadow-indigo-500/20"
+                className="p-2.5 rounded-xl bg-accent text-accent-ink disabled:opacity-40 disabled:cursor-not-allowed hover:bg-accent-bright transition-colors cursor-pointer"
                 aria-label="Send message"
               >
                 <Send className="w-4 h-4" />
@@ -562,7 +566,7 @@ export default function ChatbotWidget() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 15 }}
-            className="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 px-4 py-2 rounded-xl glass border border-cyan-500/40 text-cyan-300 text-xs font-mono font-medium shadow-2xl bg-slate-950/90 pointer-events-none"
+            className="fixed top-4 left-1/2 -translate-x-1/2 z-50 px-4 py-2 rounded-xl glass text-accent text-xs font-mono font-medium pointer-events-none"
           >
             {toast}
           </motion.div>

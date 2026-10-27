@@ -3,10 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { 
-  ArrowRight, MessageSquare, 
-  Layers, ShieldCheck, Globe2
-} from 'lucide-react';
+import { ArrowRight, MessageSquare, Layers, ShieldCheck, Globe2 } from 'lucide-react';
 import Button from './Button';
 
 const TITLES = [
@@ -14,7 +11,6 @@ const TITLES = [
   'BS Data Science @ IUB',
   'Autonomous Systems Architect',
   'Go & MCP Runtime Specialist',
-  'Digital FTE Creator',
 ];
 
 export default function Hero() {
@@ -48,156 +44,142 @@ export default function Hero() {
   }, [displayText, isDeleting, titleIndex]);
 
   const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   const openPortfolioChat = () => {
-    const event = new CustomEvent('open-portfolio-chat');
-    window.dispatchEvent(event);
+    window.dispatchEvent(new CustomEvent('open-portfolio-chat'));
   };
 
   return (
-    <section 
-      id="home" 
-      className="relative min-h-[92vh] flex items-center justify-center pt-24 pb-16 overflow-hidden"
+    <section
+      id="home"
+      className="relative flex min-h-[92vh] items-center justify-center overflow-hidden pt-[calc(var(--nav-h)+3rem)] pb-20"
     >
-      {/* Background Ambient Glows */}
-      <div className="ambient-glow ambient-glow-indigo top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-      <div className="ambient-glow ambient-glow-cyan top-1/2 right-1/4" />
-      <div className="ambient-glow ambient-glow-rose bottom-1/4 left-1/4" />
+      <div className="ambient-glow ambient-glow-cyan top-0 left-1/2 -translate-x-1/2" />
+      <div className="absolute inset-0 cyber-grid pointer-events-none" />
 
-      {/* Cyber Noise & Subtle Grid */}
-      <div className="absolute inset-0 cyber-grid opacity-75 pointer-events-none" />
-
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        {/* Profile Avatar with Ambient Cyber Glow & Verified Badge */}
+      <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center px-4 text-center sm:px-6 lg:px-8">
+        {/* Avatar */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
+          initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6 }}
-          className="relative inline-block mb-6 group cursor-pointer"
+          className="group relative mb-7 cursor-pointer"
           onClick={() => scrollToSection('about')}
         >
-          <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-cyan-500 via-indigo-500 to-pink-500 opacity-70 blur-md group-hover:opacity-100 transition-all duration-700 animate-pulse" />
-          <div className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-full p-1 bg-slate-950/80 ring-2 ring-white/20 shadow-2xl overflow-hidden mx-auto">
+          <div className="relative h-28 w-28 overflow-hidden rounded-full bg-surface p-[3px] ring-1 ring-accent/30 transition-shadow duration-500 group-hover:ring-accent/60 sm:h-32 sm:w-32">
             <Image
               src="/profile.jpg"
-              alt="Abdullah Malik (Muhammad Abdullah Athar) — Agentic AI Engineer & Data Scientist"
+              alt="Abdullah Malik — Agentic AI Engineer and BS Data Science student at IUB"
               width={160}
               height={160}
               priority
-              className="w-full h-full object-cover object-top rounded-full transition-transform duration-500 group-hover:scale-105"
+              className="h-full w-full rounded-full object-cover object-top"
             />
           </div>
-          {/* Verified Badge */}
-          <div 
-            className="absolute bottom-1 right-1 sm:bottom-2 sm:right-2 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-slate-900 border-2 border-cyan-400 flex items-center justify-center text-cyan-300 shadow-lg"
-            title="BS Data Science @ IUB • A2AS Certified Agentic AI Engineer"
+          <span
+            className="absolute bottom-1 right-1 flex h-7 w-7 items-center justify-center rounded-full border border-accent/40 bg-[#05070e] text-accent"
+            title="BS Data Science @ IUB"
           >
-            <ShieldCheck className="w-4 h-4 text-cyan-400" />
-          </div>
+            <ShieldCheck className="h-3.5 w-3.5" />
+          </span>
         </motion.div>
 
-        {/* Pulsating Availability Pill */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
+        {/* Availability */}
+        <motion.button
+          initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass border border-cyan-500/30 bg-slate-900/60 shadow-lg shadow-cyan-500/10 mb-8 cursor-pointer hover:border-cyan-400 transition-colors"
           onClick={() => scrollToSection('contact')}
+          className="mb-8 inline-flex items-center gap-2.5 rounded-full border border-line bg-white/5 px-3.5 py-1.5 text-[13px] text-ink-muted transition-colors hover:border-accent/40 hover:text-ink cursor-pointer"
         >
-          <span className="relative flex h-2.5 w-2.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full rounded-full bg-ok opacity-75 animate-ping" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-ok" />
           </span>
-          <span className="text-xs font-mono font-bold tracking-wider text-slate-200 uppercase">
-            Available for Autonomous AI & Digital FTE Engineering
-          </span>
-        </motion.div>
+          <span className="font-medium">Open to agentic AI engineering work</span>
+        </motion.button>
 
-        {/* Engineer Name & Prestige Title */}
+        {/* Name */}
         <motion.h1
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight text-white mb-4"
+          transition={{ duration: 0.6, delay: 0.15 }}
+          className="text-[2.75rem] font-bold leading-[1.05] tracking-tight text-ink sm:text-6xl lg:text-[4.25rem]"
         >
           Muhammad <span className="text-shimmer">Abdullah Malik</span>
         </motion.h1>
 
-        {/* Dynamic Typewriter Role */}
+        {/* Role */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="h-12 sm:h-14 flex items-center justify-center mb-6"
+          className="mt-5 flex h-9 w-full items-center justify-center px-2"
         >
-          <span className="text-xl sm:text-2xl md:text-3xl font-mono font-semibold text-cyan-300">
+          <span className="whitespace-nowrap font-mono text-base font-medium text-accent sm:text-xl">
             {displayText}
-            <span className="inline-block w-2.5 h-6 ml-1 bg-cyan-400 animate-pulse align-middle" />
+            <span className="ml-1 inline-block h-5 w-[2px] translate-y-[3px] bg-accent animate-pulse" />
           </span>
         </motion.div>
 
-        {/* High-Impact Value Proposition */}
+        {/* Value proposition */}
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="text-base sm:text-lg md:text-xl text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed font-sans"
+          transition={{ duration: 0.6, delay: 0.25 }}
+          className="mt-7 max-w-2xl text-lead leading-relaxed text-ink-muted"
         >
-          Architecting production <span className="text-white font-semibold">Autonomous Multi-Agent Systems</span>, 
-          ultra-lightweight <span className="text-cyan-300 font-mono font-medium">Go edge runtimes (&lt;10MB RAM)</span>, 
-          and verifiable <span className="text-indigo-300 font-semibold">Model Context Protocol (MCP)</span> pipelines.
+          I build autonomous multi-agent systems, lightweight Go edge runtimes, and
+          MCP-verified pipelines — while studying BS Data Science at IUB.
         </motion.p>
 
-        {/* Action Buttons */}
+        {/* Actions */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="flex flex-wrap items-center justify-center gap-4 mb-14"
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="mt-10 flex w-full flex-wrap items-center justify-center gap-3 sm:w-auto"
         >
           <Button
-            variant="cyber"
+            variant="primary"
             size="lg"
             onClick={() => scrollToSection('projects')}
-            rightIcon={<ArrowRight className="w-4 h-4" />}
+            rightIcon={<ArrowRight className="h-4 w-4" />}
           >
-            Explore Flagship Systems
+            View my work
           </Button>
 
           <Button
             variant="secondary"
             size="lg"
             onClick={openPortfolioChat}
-            leftIcon={<MessageSquare className="w-4 h-4 text-cyan-400" />}
+            leftIcon={<MessageSquare className="h-4 w-4 text-accent" />}
           >
-            Talk with Digital FTE
+            Ask the AI assistant
           </Button>
         </motion.div>
 
-        {/* Trust Badges Strip */}
+        {/* Proof strip */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="pt-6 border-t border-white/[0.08] flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs font-mono text-slate-400"
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="mt-14 flex w-full flex-wrap items-center justify-center gap-x-8 gap-y-3 border-t border-line pt-7 font-mono text-[13px] text-ink-subtle"
         >
-          <div className="flex items-center gap-2">
-            <Globe2 className="w-4 h-4 text-purple-400" />
-            <span>MCP Market Listed System</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <ShieldCheck className="w-4 h-4 text-emerald-400" />
-            <span>A2AS Behavior Certified</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Layers className="w-4 h-4 text-cyan-400" />
-            <span>Go • Kafka • pgvector • Docker</span>
-          </div>
+          <span className="flex items-center gap-2">
+            <Globe2 className="h-4 w-4 text-accent" />
+            MCP Market listed
+          </span>
+          <span className="flex items-center gap-2">
+            <ShieldCheck className="h-4 w-4 text-accent" />
+            A2AS behavior certified
+          </span>
+          <span className="flex items-center gap-2">
+            <Layers className="h-4 w-4 text-accent" />
+            Go · Kafka · pgvector · Docker
+          </span>
         </motion.div>
       </div>
     </section>

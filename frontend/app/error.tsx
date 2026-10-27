@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { Wrench } from 'lucide-react';
 
 export default function Error({
   error,
@@ -14,39 +15,41 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[color:var(--background)] p-4">
-      <div className="glass rounded-3xl p-8 md:p-12 max-w-2xl w-full text-center">
+    <div className="flex min-h-screen items-center justify-center bg-canvas p-4">
+      <div className="glass w-full max-w-2xl rounded-[var(--radius-panel)] p-8 text-center md:p-12">
         <div className="mb-6">
-          <div className="text-6xl mb-4">🔧</div>
-          <h1 className="text-3xl md:text-4xl font-bold text-[color:var(--foreground)] mb-4">
+          <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-accent/10 text-accent">
+            <Wrench className="h-7 w-7" />
+          </div>
+          <h1 className="mb-4 text-[1.75rem] font-bold text-ink md:text-[2rem]">
             Page Error
           </h1>
-          <p className="text-gray-500 dark:text-gray-400 mb-2">
+          <p className="text-ink-muted">
             {error.message || 'Something went wrong while loading this page'}
           </p>
           {error.digest && (
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+            <p className="mt-2 font-mono text-xs text-ink-subtle">
               Error ID: {error.digest}
             </p>
           )}
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="flex flex-col justify-center gap-4 sm:flex-row">
           <button
             onClick={reset}
-            className="px-6 py-3 bg-gradient-button text-gray-900 rounded-xl font-semibold hover:scale-105 transition-all hover:shadow-lg hover:shadow-[color:var(--accent)]/30"
+            className="rounded-xl bg-accent px-6 py-3 font-semibold text-accent-ink transition-colors hover:bg-accent-bright"
           >
             Try Again
           </button>
           <button
-            onClick={() => window.location.href = '/'}
-            className="px-6 py-3 glass border border-[color:var(--accent)]/20 hover:border-[color:var(--accent)]/40 rounded-xl font-semibold transition-all hover:scale-105"
+            onClick={() => (window.location.href = '/')}
+            className="glass rounded-xl px-6 py-3 font-semibold text-ink transition-colors hover:bg-white/5"
           >
             Go to Home
           </button>
         </div>
 
-        <p className="text-xs text-gray-500 dark:text-gray-400 mt-8">
+        <p className="mt-8 text-xs text-ink-subtle">
           If this problem persists, try clearing your browser cache or contact support.
         </p>
       </div>

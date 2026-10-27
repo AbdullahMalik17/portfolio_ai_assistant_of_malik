@@ -1,7 +1,14 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { Github, Linkedin, Twitter, Mail, FileText } from 'lucide-react';
+import {
+  FileText,
+  Github,
+  Linkedin,
+  Mail,
+  MessageCircle,
+  Twitter,
+  type LucideIcon,
+} from 'lucide-react';
 import { PERSONAL_INFO } from '@/app/lib/portfolio-data';
 
 interface SocialLinksProps {
@@ -9,62 +16,77 @@ interface SocialLinksProps {
   showLabels?: boolean;
 }
 
-const SocialLinks = ({ className = '', showLabels = false }: SocialLinksProps) => {
-  const links = [
+interface Link {
+  name: string;
+  icon: LucideIcon;
+  url: string;
+  external: boolean;
+  ariaLabel: string;
+}
+
+const whatsappNumber = PERSONAL_INFO.whatsapp.replace(/[^0-9]/g, '');
+
+const SocialLinks = ({ className = '', showLabels = true }: SocialLinksProps) => {
+  const links: Link[] = [
     {
       name: 'GitHub',
-      icon: <Github className="w-4 h-4" />,
+      icon: Github,
       url: PERSONAL_INFO.github,
-      hoverBorder: 'hover:border-white/40 hover:text-white',
+      external: true,
       ariaLabel: "Visit Abdullah Malik's GitHub profile",
     },
     {
       name: 'LinkedIn',
-      icon: <Linkedin className="w-4 h-4" />,
+      icon: Linkedin,
       url: PERSONAL_INFO.linkedin,
-      hoverBorder: 'hover:border-cyan-500/50 hover:text-cyan-400 hover:shadow-[0_0_15px_rgba(6,182,212,0.3)]',
+      external: true,
       ariaLabel: "Visit Abdullah Malik's LinkedIn profile",
     },
     {
-      name: 'Twitter',
-      icon: <Twitter className="w-4 h-4" />,
+      name: 'X',
+      icon: Twitter,
       url: PERSONAL_INFO.twitter || 'https://x.com/Ab4695Athar',
-      hoverBorder: 'hover:border-indigo-500/50 hover:text-indigo-400 hover:shadow-[0_0_15px_rgba(99,102,241,0.3)]',
-      ariaLabel: "Visit Abdullah Malik's Twitter profile",
+      external: true,
+      ariaLabel: "Visit Abdullah Malik's X profile",
     },
     {
       name: 'Email',
-      icon: <Mail className="w-4 h-4" />,
+      icon: Mail,
       url: `mailto:${PERSONAL_INFO.email}`,
-      hoverBorder: 'hover:border-emerald-500/50 hover:text-emerald-400 hover:shadow-[0_0_15px_rgba(16,185,129,0.3)]',
-      ariaLabel: "Send an email to Abdullah Malik",
+      external: false,
+      ariaLabel: 'Send an email to Abdullah Malik',
+    },
+    {
+      name: 'WhatsApp',
+      icon: MessageCircle,
+      url: `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+        'Hi Abdullah! I visited your portfolio and would like to discuss an AI agent project.'
+      )}`,
+      external: true,
+      ariaLabel: 'Message Abdullah Malik on WhatsApp',
     },
     {
       name: 'Resume',
-      icon: <FileText className="w-4 h-4" />,
+      icon: FileText,
       url: '/Abdullah_resume.pdf',
-      hoverBorder: 'hover:border-pink-500/50 hover:text-pink-400 hover:shadow-[0_0_15px_rgba(236,72,153,0.3)]',
-      ariaLabel: "View Abdullah Malik's Resume PDF",
+      external: true,
+      ariaLabel: "Download Abdullah Malik's resume PDF",
     },
   ];
 
   return (
-    <div className={`flex items-center gap-3 ${className}`}>
-      {links.map((link) => (
-        <motion.a
-          key={link.name}
-          href={link.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          whileHover={{ scale: 1.08, y: -2 }}
-          whileTap={{ scale: 0.95 }}
-          className={`flex items-center gap-2 p-2.5 rounded-xl glass border border-white/[0.08] text-slate-400 transition-all duration-300 ${link.hoverBorder}`}
-          aria-label={link.ariaLabel}
-          title={link.name}
+    <div className={`flex flex-wrap items-center gap-2.5 ${className}`}>
+      {links.map(({ name, icon: Icon, url, external, ariaLabel }) => (
+        <a
+          key={name}
+          href={url}
+          {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+          className="group flex items-center gap-2 rounded-xl border border-line bg-white/5 px-3.5 py-2.5 text-[13px] font-medium text-ink-muted transition-colors hover:border-accent/40 hover:text-ink"
+          aria-label={ariaLabel}
         >
-          {link.icon}
-          {showLabels && <span className="text-xs font-mono font-medium">{link.name}</span>}
-        </motion.a>
+          <Icon className="h-4 w-4 shrink-0 text-accent" />
+          {showLabels && <span>{name}</span>}
+        </a>
       ))}
     </div>
   );

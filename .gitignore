@@ -40,3 +40,10 @@ logs/
 
 # Gemini Files or Data 
 .gemini 
+
+# Chrome testing profile
+chrome-profile/
+
+# Impeccable scratch artifacts
+.impeccable/*
+!.impeccable/critique/

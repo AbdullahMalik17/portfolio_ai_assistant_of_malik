@@ -1,10 +1,13 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { initContactsTable } from '@/app/lib/db';
 import { indexPortfolioContent } from '@/app/lib/indexer';
+import { requireAdmin } from '@/app/lib/admin-auth';
 
 export const maxDuration = 60; // Allow up to 60 seconds for init + indexing
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const denied = requireAdmin(request);
+  if (denied) return denied;
   try {
     // Initialize contacts table (still using PostgreSQL)
     console.log('Initializing contacts table...');

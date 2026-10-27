@@ -1,11 +1,11 @@
 {
-  "name": "Abdullah Malik - Full-Stack Developer & AI Specialist",
+  "name": "Abdullah Malik — Agentic AI Engineer",
   "short_name": "Abdullah Malik",
-  "description": "Professional portfolio showcasing expertise in Agentic AI Systems, Full-Stack Development, and Cloud Technologies",
+  "description": "Portfolio of Abdullah Malik, agentic AI engineer and BS Data Science undergraduate: Go edge runtimes, Model Context Protocol servers, and multi-agent systems.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#020617",
-  "theme_color": "#3b82f6",
+  "background_color": "#05070e",
+  "theme_color": "#22d3ee",
   "orientation": "portrait-primary",
   "icons": [
     {
@@ -29,13 +29,15 @@
       "src": "/screenshot-wide.png",
       "sizes": "1280x720",
       "type": "image/png",
-      "form_factor": "wide"
+      "form_factor": "wide",
+      "label": "Portfolio homepage on desktop"
     },
     {
       "src": "/screenshot-narrow.png",
       "sizes": "750x1334",
       "type": "image/png",
-      "form_factor": "narrow"
+      "form_factor": "narrow",
+      "label": "Portfolio homepage on mobile"
     }
   ]
 }

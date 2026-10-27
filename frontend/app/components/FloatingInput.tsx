@@ -36,13 +36,13 @@ export function FloatingInput({
         value={value}
         className={`
           peer w-full px-5 pt-7 pb-3 rounded-xl
-          bg-[color:var(--background)]
-          border border-white/10
-          focus:border-[color:var(--accent)]/50
-          focus:ring-4 focus:ring-[color:var(--accent)]/10
+          bg-white/5
+          border border-line
+          focus:border-accent/50
+          focus:ring-4 focus:ring-accent/10
           outline-none transition-all
           placeholder-transparent
-          text-white
+          text-ink
           ${className}
         `}
         placeholder={label}
@@ -53,26 +53,26 @@ export function FloatingInput({
         className={`
           absolute left-5 transition-all duration-300 pointer-events-none font-medium
           ${hasValue || props.placeholder
-            ? 'top-2 text-[10px] uppercase tracking-widest text-[color:var(--accent)]'
-            : 'top-1/2 -translate-y-1/2 text-sm text-gray-500'
+            ? 'top-2 text-[10px] uppercase tracking-widest text-accent'
+            : 'top-1/2 -translate-y-1/2 text-sm text-ink-subtle'
           }
           peer-focus:top-2
           peer-focus:text-[10px]
           peer-focus:uppercase
           peer-focus:tracking-widest
-          peer-focus:text-[color:var(--accent)]
+          peer-focus:text-accent
           peer-placeholder-shown:top-1/2
           peer-placeholder-shown:-translate-y-1/2
           peer-placeholder-shown:text-sm
-          peer-placeholder-shown:text-gray-500
+          peer-placeholder-shown:text-ink-subtle
           peer-[:not(:placeholder-shown)]:top-2
           peer-[:not(:placeholder-shown)]:text-[10px]
-          peer-[:not(:placeholder-shown)]:text-[color:var(--accent)]
+          peer-[:not(:placeholder-shown)]:text-accent
         `}
       >
         {label}
-        {isRequired && <span className="text-[color:var(--accent)] ml-1">*</span>}
-        {isOptional && <span className="text-gray-600 text-[10px] ml-1 tracking-normal font-normal lowercase">(optional)</span>}
+        {isRequired && <span className="text-accent ml-1">*</span>}
+        {isOptional && <span className="text-ink-subtle text-[10px] ml-1 tracking-normal font-normal lowercase">(optional)</span>}
       </label>
     </div>
   );
@@ -104,7 +104,7 @@ export function FloatingTextarea({
                 type="button"
                 onClick={onAIRefine}
                 disabled={isRefining || !hasValue}
-                className="text-xs flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-purple-500/10 text-purple-500 border border-purple-500/20 hover:bg-purple-500/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                className="text-xs flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-accent/10 text-accent border border-accent/20 hover:bg-accent/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isRefining ? (
                   <>
@@ -115,12 +115,12 @@ export function FloatingTextarea({
                     Drafting...
                   </>
                 ) : (
-                  <>✨ Refine with AI</>
+                  <>Refine with AI</>
                 )}
               </button>
             )}
             {characterCount !== undefined && maxCharacters && (
-              <span className={`text-[10px] ${characterCount > maxCharacters ? 'text-red-500' : 'text-gray-400'}`}>
+              <span className={`text-[10px] ${characterCount > maxCharacters ? 'text-danger' : 'text-ink-subtle'}`}>
                 {characterCount}/{maxCharacters}
               </span>
             )}
@@ -133,13 +133,13 @@ export function FloatingTextarea({
           value={value}
           className={`
             peer w-full px-5 pt-7 pb-3 rounded-xl
-            bg-[color:var(--background)]
-            border border-white/10
-            focus:border-[color:var(--accent)]/50
-            focus:ring-4 focus:ring-[color:var(--accent)]/10
+            bg-white/5
+            border border-line
+            focus:border-accent/50
+            focus:ring-4 focus:ring-accent/10
             outline-none transition-all
             placeholder-transparent
-            resize-none font-sans text-sm text-white
+            resize-none font-sans text-sm text-ink
             ${className}
           `}
           placeholder={label}
@@ -150,25 +150,25 @@ export function FloatingTextarea({
           className={`
             absolute left-5 transition-all duration-300 pointer-events-none font-medium
             ${hasValue || props.placeholder
-              ? 'top-2 text-[10px] uppercase tracking-widest text-[color:var(--accent)]'
-              : 'top-7 text-sm text-gray-500'
+              ? 'top-2 text-[10px] uppercase tracking-widest text-accent'
+              : 'top-7 text-sm text-ink-subtle'
             }
             peer-focus:top-2
             peer-focus:text-[10px]
             peer-focus:uppercase
             peer-focus:tracking-widest
-            peer-focus:text-[color:var(--accent)]
+            peer-focus:text-accent
             peer-placeholder-shown:top-7
             peer-placeholder-shown:text-sm
-            peer-placeholder-shown:text-gray-500
+            peer-placeholder-shown:text-ink-subtle
             peer-[:not(:placeholder-shown)]:top-2
             peer-[:not(:placeholder-shown)]:text-[10px]
-            peer-[:not(:placeholder-shown)]:text-[color:var(--accent)]
+            peer-[:not(:placeholder-shown)]:text-accent
           `}
         >
           {label}
-          {isRequired && <span className="text-[color:var(--accent)] ml-1">*</span>}
-          {isOptional && <span className="text-gray-600 text-[10px] ml-1 tracking-normal font-normal lowercase">(optional)</span>}
+          {isRequired && <span className="text-accent ml-1">*</span>}
+          {isOptional && <span className="text-ink-subtle text-[10px] ml-1 tracking-normal font-normal lowercase">(optional)</span>}
         </label>
       </div>
     </div>

@@ -5,6 +5,7 @@ import { Send, Mail, CheckCircle2, AlertCircle } from 'lucide-react';
 import SocialLinks from './SocialLinks';
 import Button from './Button';
 import { FloatingInput, FloatingTextarea } from './FloatingInput';
+import { PERSONAL_INFO } from '@/app/lib/portfolio-data';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -105,30 +106,64 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-24 relative overflow-hidden bg-slate-950/80">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-mono font-bold uppercase tracking-wider mb-4 shadow-sm shadow-cyan-500/10">
-            <Mail className="w-3.5 h-3.5 text-cyan-400" />
-            Initiate Collaboration
+    <section id="contact" className="py-[var(--section-y)]">
+      <div className="mx-auto max-w-[var(--shell)] px-4 sm:px-6 lg:px-8">
+        <div className="grid items-start gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+          {/* Left: the pitch and direct routes */}
+          <div>
+            <span className="eyebrow">
+              <Mail className="h-3.5 w-3.5" />
+              Contact
+            </span>
+            <h2 className="mt-4 text-h2 font-bold leading-[1.15] tracking-tight text-ink">
+              Have an agent system worth building?
+            </h2>
+            <p className="mt-4 max-w-md text-lead leading-relaxed text-ink-muted">
+              Send the workflow you want automated. I reply to every genuine inquiry
+              within 24 hours — usually with a first-pass architecture sketch.
+            </p>
+
+            <dl className="mt-10 space-y-5 border-t border-line pt-8">
+              <div>
+                <dt className="font-mono text-[11px] uppercase tracking-wider text-ink-subtle">Email</dt>
+                <dd className="mt-1">
+                  <a
+                    href={`mailto:${PERSONAL_INFO.email}`}
+                    className="text-sm text-ink hover:text-accent transition-colors"
+                  >
+                    {PERSONAL_INFO.email}
+                  </a>
+                </dd>
+              </div>
+              <div>
+                <dt className="font-mono text-[11px] uppercase tracking-wider text-ink-subtle">WhatsApp</dt>
+                <dd className="mt-1">
+                  <a
+                    href={`https://wa.me/${PERSONAL_INFO.whatsapp.replace(/[^0-9]/g, '')}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-ink hover:text-accent transition-colors"
+                  >
+                    {PERSONAL_INFO.whatsapp}
+                  </a>
+                </dd>
+              </div>
+              <div>
+                <dt className="font-mono text-[11px] uppercase tracking-wider text-ink-subtle">Availability</dt>
+                <dd className="mt-1 flex items-center gap-2 text-sm text-ink">
+                  <span className="h-1.5 w-1.5 rounded-full bg-ok" />
+                  Open to agentic AI engineering work
+                </dd>
+              </div>
+            </dl>
+
+            <SocialLinks className="mt-8" />
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4 tracking-tight">
-            Have an AI workflow <br className="hidden sm:block" />
-            <span className="text-shimmer">worth automating?</span>
-          </h2>
-          <p className="mt-4 text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
-            Let&apos;s build production-ready autonomous agent systems and Digital FTEs together.
-          </p>
-        </div>
 
-        <div className="flex justify-center mb-16 relative z-20">
-          <SocialLinks className="bg-slate-900/80 backdrop-blur-xl shadow-2xl px-8 py-4 rounded-full border border-white/10 hover:border-cyan-500/40 transition-colors" />
-        </div>
-
-        <div className="max-w-3xl mx-auto">
-          <div className="glass rounded-3xl p-8 sm:p-12 shadow-2xl border border-white/10 relative overflow-hidden bg-slate-900/40">
-            <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {/* Right: the form */}
+          <div className="glass rounded-[var(--radius-panel)] p-6 sm:p-9">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <FloatingInput
                   type="text"
                   id="name"
@@ -140,7 +175,6 @@ export default function Contact() {
                   required
                   minLength={2}
                   maxLength={50}
-                  className="bg-black/40 border border-white/10 focus:border-cyan-500/50"
                 />
                 <FloatingInput
                   type="email"
@@ -151,7 +185,6 @@ export default function Contact() {
                   onChange={handleChange}
                   isRequired
                   required
-                  className="bg-black/40 border border-white/10 focus:border-cyan-500/50"
                 />
               </div>
 
@@ -165,22 +198,20 @@ export default function Contact() {
                 required
                 minLength={10}
                 maxLength={maxMessageLength}
-                rows={5}
+                rows={6}
                 characterCount={formData.message.length}
                 maxCharacters={maxMessageLength}
                 onAIRefine={handleAIDraft}
                 isRefining={isDrafting}
-                className="bg-black/40 border border-white/10 focus:border-cyan-500/50"
               />
 
-              <div className="text-center pt-4">
+              <div className="flex justify-end pt-1">
                 <Button
                   type="submit"
                   variant="primary"
-                  size="lg"
+                  size="md"
                   loading={isSubmitting}
-                  className="w-full sm:w-auto px-10 py-4 rounded-xl shadow-lg shadow-indigo-500/25"
-                  rightIcon={<Send className="w-4 h-4" />}
+                  rightIcon={<Send className="h-4 w-4" />}
                 >
                   Send Message
                 </Button>
@@ -188,19 +219,17 @@ export default function Contact() {
 
               {/* Status Banner */}
               {submitStatus.type && (
-                <div className={`mt-6 p-4 rounded-2xl flex items-center gap-3 ${
+                <div className={`flex items-center gap-3 rounded-[var(--radius-card)] p-4 ${
                   submitStatus.type === 'success'
-                    ? 'bg-emerald-950/40 text-emerald-300 border border-emerald-500/30'
-                    : 'bg-rose-950/40 text-rose-300 border border-rose-500/30'
+                    ? 'bg-ok/10 text-ok'
+                    : 'bg-danger/10 text-danger'
                 }`}>
                   {submitStatus.type === 'success' ? (
-                    <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
+                    <CheckCircle2 className="h-5 w-5 shrink-0" />
                   ) : (
-                    <AlertCircle className="w-5 h-5 text-rose-400 shrink-0" />
+                    <AlertCircle className="h-5 w-5 shrink-0" />
                   )}
-                  <p className="text-xs font-mono font-medium">
-                    {submitStatus.message}
-                  </p>
+                  <p className="text-xs font-medium">{submitStatus.message}</p>
                 </div>
               )}
             </form>

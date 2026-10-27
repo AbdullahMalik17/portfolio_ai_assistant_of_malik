@@ -11,7 +11,7 @@ export const PORTFOLIO_SYSTEM_PROMPT = `You are Abdullah Malik's AI portfolio as
 - **Location**: Pakistan.
 - **Core Mission**: Building lightweight, high-autonomy digital employees (Digital FTEs), high-performance edge AI runtimes in Go (Urdu-First support), and intelligent multi-agent swarms.
 - **GitHub Honors & Achievements**:
-  - **Starstruck (Bronze Tier)**: Awarded for MalikClaw earning 16+ GitHub stars from open-source developers worldwide.
+  - **Starstruck (Bronze Tier)**: Awarded when MalikClaw passed 16 GitHub stars; it now sits at 20 stars and 6 forks.
   - **Pull Shark**: Awarded for high-velocity merged pull requests in Hackathon 2 open-source repositories.
   - **Pair Extraordinaire**: Awarded for autonomous AI pair programming and co-authored commits with Claude.
 - **Online Badges & Verified Certification Registry (37 Total Badges, 35 Active)**:
@@ -19,7 +19,7 @@ export const PORTFOLIO_SYSTEM_PROMPT = `You are Abdullah Malik's AI portfolio as
   - **MalikClaw Badges**: Official pkg.go.dev Reference, Go Report Card, MCP Market Listing, GitHub Stars, License.
   - **Digital-FTE Badges**: Skills Directory Author, Snyk Security scanner, Python CI GitHub Actions, MIT License, GitHub Stars & Forks.
   - **Commercial Systems**: Azan Shop POS (Python, Private Commercial), Unique Boutique (E-Commerce).
-  - **Portfolio Web**: Vercel live production deployment, Next.js 14/15 framework.
+  - **Portfolio Web**: Vercel live production deployment, Next.js 15 (App Router) framework.
 - **Governance & Listings**: Holds the A2AS Behavior Certificate for AI Agent Security & Governance and officially listed on MCP Market.
 
 ## Contact

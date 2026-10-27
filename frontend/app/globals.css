@@ -1,269 +1,256 @@
 @import "tailwindcss";
 @import "./styles/xray.css";
 
-:root {
-  /* AI-Native Cyberpunk Minimalist Palette */
-  --background: #020617;
-  --background-secondary: #090d16;
-  --background-tertiary: #0f172a;
-  --foreground: #f8fafc;
-  --foreground-muted: #94a3b8;
-  --foreground-subtle: #64748b;
+/* ============================================================
+   Design tokens — "refined dark lab"
+   One accent (cyan), one neutral ramp, one radius/shadow scale.
+   ============================================================ */
+@theme {
+  /* Surfaces */
+  --color-canvas: #05070e;
+  --color-surface: #0a101d;
+  --color-surface-raised: #0e1626;
 
-  /* Accent Glows & Hues */
-  --accent: #6366f1; /* Indigo 500 */
-  --accent-secondary: #ec4899; /* Pink 500 */
-  --accent-cyan: #06b6d4; /* Cyan 500 */
-  --accent-emerald: #10b981; /* Emerald 500 */
-  --accent-purple: #8b5cf6; /* Violet 500 */
-  
-  --accent-glow: rgba(99, 102, 241, 0.35);
-  --accent-glow-cyan: rgba(6, 182, 212, 0.3);
-  --accent-glow-emerald: rgba(16, 185, 129, 0.3);
-  --accent-glow-secondary: rgba(236, 72, 153, 0.25);
-  
-  --card-bg: rgba(15, 23, 42, 0.65);
-  --card-bg-subtle: rgba(15, 23, 42, 0.4);
-  --card-border: rgba(255, 255, 255, 0.08);
-  --card-border-hover: rgba(6, 182, 212, 0.4);
-  
-  --neon-cyan: #22d3ee;
-  --neon-purple: #c084fc;
-  --neon-emerald: #34d399;
-  --neon-pink: #f472b6;
+  /* Ink */
+  --color-ink: #eef2f8;
+  --color-ink-muted: #a7b4c8;
+  --color-ink-subtle: #6c7b93;
 
-  /* Status Colors */
-  --success: #10b981;
-  --warning: #f59e0b;
-  --error: #ef4444;
-  --info: #38bdf8;
+  /* Single accent */
+  --color-accent: #22d3ee;
+  --color-accent-strong: #0891b2;
+  --color-accent-ink: #031319;
+  --color-accent-bright: #67e8f9;
 
-  /* Spacing & Radius */
-  --radius-sm: 0.5rem;
-  --radius-md: 0.75rem;
-  --radius-lg: 1rem;
-  --radius-xl: 1.5rem;
-  --radius-2xl: 2rem;
+  /* Status (used only for real state, never decoration) */
+  --color-ok: #34d399;
+  --color-warn: #fbbf24;
+  --color-danger: #fb7185;
 
-  /* Typography Weight */
-  --font-light: 300;
-  --font-regular: 400;
-  --font-medium: 500;
-  --font-semibold: 600;
-  --font-bold: 700;
-  --font-extrabold: 800;
+  /* Lines */
+  --color-line: rgba(255, 255, 255, 0.08);
+  --color-line-strong: rgba(34, 211, 238, 0.35);
 
-  /* Gradient Utilities */
-  --gradient-primary: linear-gradient(135deg, #6366f1, #06b6d4);
-  --gradient-cyber: linear-gradient(135deg, #6366f1, #ec4899, #06b6d4);
-  --gradient-emerald: linear-gradient(135deg, #10b981, #06b6d4);
-  --gradient-hero: linear-gradient(135deg, #22d3ee, #818cf8, #c084fc);
-  --gradient-button: linear-gradient(135deg, #6366f1 0%, #4f46e5 50%, #06b6d4 100%);
+  /* Radius */
+  --radius-card: 14px;
+  --radius-panel: 20px;
+
+  /* Type ramp — nothing readable goes below 13px */
+  --text-eyebrow: 0.8125rem;
+  --text-body: 1rem;
+  --text-lead: 1.1875rem;
+  --text-h3: 1.375rem;
+  --text-h2: 2rem;
+  --text-h1: 3.5rem;
+
+  /* Rhythm */
+  --section-y: 6rem;
+  --shell: 80rem;
+  --nav-h: 4.5rem;
+
+  /* Glyph assets */
+  --icon-external: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 3h6v6'/%3E%3Cpath d='M10 14 21 3'/%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/%3E%3C/svg%3E");
 }
 
+/* ============================================================
+   Base
+   ============================================================ */
 html {
   scroll-behavior: smooth;
   color-scheme: dark;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--color-canvas);
+  color: var(--color-ink);
   font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  font-size: var(--text-body);
+  line-height: 1.65;
   overflow-x: hidden;
-  position: relative;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Premium AI-Lab Ambient Noise & Cyber Grid */
+/* One restrained depth wash — no animated drift, no multi-hue glows */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  opacity: 0.035;
-  z-index: -1;
+  background:
+    radial-gradient(90rem 44rem at 50% -10%, rgba(34, 211, 238, 0.09), transparent 70%),
+    radial-gradient(60rem 40rem at 100% 110%, rgba(8, 145, 178, 0.07), transparent 70%);
+  z-index: -2;
   pointer-events: none;
 }
 
+/* Fine grain so large dark fields don't look like flat plastic */
 body::after {
   content: "";
   position: fixed;
   inset: 0;
-  background: 
-    /* Subtle 48px Cyber Grid */
-    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    /* Deep Radial Ambient Glows */
-    radial-gradient(circle at 15% 15%, var(--accent-glow), transparent 45%),
-    radial-gradient(circle at 85% 25%, var(--accent-glow-cyan), transparent 40%),
-    radial-gradient(circle at 50% 75%, var(--accent-glow-emerald), transparent 50%),
-    radial-gradient(circle at 80% 85%, var(--accent-glow-secondary), transparent 40%);
-  background-size: 48px 48px, 48px 48px, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
-  z-index: -2;
-  pointer-events: none;
-  animation: ambient-drift 12s ease-in-out infinite alternate;
-}
-
-@keyframes ambient-drift {
-  0% { opacity: 0.85; transform: scale(1); }
-  100% { opacity: 1; transform: scale(1.02); }
-}
-
-/* Glassmorphism V2 */
-.glass {
-  background: var(--card-bg);
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border: 1px solid var(--card-border);
-  box-shadow: 
-    0 10px 30px -10px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
-}
-
-.glass-subtle {
-  background: var(--card-bg-subtle);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.glass-hover {
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.glass-hover:hover {
-  background: rgba(15, 23, 42, 0.85);
-  border-color: var(--card-border-hover);
-  transform: translateY(-3px);
-  box-shadow: 
-    0 20px 40px -15px rgba(0, 0, 0, 0.7),
-    0 0 25px rgba(6, 182, 212, 0.15);
-}
-
-/* Glowing Card Utilities */
-.glow-card {
-  position: relative;
-  z-index: 1;
-}
-
-.glow-card::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.4), rgba(6, 182, 212, 0.4), rgba(16, 185, 129, 0.2));
-  border-radius: inherit;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.018;
   z-index: -1;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  filter: blur(12px);
+  pointer-events: none;
 }
 
-.glow-card:hover::before {
-  opacity: 0.7;
-}
-
-/* Text Shimmer Effect */
-.text-shimmer {
-  background: linear-gradient(
-    90deg, 
-    #f8fafc 0%, 
-    #38bdf8 25%, 
-    #818cf8 50%, 
-    #c084fc 75%, 
-    #f8fafc 100%
-  );
-  background-size: 250% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: shimmer-text 5s linear infinite;
-}
-
-@keyframes shimmer-text {
-  0% { background-position: 0% center; }
-  100% { background-position: 250% center; }
-}
-
-/* Animated Gradient Border */
-.border-gradient-animate {
-  position: relative;
-  border-radius: var(--radius-lg);
-  padding: 1px;
-  overflow: hidden;
-}
-
-.border-gradient-animate::before {
-  content: "";
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: conic-gradient(
-    from 0deg,
-    transparent 0deg,
-    var(--accent) 90deg,
-    var(--accent-cyan) 180deg,
-    var(--accent-emerald) 270deg,
-    transparent 360deg
-  );
-  animation: rotate 6s linear infinite;
-}
-
-.border-gradient-animate > * {
-  position: relative;
-  z-index: 1;
-  background: var(--background-secondary);
-  border-radius: inherit;
-  height: 100%;
-  width: 100%;
-}
-
-@keyframes rotate {
-  100% { transform: rotate(360deg); }
-}
-
-/* Enhanced Typography & Contrast Standards */
 h1, h2, h3, h4, h5, h6 {
-  letter-spacing: -0.03em;
+  letter-spacing: -0.025em;
   line-height: 1.15;
-  color: #f8fafc;
+  color: var(--color-ink);
+  text-wrap: balance;
 }
 
 p {
-  color: #94a3b8; /* Slate 400 - WCAG AA compliant */
-  line-height: 1.65;
+  color: var(--color-ink-muted);
+  text-wrap: pretty;
 }
 
-/* Custom Scrollbar */
+a {
+  color: inherit;
+}
+
+/*
+ * Outbound links carry a trailing link glyph. Lucide renders stable class names,
+ * so links already showing an explicit external/arrow glyph are skipped to avoid
+ * doubling, and image links (badges, stat cards) are left alone because a glyph
+ * would fight the artwork. :has() keeps this declarative instead of per-link.
+ */
+a[href^="http" i]:not(:has(.lucide-external-link)):not(:has(.lucide-arrow-up-right)):not(:has(img))::after {
+  content: "";
+  display: inline-block;
+  width: 0.75em;
+  height: 0.75em;
+  margin-left: 0.34em;
+  vertical-align: baseline;
+  background-color: currentColor;
+  -webkit-mask: var(--icon-external) no-repeat center / contain;
+  mask: var(--icon-external) no-repeat center / contain;
+  opacity: 0.72;
+}
+
+
+/* Anchored sections must clear the fixed navbar */
+section[id],
+div[id] {
+  scroll-margin-top: calc(var(--nav-h) + 1.5rem);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: rgba(34, 211, 238, 0.28);
+  color: #ffffff;
+}
+
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #020617;
+  background: var(--color-canvas);
 }
 
 ::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.12);
-  border-radius: 4px;
+  border-radius: 8px;
+  border: 2px solid var(--color-canvas);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #6366f1;
+  background: rgba(34, 211, 238, 0.4);
 }
 
-/* Selection */
-::selection {
-  background: rgba(99, 102, 241, 0.35);
-  color: #ffffff;
+/* ============================================================
+   Surfaces
+   ============================================================ */
+.glass {
+  background: rgba(14, 22, 38, 0.6);
+  backdrop-filter: blur(14px) saturate(150%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  border: 1px solid var(--color-line);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.04);
 }
 
-/* Chat Assistant Custom Animations */
+.glass-hover {
+  transition: border-color 0.25s ease, background-color 0.25s ease, transform 0.25s ease;
+}
+
+.glass-hover:hover {
+  background: rgba(14, 22, 38, 0.85);
+  border-color: var(--color-line-strong);
+  transform: translateY(-2px);
+}
+
+/* Overlay panels need to read as solid over busy content */
+.glass-strong {
+  background: rgba(10, 16, 29, 0.92);
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  border: 1px solid var(--color-line);
+  box-shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.8), inset 0 1px 0 0 rgba(255, 255, 255, 0.04);
+}
+
+/* ============================================================
+   Type helpers
+   ============================================================ */
+
+/* Single-accent emphasis. Deliberately static: the previous
+   animated rainbow shimmer read as template chrome. */
+.text-shimmer {
+  background: linear-gradient(92deg, #67e8f9 0%, var(--color-accent) 45%, #a5f3fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: var(--text-eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+/* ============================================================
+   Background decoration (referenced by Hero)
+   ============================================================ */
+.cyber-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(70% 60% at 50% 40%, #000 20%, transparent 100%);
+  mask-image: radial-gradient(70% 60% at 50% 40%, #000 20%, transparent 100%);
+}
+
+.ambient-glow {
+  position: absolute;
+  width: 34rem;
+  height: 34rem;
+  border-radius: 9999px;
+  filter: blur(90px);
+  pointer-events: none;
+}
+
+.ambient-glow-cyan {
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.16), transparent 65%);
+}
+
+/* ============================================================
+   Chat
+   ============================================================ */
 .chat-typing-indicator {
   display: flex;
   align-items: center;
@@ -275,7 +262,7 @@ p {
   height: 6px;
   width: 6px;
   border-radius: 50%;
-  background: #38bdf8;
+  background: var(--color-accent);
   animation: chat-bounce 1.4s infinite ease-in-out both;
 }
 
@@ -288,51 +275,44 @@ p {
   40% { transform: scale(1.2); opacity: 1; }
 }
 
-/* Flagship Pulse Glow */
-@keyframes flagship-glow {
-  0% {
-    box-shadow: 0 0 25px rgba(99, 102, 241, 0.12);
-    border-color: rgba(99, 102, 241, 0.25);
+/* ============================================================
+   Motion & accessibility preferences
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
-  50% {
-    box-shadow: 0 0 35px rgba(6, 182, 212, 0.22);
-    border-color: rgba(6, 182, 212, 0.45);
-  }
-  100% {
-    box-shadow: 0 0 25px rgba(99, 102, 241, 0.12);
-    border-color: rgba(99, 102, 241, 0.25);
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
   }
 }
 
-.flagship-pulse {
-  animation: flagship-glow 5s infinite ease-in-out;
-}
-
-/* Radial Spotlight overlay */
-.spotlight-mask {
-  background: radial-gradient(
-    600px circle at var(--mouse-x, 0) var(--mouse-y, 0),
-    rgba(99, 102, 241, 0.15),
-    transparent 40%
-  );
-}
-
-/* Print Optimization */
+/* ============================================================
+   Print
+   ============================================================ */
 @media print {
   html, body {
     background: #ffffff !important;
     color: #0f172a !important;
   }
+
   body::before,
   body::after {
     display: none !important;
   }
+
   .glass {
     background: transparent !important;
     border-color: #e2e8f0 !important;
     box-shadow: none !important;
     backdrop-filter: none !important;
   }
+
   @page {
     margin: 1cm;
     size: auto;

@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 export async function GET() {
-  const markdownContent = `# Abdullah Malik (Muhammad Abdullah Athar) — Agentic AI Engineer & Data Scientist
+  const markdownContent = `# Abdullah Malik (Muhammad Abdullah Athar) — Agentic AI Engineer & Data Science Undergraduate
 
 > Portfolio & AI Gateway: https://portfolio-ai-assistant-of-malik.vercel.app/
 > GitHub: https://github.com/AbdullahMalik17
@@ -17,8 +17,8 @@ export async function GET() {
 
 ## Official Honors, Certifications & Registry Badges
 - **Skills Directory Certified Author**: 12 published Claude agent skills with Security Grade A (https://skillsdirectory.com/authors/abdullahmalik17).
-- **A2AS Behavior Certificate**: AI Agent Security & Governance (https://a2as.org/certified/agents/abdullahmalik17/deep-research-age).
-- **Starstruck (Bronze Tier)**: Awarded for MalikClaw reaching 16+ GitHub stars from the open source AI community (https://github.com/users/AbdullahMalik17/achievements/starstruck).
+- **A2AS Behavior Certificate**: AI Agent Security & Governance (https://a2as.org/certified/agents/abdullahmalik17/deep-research-agent).
+- **Starstruck (Bronze Tier)**: Awarded when MalikClaw passed 16 GitHub stars; it now sits at 20 stars and 6 forks (https://github.com/users/AbdullahMalik17/achievements/starstruck).
 - **Pull Shark**: High-velocity merged pull requests in Hackathon 2 open source initiatives.
 - **Pair Extraordinaire**: Recognized for autonomous AI pair programming and co-authored commits with Claude.
 - **Online Badges & Certification Registry**: 37 total badges across Skills Directory, Go pkg.go.dev, Go Report Card, Snyk, and GitHub.

@@ -26,7 +26,7 @@ const Timeline = ({ events }: TimelineProps) => {
           className="relative pl-8 md:pl-12"
         >
           {/* Dot */}
-          <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-[color:var(--accent)] border-2 border-white dark:border-gray-900 shadow-sm" />
+          <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-[color:var(--accent)] border-2 border-line dark:border-gray-900 shadow-sm" />
           
           {/* Content */}
           <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4">
@@ -34,7 +34,7 @@ const Timeline = ({ events }: TimelineProps) => {
               {event.year}
             </span>
             <div>
-              <h4 className="text-lg font-bold text-gray-900 dark:text-white">
+              <h4 className="text-lg font-bold text-gray-900 dark:text-ink">
                 {event.title}
               </h4>
               <p className="text-gray-600 dark:text-gray-400 text-sm mt-1 leading-relaxed">

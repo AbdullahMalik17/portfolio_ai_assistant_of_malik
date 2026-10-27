@@ -1,11 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { updateContactStatus, deleteContact } from '@/app/lib/db';
+import { requireAdmin } from '@/app/lib/admin-auth';
 
 export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const denied = requireAdmin(request);
+    if (denied) return denied;
+
     const { id: paramId } = await params;
     const id = parseInt(paramId);
     const body = await request.json();
@@ -45,6 +49,9 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const denied = requireAdmin(request);
+    if (denied) return denied;
+
     const { id: paramId } = await params;
     const id = parseInt(paramId);
     const result = await deleteContact(id);

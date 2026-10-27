@@ -55,42 +55,42 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
           transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-          className="relative w-full max-w-4xl max-h-[90vh] glass rounded-3xl border border-white/10 bg-slate-950/95 shadow-2xl overflow-y-auto z-10 custom-scrollbar"
+          className="relative w-full max-w-4xl max-h-[90vh] glass rounded-3xl border border-line bg-canvas/95 shadow-2xl overflow-y-auto z-10 custom-scrollbar"
         >
           {/* Header Close Button */}
           <button
             onClick={onClose}
-            className="absolute top-6 right-6 p-2.5 rounded-full glass border border-white/10 text-slate-400 hover:text-white hover:border-white/30 transition-all z-20 cursor-pointer"
+            className="absolute top-6 right-6 p-2.5 rounded-full glass border border-line text-ink-muted hover:text-ink hover:border-white/30 transition-all z-20 cursor-pointer"
             aria-label="Close modal"
           >
             <X className="w-5 h-5" />
           </button>
 
           {/* Modal Header */}
-          <div className="p-6 sm:p-10 border-b border-white/[0.08]">
+          <div className="p-6 sm:p-10 border-b border-line">
             <div className="flex flex-wrap items-center gap-2 mb-3">
-              <span className="px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-mono font-bold uppercase tracking-wider">
+              <span className="px-3 py-1 rounded-full bg-accent/10 border border-accent/30 text-accent text-xs font-mono font-bold uppercase tracking-wider">
                 {project.category}
               </span>
               {project.mcpMarketUrl && (
-                <span className="px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-300 text-xs font-mono font-bold flex items-center gap-1.5">
+                <span className="px-3 py-1 rounded-full bg-accent/10 border border-accent/30 text-accent text-xs font-mono font-bold flex items-center gap-1.5">
                   <Globe2 className="w-3.5 h-3.5" />
                   MCP Market Listed
                 </span>
               )}
               {project.certificateUrl && (
-                <span className="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-mono font-bold flex items-center gap-1.5">
+                <span className="px-3 py-1 rounded-full bg-accent/10 border border-accent/30 text-accent text-xs font-mono font-bold flex items-center gap-1.5">
                   <ShieldCheck className="w-3.5 h-3.5" />
                   A2AS Behavior Certified
                 </span>
               )}
             </div>
 
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-ink tracking-tight">
               {project.title}
             </h2>
             {project.subtitle && (
-              <p className="text-base text-slate-400 mt-2 font-medium">
+              <p className="text-base text-ink-muted mt-2 font-medium">
                 {project.subtitle}
               </p>
             )}
@@ -100,10 +100,10 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
           <div className="p-6 sm:p-10 space-y-8">
             {/* Overview */}
             <div>
-              <h3 className="text-sm font-mono uppercase tracking-widest text-slate-400 mb-3 font-semibold">
+              <h3 className="text-sm font-mono uppercase tracking-widest text-ink-muted mb-3 font-semibold">
                 System Overview
               </h3>
-              <p className="text-sm sm:text-base text-slate-200 leading-relaxed">
+              <p className="text-sm sm:text-base text-ink leading-relaxed">
                 {project.longDescription || project.description}
               </p>
             </div>
@@ -111,20 +111,20 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
             {/* Problem & Solution Callout */}
             {project.problem && project.solution && (
               <div className="grid sm:grid-cols-2 gap-4">
-                <div className="p-5 rounded-2xl bg-rose-950/20 border border-rose-500/20">
-                  <h4 className="text-xs font-mono text-rose-400 uppercase font-bold tracking-wider mb-2">
+                <div className="p-5 rounded-2xl bg-accent/5 border border-accent/20">
+                  <h4 className="text-xs font-mono text-accent uppercase font-bold tracking-wider mb-2">
                     Problem & Constraints
                   </h4>
-                  <p className="text-xs text-slate-300 leading-relaxed">
+                  <p className="text-xs text-ink leading-relaxed">
                     {project.problem}
                   </p>
                 </div>
 
-                <div className="p-5 rounded-2xl bg-cyan-950/20 border border-cyan-500/20">
-                  <h4 className="text-xs font-mono text-cyan-400 uppercase font-bold tracking-wider mb-2">
+                <div className="p-5 rounded-2xl bg-accent/5 border border-accent/20">
+                  <h4 className="text-xs font-mono text-accent uppercase font-bold tracking-wider mb-2">
                     Engineered Solution
                   </h4>
-                  <p className="text-xs text-slate-300 leading-relaxed">
+                  <p className="text-xs text-ink leading-relaxed">
                     {project.solution}
                   </p>
                 </div>
@@ -134,26 +134,26 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
             {/* Architecture Pipeline Flow */}
             {project.architecturePipeline && (
               <div>
-                <h3 className="text-sm font-mono uppercase tracking-widest text-indigo-400 mb-3 font-semibold">
+                <h3 className="text-sm font-mono uppercase tracking-widest text-accent mb-3 font-semibold">
                   Orchestration Pipeline
                 </h3>
                 <div className="space-y-2.5">
                   {project.architecturePipeline.map((step, sIdx) => (
                     <div
                       key={sIdx}
-                      className="p-3.5 rounded-xl glass border border-white/10 bg-slate-900/40 flex items-center justify-between gap-4"
+                      className="p-3.5 rounded-xl glass border border-line bg-surface/40 flex items-center justify-between gap-4"
                     >
                       <div className="flex items-center gap-3">
-                        <span className="w-6 h-6 rounded-md bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center font-mono text-xs font-bold text-indigo-300">
+                        <span className="w-6 h-6 rounded-md bg-accent/20 border border-accent/40 flex items-center justify-center font-mono text-xs font-bold text-accent">
                           0{sIdx + 1}
                         </span>
                         <div>
-                          <div className="text-xs font-bold text-white">{step.label}</div>
-                          <div className="text-[11px] text-slate-400 font-mono">{step.sublabel}</div>
+                          <div className="text-xs font-bold text-ink">{step.label}</div>
+                          <div className="text-[11px] text-ink-muted font-mono">{step.sublabel}</div>
                         </div>
                       </div>
                       {step.badge && (
-                        <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10 text-[10px] font-mono text-cyan-300">
+                        <span className="px-2.5 py-1 rounded bg-white/5 border border-line text-[10px] font-mono text-accent">
                           {step.badge}
                         </span>
                       )}
@@ -166,16 +166,16 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
             {/* Key Capabilities */}
             {project.keyCapabilities && project.keyCapabilities.length > 0 && (
               <div>
-                <h3 className="text-sm font-mono uppercase tracking-widest text-slate-400 mb-3 font-semibold">
+                <h3 className="text-sm font-mono uppercase tracking-widest text-ink-muted mb-3 font-semibold">
                   Key Capabilities
                 </h3>
                 <div className="grid sm:grid-cols-2 gap-3">
                   {project.keyCapabilities.map((cap, cIdx) => (
                     <div
                       key={cIdx}
-                      className="p-3 rounded-xl glass border border-white/5 bg-slate-900/40 flex items-start gap-2.5 text-xs text-slate-300"
+                      className="p-3 rounded-xl glass border border-line bg-surface/40 flex items-start gap-2.5 text-xs text-ink"
                     >
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-4 h-4 text-accent shrink-0 mt-0.5" />
                       <span>{cap}</span>
                     </div>
                   ))}
@@ -185,14 +185,14 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
 
             {/* Tech Stack Chips */}
             <div>
-              <h3 className="text-sm font-mono uppercase tracking-widest text-slate-400 mb-3 font-semibold">
+              <h3 className="text-sm font-mono uppercase tracking-widest text-ink-muted mb-3 font-semibold">
                 Technologies & Protocols
               </h3>
               <div className="flex flex-wrap gap-2">
                 {project.tech.map((technology, tIdx) => (
                   <span
                     key={tIdx}
-                    className="px-3 py-1.5 rounded-xl bg-slate-900 border border-white/10 text-xs font-mono text-cyan-300"
+                    className="px-3 py-1.5 rounded-xl bg-surface border border-line text-xs font-mono text-accent"
                   >
                     {technology}
                   </span>
@@ -202,7 +202,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
           </div>
 
           {/* Modal Footer Actions */}
-          <div className="p-6 sm:p-10 border-t border-white/[0.08] bg-slate-900/60 flex flex-wrap items-center justify-between gap-4">
+          <div className="p-6 sm:p-10 border-t border-line bg-surface/60 flex flex-wrap items-center justify-between gap-4">
             <div className="flex flex-wrap items-center gap-3">
               {project.liveUrl && (
                 <Button
@@ -231,7 +231,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                   variant="secondary"
                   size="md"
                   onClick={() => window.open(project.mcpMarketUrl!, '_blank')}
-                  leftIcon={<Globe2 className="w-4 h-4 text-purple-400" />}
+                  leftIcon={<Globe2 className="w-4 h-4 text-accent" />}
                 >
                   MCP Market Listing
                 </Button>
@@ -240,7 +240,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
 
             <button
               onClick={onClose}
-              className="text-xs font-mono text-slate-400 hover:text-white transition-colors cursor-pointer"
+              className="text-xs font-mono text-ink-muted hover:text-ink transition-colors cursor-pointer"
             >
               Press ESC or click outside to dismiss
             </button>

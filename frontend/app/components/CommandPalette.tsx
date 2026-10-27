@@ -191,25 +191,17 @@ export default function CommandPalette() {
   }, [handleKeyDown]);
 
   useEffect(() => {
+    const openFromDock = () => setIsOpen(true);
+    window.addEventListener('open-command-palette', openFromDock);
+    return () => window.removeEventListener('open-command-palette', openFromDock);
+  }, []);
+
+  useEffect(() => {
     setSelectedIndex(0);
   }, [search]);
 
   return (
     <>
-      {/* Trigger Key Badge */}
-      <button
-        onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 left-6 z-40 glass px-3.5 py-2 rounded-xl shadow-2xl border border-white/[0.08] hover:border-cyan-500/40 hover:scale-105 transition-all group flex items-center gap-2 cursor-pointer bg-slate-950/80 backdrop-blur-xl"
-        aria-label="Open command palette"
-      >
-        <kbd className="px-2 py-0.5 text-[10px] font-mono bg-slate-900 rounded border border-white/10 text-cyan-400 font-bold">
-          ⌘K
-        </kbd>
-        <span className="text-xs font-mono font-medium text-slate-300 hidden md:inline">
-          Command Palette
-        </span>
-      </button>
-
       {/* Command Palette Modal */}
       <AnimatePresence>
         {isOpen && (
@@ -231,20 +223,20 @@ export default function CommandPalette() {
               transition={{ duration: 0.2 }}
               className="fixed top-[15%] left-1/2 -translate-x-1/2 w-full max-w-xl z-50 px-4"
             >
-              <div className="glass rounded-3xl shadow-2xl border border-white/15 bg-slate-950/95 overflow-hidden backdrop-blur-2xl">
+              <div className="glass-strong overflow-hidden rounded-[var(--radius-panel)]">
                 {/* Search Input Bar */}
-                <div className="p-4 border-b border-white/[0.08]">
+                <div className="p-4 border-b border-line">
                   <div className="flex items-center gap-3">
-                    <Search className="w-5 h-5 text-cyan-400 shrink-0" />
+                    <Search className="w-5 h-5 text-accent shrink-0" />
                     <input
                       type="text"
                       value={search}
                       onChange={(e) => setSearch(e.target.value)}
                       placeholder="Type a section name, system, or command..."
-                      className="flex-1 bg-transparent outline-none text-sm text-white placeholder:text-slate-500 font-sans"
+                      className="flex-1 bg-transparent outline-none text-sm text-ink placeholder:text-ink-subtle font-sans"
                       autoFocus
                     />
-                    <kbd className="px-2 py-0.5 text-[10px] font-mono bg-slate-900 rounded border border-white/10 text-slate-400">
+                    <kbd className="px-2 py-0.5 text-[10px] font-mono bg-surface rounded border border-line text-ink-muted">
                       ESC
                     </kbd>
                   </div>
@@ -267,25 +259,25 @@ export default function CommandPalette() {
                           onMouseEnter={() => setSelectedIndex(index)}
                           className={`w-full flex items-center gap-3.5 p-3 rounded-2xl text-left transition-all cursor-pointer ${
                             isSelected
-                              ? 'bg-cyan-500/15 border border-cyan-500/40 text-white shadow-sm'
-                              : 'text-slate-400 hover:text-white hover:bg-white/5 border border-transparent'
+                              ? 'bg-accent/15 border border-accent/40 text-ink shadow-sm'
+                              : 'text-ink-muted hover:text-ink hover:bg-white/5 border border-transparent'
                           }`}
                         >
-                          <div className={`w-8 h-8 rounded-xl glass border border-white/10 flex items-center justify-center shrink-0 ${isSelected ? 'text-cyan-400 bg-cyan-500/20' : 'text-slate-400'}`}>
+                          <div className={`w-8 h-8 rounded-xl glass border border-line flex items-center justify-center shrink-0 ${isSelected ? 'text-accent bg-accent/20' : 'text-ink-muted'}`}>
                             <Icon className="w-4 h-4" />
                           </div>
 
                           <div className="flex-1 min-w-0">
-                            <div className={`text-xs font-bold truncate ${isSelected ? 'text-white' : 'text-slate-200'}`}>
+                            <div className={`text-xs font-bold truncate ${isSelected ? 'text-ink' : 'text-ink'}`}>
                               {command.label}
                             </div>
-                            <div className="text-[11px] text-slate-400 truncate">
+                            <div className="text-[11px] text-ink-muted truncate">
                               {command.description}
                             </div>
                           </div>
 
                           {isSelected && (
-                            <CornerDownLeft className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+                            <CornerDownLeft className="w-3.5 h-3.5 text-accent shrink-0" />
                           )}
                         </button>
                       );
@@ -298,32 +290,32 @@ export default function CommandPalette() {
                           window.dispatchEvent(event);
                           setIsOpen(false);
                         }}
-                        className="w-full flex items-center gap-3 p-3.5 rounded-2xl text-left bg-gradient-to-r from-indigo-500/20 to-cyan-500/20 border border-cyan-500/40 text-white cursor-pointer"
+                        className="w-full flex items-center gap-3 p-3.5 rounded-2xl text-left bg-accent/10 border border-accent/40 text-ink cursor-pointer"
                       >
-                        <Bot className="w-5 h-5 text-cyan-400 shrink-0" />
+                        <Bot className="w-5 h-5 text-accent shrink-0" />
                         <div className="flex-1 min-w-0">
-                          <div className="text-xs font-bold text-cyan-300 truncate">
+                          <div className="text-xs font-bold text-accent truncate">
                             Ask AI Assistant: &quot;{search}&quot;
                           </div>
-                          <div className="text-[11px] text-slate-400 truncate">
+                          <div className="text-[11px] text-ink-muted truncate">
                             Send this query directly to the portfolio digital FTE
                           </div>
                         </div>
-                        <CornerDownLeft className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+                        <CornerDownLeft className="w-3.5 h-3.5 text-accent shrink-0" />
                       </button>
                     </div>
                   )}
                 </div>
 
                 {/* Footer Controls */}
-                <div className="px-4 py-2.5 border-t border-white/[0.08] bg-slate-900/60 flex items-center justify-between text-[11px] font-mono text-slate-400">
+                <div className="px-4 py-2.5 border-t border-line bg-surface/60 flex items-center justify-between text-[11px] font-mono text-ink-muted">
                   <div className="flex items-center gap-4">
                     <span className="flex items-center gap-1.5">
-                      <kbd className="px-1.5 py-0.5 bg-slate-950 rounded border border-white/10">↑↓</kbd>
+                      <kbd className="px-1.5 py-0.5 bg-canvas rounded border border-line">↑↓</kbd>
                       Navigate
                     </span>
                     <span className="flex items-center gap-1.5">
-                      <kbd className="px-1.5 py-0.5 bg-slate-950 rounded border border-white/10">↵</kbd>
+                      <kbd className="px-1.5 py-0.5 bg-canvas rounded border border-line">↵</kbd>
                       Select
                     </span>
                   </div>

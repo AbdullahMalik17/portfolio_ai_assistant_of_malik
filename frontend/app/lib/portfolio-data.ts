@@ -87,7 +87,7 @@ export interface Certification {
   credentialUrl: string;
   iconName: string;
   badge?: string; // e.g. "A2AS Certified", "Panaversity Specialist"
-  agentId?: string; // e.g. "abdullahmalik17/deep-research-age"
+  agentId?: string; // e.g. "abdullahmalik17/deep-research-agent"
 }
 
 export interface PersonalInfo {
@@ -166,7 +166,7 @@ export const PERSONAL_INFO: PersonalInfo = {
   linkedin: "https://www.linkedin.com/in/muhammad-abdullah-athar",
   github: "https://github.com/AbdullahMalik17",
   twitter: "https://x.com/Ab4695Athar?t=nqRO0biMuBDrTIuzZOHq8A&s=08",
-  profession: "Agentic AI Engineer & Data Scientist",
+  profession: "Agentic AI Engineer & Data Science Undergraduate",
   tagline: "Autonomous AI Agents • BS Data Science (IUB) • Multi-Agent Systems • MCP • Digital FTEs",
   specialty: "I build autonomous AI systems, Digital FTEs, MCP-powered tools, and production-ready agentic workflows."
 };
@@ -191,13 +191,12 @@ export const PROJECTS: PortfolioProject[] = [
     githubUrl: "https://github.com/AbdullahMalik17/malikclaw",
     liveUrl: "https://malikclaw.vercel.app/",
     mcpMarketUrl: "https://mcpmarket.com/ko/server/malikclaw",
-    certificateUrl: "/Muhammad_Abdullah_Certificate.pdf",
     badges: [
       { name: "pkg.go.dev Reference", badgeUrl: "https://pkg.go.dev/badge/github.com/AbdullahMalik17/malikclaw.svg", targetUrl: "https://pkg.go.dev/github.com/AbdullahMalik17/malikclaw", alt: "Go Reference" },
       { name: "Go Report Card", badgeUrl: "https://goreportcard.com/badge/github.com/AbdullahMalik17/malikclaw", targetUrl: "https://goreportcard.com/report/github.com/AbdullahMalik17/malikclaw", alt: "Go Report Card" },
       { name: "MCP Market Listing", badgeUrl: "https://img.shields.io/badge/MCP%20Market-malikclaw-6366f1?style=flat-square&logo=databricks&logoColor=white", targetUrl: "https://mcpmarket.com/server/malikclaw", alt: "MCP Market" },
       { name: "License: MIT", badgeUrl: "https://img.shields.io/github/license/AbdullahMalik17/malikclaw?style=flat-square", targetUrl: "https://github.com/AbdullahMalik17/malikclaw/blob/main/LICENSE", alt: "License" },
-      { name: "GitHub Stars", badgeUrl: "https://img.shields.io/github/stars/AbdullahMalik17/malikclaw?style=flat-square", targetUrl: "https://github.com/AbdullahMalik17/malikclaw/stargazers", alt: "Stars" }
+      { name: "GitHub Stars", badgeUrl: "https://img.shields.io/github/stars/AbdullahMalik17/malikclaw?style=flat-square", targetUrl: "https://github.com/AbdullahMalik17/malikclaw", alt: "Stars" }
     ],
     category: "Agentic AI",
     featured: true,
@@ -269,7 +268,7 @@ export const PROJECTS: PortfolioProject[] = [
       { name: "Snyk Security", badgeUrl: "https://snyk.io/test/github/AbdullahMalik17/Digital-FTE/badge.svg", targetUrl: "https://snyk.io/test/github/AbdullahMalik17/Digital-FTE", alt: "Snyk Security" },
       { name: "Python CI", badgeUrl: "https://github.com/AbdullahMalik17/Digital-FTE/actions/workflows/python-ci.yml/badge.svg", targetUrl: "https://github.com/AbdullahMalik17/Digital-FTE/actions/workflows/python-ci.yml", alt: "Python CI" },
       { name: "License: MIT", badgeUrl: "https://img.shields.io/badge/License-MIT-green?style=flat-square", targetUrl: "https://opensource.org/licenses/MIT", alt: "MIT License" },
-      { name: "GitHub Stars", badgeUrl: "https://img.shields.io/github/stars/AbdullahMalik17/Digital-FTE?style=flat-square", targetUrl: "https://github.com/AbdullahMalik17/Digital-FTE/stargazers", alt: "Stars" },
+      { name: "GitHub Stars", badgeUrl: "https://img.shields.io/github/stars/AbdullahMalik17/Digital-FTE?style=flat-square", targetUrl: "https://github.com/AbdullahMalik17/Digital-FTE", alt: "Stars" },
       { name: "GitHub Forks", badgeUrl: "https://img.shields.io/github/forks/AbdullahMalik17/Digital-FTE?style=flat-square", targetUrl: "https://github.com/AbdullahMalik17/Digital-FTE/network/members", alt: "Forks" }
     ],
     category: "Agentic AI",
@@ -399,7 +398,7 @@ export const PROJECTS: PortfolioProject[] = [
     category: "Agentic AI",
     featured: false,
     iconName: "search",
-    certificateUrl: "https://a2as.org/certified/agents/abdullahmalik17/deep-research-age"
+    certificateUrl: "https://a2as.org/certified/agents/abdullahmalik17/deep-research-agent"
   },
   {
     id: "voice-assistant-agent",
@@ -469,11 +468,11 @@ export const PROJECTS: PortfolioProject[] = [
       { name: "Gemini 2.5", category: "model" },
       { name: "Vercel Postgres", category: "data" }
     ],
-    githubUrl: "https://github.com/AbdullahMalik17/Portfolio-AI-Assistant",
+    githubUrl: "https://github.com/AbdullahMalik17/portfolio_ai_assistant_of_malik",
     liveUrl: "https://portfolio-ai-assistant-of-malik.vercel.app/",
     badges: [
       { name: "Vercel Deployment", badgeUrl: "https://therealsujitk-vercel-badge.vercel.app/?app=portfolio-ai-assistant-of-malik-five", targetUrl: "https://portfolio-ai-assistant-of-malik-five.vercel.app/", alt: "Vercel Deployment" },
-      { name: "Next.js 14/15", badgeUrl: "https://img.shields.io/badge/Framework-Next.js%2014-black?style=flat-square&logo=next.js", targetUrl: "https://nextjs.org/", alt: "Next.js" }
+      { name: "Next.js 15", badgeUrl: "https://img.shields.io/badge/Framework-Next.js%2015-black?style=flat-square&logo=next.js", targetUrl: "https://nextjs.org/", alt: "Next.js" }
     ],
     category: "Web Development",
     featured: false,
@@ -509,10 +508,10 @@ export const PROJECTS: PortfolioProject[] = [
       { name: "Private Commercial", category: "infra" }
     ],
     badges: [
-      { name: "Built With Python", badgeUrl: "https://img.shields.io/badge/Built%20With-Python-3776AB?style=flat-square&logo=python&logoColor=white", targetUrl: "https://github.com/AbdullahMalik17/Azan_Shop_Software-", alt: "Built With Python" },
-      { name: "Status: Private Commercial", badgeUrl: "https://img.shields.io/badge/Status-Private%20Commercial-red?style=flat-square", targetUrl: "https://github.com/AbdullahMalik17/Azan_Shop_Software-", alt: "Commercial Status" }
+      { name: "Built With Python", badgeUrl: "https://img.shields.io/badge/Built%20With-Python-3776AB?style=flat-square&logo=python&logoColor=white", targetUrl: "https://github.com/AbdullahMalik17", alt: "Built With Python" },
+      { name: "Status: Private Commercial", badgeUrl: "https://img.shields.io/badge/Status-Private%20Commercial-red?style=flat-square", targetUrl: "https://github.com/AbdullahMalik17", alt: "Commercial Status" }
     ],
-    githubUrl: "https://github.com/AbdullahMalik17/Azan_Shop_Software-",
+    githubUrl: null,
     liveUrl: null,
     category: "Commercial Systems",
     featured: false,
@@ -530,9 +529,9 @@ export const PROJECTS: PortfolioProject[] = [
       { name: "E-Commerce", category: "protocol" }
     ],
     badges: [
-      { name: "E-Commerce: Unique Boutique", badgeUrl: "https://img.shields.io/badge/E--Commerce-Unique%20Boutique-pink?style=flat-square", targetUrl: "https://github.com/AbdullahMalik17/unique-boutique", alt: "Unique Boutique" }
+      { name: "E-Commerce: Unique Boutique", badgeUrl: "https://img.shields.io/badge/E--Commerce-Unique%20Boutique-pink?style=flat-square", targetUrl: "https://github.com/AbdullahMalik17", alt: "Unique Boutique" }
     ],
-    githubUrl: "https://github.com/AbdullahMalik17/unique-boutique",
+    githubUrl: null,
     liveUrl: null,
     category: "Commercial Systems",
     featured: false,
@@ -596,22 +595,22 @@ export const SKILLS: SkillCategory[] = [
 // Certifications
 export const CERTIFICATIONS: Certification[] = [
   {
-    title: "A2AS Behavior Certificate — deep-research-age",
+    title: "A2AS Behavior Certificate — deep-research-agent",
     issuer: "A2AS Registry (a2as.org)",
     year: "2026",
-    description: "Certified by the A2AS Registry for AI Agent Security and Governance. Validates that deep-research-age operates within audited, declared behavioral boundaries.",
+    description: "Certified by the A2AS Registry for AI Agent Security and Governance. Validates that deep-research-agent operates within audited, declared behavioral boundaries.",
     skills: ["AI Security", "Agent Governance", "Behavior Certificates", "Agentic AI"],
-    credentialUrl: "https://a2as.org/certified/agents/abdullahmalik17/deep-research-age",
+    credentialUrl: "https://a2as.org/certified/agents/abdullahmalik17/deep-research-agent",
     iconName: "shield-check",
     badge: "A2AS Certified",
-    agentId: "abdullahmalik17/deep-research-age"
+    agentId: "abdullahmalik17/deep-research-agent"
   },
   {
-    title: "Prompt Engineering Specialist",
+    title: "Prompt & Context Engineering: Effective AI Communication",
     issuer: "Panaversity",
-    year: "2024",
-    description: "Advanced certification in prompt engineering, LLM orchestration, and AI agent development.",
-    skills: ["LLM Optimization", "Few-Shot Prompting", "Chain-of-Thought", "Agentic Workflows"],
+    year: "2025",
+    description: "Certificate of Achievement conferred 31 October 2025 for passing the Prompt and Context Engineering: Effective AI exam, verified by the Panaversity Academic Council.",
+    skills: ["Prompt Engineering", "Context Engineering", "LLM Orchestration", "Agentic Workflows"],
     credentialUrl: "/Muhammad_Abdullah_Certificate.pdf",
     iconName: "award",
     badge: "Panaversity Certified"
@@ -642,12 +641,22 @@ export const ABOUT: AboutInfo = {
 };
 
 // GitHub Achievements & Honors
+export const GITHUB_PROFILE = {
+  username: "AbdullahMalik17",
+  publicRepos: 32,
+  totalStars: 228,
+  followers: 23,
+  malikclawStars: 20,
+  malikclawForks: 6,
+  verifiedOn: "2026-10-26"
+};
+
 export const GITHUB_ACHIEVEMENTS: GitHubAchievement[] = [
   {
     id: "starstruck",
     title: "Starstruck",
     tier: "Bronze Tier",
-    description: "Awarded for MalikClaw earning 16+ GitHub stars from the global open-source developer community.",
+    description: `Awarded when MalikClaw passed 16 GitHub stars; the Go edge runtime now sits at ${GITHUB_PROFILE.malikclawStars} stars and ${GITHUB_PROFILE.malikclawForks} forks from the open-source community.`,
     repoOrContext: "AbdullahMalik17/malikclaw",
     url: "https://github.com/users/AbdullahMalik17/achievements/starstruck",
     icon: "star",
@@ -661,7 +670,7 @@ export const GITHUB_ACHIEVEMENTS: GitHubAchievement[] = [
     repoOrContext: "Hackathon 2 (hacathan2)",
     url: "https://github.com/users/AbdullahMalik17/achievements/pull-shark",
     icon: "git-pull-request",
-    badgeColor: "from-cyan-500/20 to-blue-500/20 text-cyan-300 border-cyan-500/30"
+    badgeColor: "from-accent/20 to-blue-500/20 text-accent border-accent/30"
   },
   {
     id: "pair-extraordinaire",
@@ -671,7 +680,7 @@ export const GITHUB_ACHIEVEMENTS: GitHubAchievement[] = [
     repoOrContext: "Anthropic Claude Collaboration",
     url: "https://github.com/users/AbdullahMalik17/achievements/pair-extraordinaire",
     icon: "users",
-    badgeColor: "from-purple-500/20 to-pink-500/20 text-purple-300 border-purple-500/30"
+    badgeColor: "from-accent/20 to-accent/20 text-accent border-accent/30"
   }
 ];
 
@@ -683,6 +692,9 @@ export const GITHUB_REPOS = {
   customerSuccess: "https://github.com/AbdullahMalik17/Hacathan_5",
   agenticAI: "https://github.com/AbdullahMalik17/Agentic_AI"
 };
+
+// Verified GitHub numbers — static fallback for server-rendered copy.
+// Refreshed manually; GitHubStats.tsx shows the live values instead.
 
 // Summary metrics for badges
 export const BADGES_SUMMARY: BadgesSummary = {
@@ -941,7 +953,7 @@ export const ONLINE_BADGES: OnlineBadge[] = [
     category: "Community Traction",
     status: "active",
     badgeUrl: "https://img.shields.io/github/stars/AbdullahMalik17/Digital-FTE?style=flat-square",
-    targetUrl: "https://github.com/AbdullahMalik17/Digital-FTE/stargazers",
+    targetUrl: "https://github.com/AbdullahMalik17/Digital-FTE",
     markdownSnippet: "[![Stars](https://img.shields.io/github/stars/AbdullahMalik17/Digital-FTE?style=flat-square)](https://github.com/AbdullahMalik17/Digital-FTE/stargazers)",
     htmlSnippet: '<a href="https://github.com/AbdullahMalik17/Digital-FTE/stargazers"><img src="https://img.shields.io/github/stars/AbdullahMalik17/Digital-FTE?style=flat-square" alt="Stars" /></a>',
     description: "Repository stargazers counter"
@@ -1068,7 +1080,7 @@ export const ONLINE_BADGES: OnlineBadge[] = [
     category: "Community Traction",
     status: "active",
     badgeUrl: "https://img.shields.io/github/stars/AbdullahMalik17/malikclaw?style=flat-square",
-    targetUrl: "https://github.com/AbdullahMalik17/malikclaw/stargazers",
+    targetUrl: "https://github.com/AbdullahMalik17/malikclaw",
     markdownSnippet: "[![Stars](https://img.shields.io/github/stars/AbdullahMalik17/malikclaw?style=flat-square)](https://github.com/AbdullahMalik17/malikclaw/stargazers)",
     htmlSnippet: '<a href="https://github.com/AbdullahMalik17/malikclaw/stargazers"><img src="https://img.shields.io/github/stars/AbdullahMalik17/malikclaw?style=flat-square" alt="Stars" /></a>',
     description: "Repository stargazers counter",
@@ -1097,7 +1109,7 @@ export const ONLINE_BADGES: OnlineBadge[] = [
     scope: "portfolio",
     category: "Web Framework",
     status: "active",
-    badgeUrl: "https://img.shields.io/badge/Framework-Next.js%2014-black?style=flat-square&logo=next.js",
+    badgeUrl: "https://img.shields.io/badge/Framework-Next.js%2015-black?style=flat-square&logo=next.js",
     targetUrl: "https://nextjs.org/",
     markdownSnippet: "[![Next.js](https://img.shields.io/badge/Framework-Next.js%2014-black?style=flat-square&logo=next.js)](https://nextjs.org/)",
     htmlSnippet: '<a href="https://nextjs.org/"><img src="https://img.shields.io/badge/Framework-Next.js%2014-black?style=flat-square&logo=next.js" alt="Next.js" /></a>',
@@ -1114,7 +1126,7 @@ export const ONLINE_BADGES: OnlineBadge[] = [
     category: "Architecture",
     status: "active",
     badgeUrl: "https://img.shields.io/badge/Built%20With-Python-3776AB?style=flat-square&logo=python&logoColor=white",
-    targetUrl: "https://github.com/AbdullahMalik17/Azan_Shop_Software-",
+    targetUrl: "https://github.com/AbdullahMalik17",
     markdownSnippet: "[![Python](https://img.shields.io/badge/Built%20With-Python-3776AB?style=flat-square&logo=python&logoColor=white)](https://github.com/AbdullahMalik17/Azan_Shop_Software-)",
     htmlSnippet: '<a href="https://github.com/AbdullahMalik17/Azan_Shop_Software-"><img src="https://img.shields.io/badge/Built%20With-Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Built With Python" /></a>',
     description: "Core software architecture badge",
@@ -1128,7 +1140,7 @@ export const ONLINE_BADGES: OnlineBadge[] = [
     category: "Confidentiality",
     status: "active",
     badgeUrl: "https://img.shields.io/badge/Status-Private%20Commercial-red?style=flat-square",
-    targetUrl: "https://github.com/AbdullahMalik17/Azan_Shop_Software-",
+    targetUrl: "https://github.com/AbdullahMalik17",
     markdownSnippet: "[![Status](https://img.shields.io/badge/Status-Private%20Commercial-red?style=flat-square)](https://github.com/AbdullahMalik17/Azan_Shop_Software-)",
     htmlSnippet: '<a href="https://github.com/AbdullahMalik17/Azan_Shop_Software-"><img src="https://img.shields.io/badge/Status-Private%20Commercial-red?style=flat-square" alt="Status" /></a>',
     description: "Repository confidentiality indicator",
@@ -1144,7 +1156,7 @@ export const ONLINE_BADGES: OnlineBadge[] = [
     category: "Business Solution",
     status: "active",
     badgeUrl: "https://img.shields.io/badge/E--Commerce-Unique%20Boutique-pink?style=flat-square",
-    targetUrl: "https://github.com/AbdullahMalik17/unique-boutique",
+    targetUrl: "https://github.com/AbdullahMalik17",
     markdownSnippet: "[![App](https://img.shields.io/badge/E--Commerce-Unique%20Boutique-pink?style=flat-square)](https://github.com/AbdullahMalik17/unique-boutique)",
     htmlSnippet: '<a href="https://github.com/AbdullahMalik17/unique-boutique"><img src="https://img.shields.io/badge/E--Commerce-Unique%20Boutique-pink?style=flat-square" alt="Unique Boutique" /></a>',
     description: "Business solution indicator",
@@ -1215,10 +1227,10 @@ export const ONLINE_BADGES: OnlineBadge[] = [
     scope: "github",
     category: "Profile Metrics",
     status: "active",
-    badgeUrl: "https://github-readme-stats.vercel.app/api?username=AbdullahMalik17&show_icons=true&theme=radical",
+    badgeUrl: "https://github-readme-stats.vercel.app/api?username=AbdullahMalik17&show_icons=true&hide_border=true&bg_color=05070e&title_color=22d3ee&icon_color=22d3ee&text_color=a7b4c8",
     targetUrl: "https://github.com/AbdullahMalik17",
-    markdownSnippet: "[![GitHub Stats](https://github-readme-stats.vercel.app/api?username=AbdullahMalik17&show_icons=true&theme=radical)](https://github.com/AbdullahMalik17)",
-    htmlSnippet: '<a href="https://github.com/AbdullahMalik17"><img src="https://github-readme-stats.vercel.app/api?username=AbdullahMalik17&show_icons=true&theme=radical" alt="GitHub Stats" /></a>',
+    markdownSnippet: "[![GitHub Stats](https://github-readme-stats.vercel.app/api?username=AbdullahMalik17&show_icons=true&hide_border=true&bg_color=05070e&title_color=22d3ee&icon_color=22d3ee&text_color=a7b4c8)](https://github.com/AbdullahMalik17)",
+    htmlSnippet: '<a href="https://github.com/AbdullahMalik17"><img src="https://github-readme-stats.vercel.app/api?username=AbdullahMalik17&show_icons=true&hide_border=true&bg_color=05070e&title_color=22d3ee&icon_color=22d3ee&text_color=a7b4c8" alt="GitHub Stats" /></a>',
     description: "Comprehensive GitHub statistics card",
     missingFrom: "Profile README, Portfolio website"
   },
@@ -1229,10 +1241,10 @@ export const ONLINE_BADGES: OnlineBadge[] = [
     scope: "github",
     category: "Language Breakdown",
     status: "active",
-    badgeUrl: "https://github-readme-stats.vercel.app/api/top-langs/?username=AbdullahMalik17&layout=compact&theme=radical",
+    badgeUrl: "https://github-readme-stats.vercel.app/api/top-langs/?username=AbdullahMalik17&layout=compact&hide_border=true&bg_color=05070e&title_color=22d3ee&text_color=a7b4c8",
     targetUrl: "https://github.com/AbdullahMalik17",
-    markdownSnippet: "[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=AbdullahMalik17&layout=compact&theme=radical)](https://github.com/AbdullahMalik17)",
-    htmlSnippet: '<a href="https://github.com/AbdullahMalik17"><img src="https://github-readme-stats.vercel.app/api/top-langs/?username=AbdullahMalik17&layout=compact&theme=radical" alt="Top Langs" /></a>',
+    markdownSnippet: "[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=AbdullahMalik17&layout=compact&hide_border=true&bg_color=05070e&title_color=22d3ee&text_color=a7b4c8)](https://github.com/AbdullahMalik17)",
+    htmlSnippet: '<a href="https://github.com/AbdullahMalik17"><img src="https://github-readme-stats.vercel.app/api/top-langs/?username=AbdullahMalik17&layout=compact&hide_border=true&bg_color=05070e&title_color=22d3ee&text_color=a7b4c8" alt="Top Langs" /></a>',
     description: "Language percentage breakdown card",
     missingFrom: "Profile README, Portfolio website"
   }
