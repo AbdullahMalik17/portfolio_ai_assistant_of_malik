@@ -43,7 +43,7 @@ export default function DeveloperTerminal() {
   └── [06] contacts/digital-fte-bus`,
     
     whoami: () => `Profile: Abdullah Malik
-Role: Agentic AI Engineer & Data Science Undergraduate
+Role: Forward Deployed Engineer & Data Science Undergraduate
 Specialty: Autonomous AI Systems • Digital FTEs • Edge Runtimes • MCP
 Security Cleared: A2AS Behavior Certified (Audit: deep-research-agent)`,
 

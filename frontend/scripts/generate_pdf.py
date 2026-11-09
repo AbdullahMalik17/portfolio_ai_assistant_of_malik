@@ -223,7 +223,7 @@ def main():
       <div class="contact-row">
         <span class="contact-item">📧 <a href="mailto:muhammadabdullah51700@gmail.com">muhammadabdullah51700@gmail.com</a></span>
         <span class="contact-item">📱 +92 304 0705172</span>
-        <span class="contact-item">🌐 <a href="https://portfolio-ai-assistant-of-malik.vercel.app/">portfolio-ai-assistant.vercel.app</a></span>
+        <span class="contact-item">🌐 <a href="https://abdullahmalik17.me/">abdullahmalik17.me</a></span>
         <span class="contact-item">🐙 <a href="https://github.com/AbdullahMalik17">github.com/AbdullahMalik17</a></span>
         <span class="contact-item">💼 <a href="https://www.linkedin.com/in/muhammad-abdullah-athar">in/muhammad-abdullah-athar</a></span>
       </div>

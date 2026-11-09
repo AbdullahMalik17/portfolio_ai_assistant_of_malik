@@ -92,7 +92,7 @@ export default function ResumePage() {
               </span>
               <span className="flex items-center gap-1">
                 <Globe className="w-3.5 h-3.5 text-accent print:text-ink-subtle" />
-                <a href="https://portfolio-ai-assistant-of-malik.vercel.app/" target="_blank" rel="noopener noreferrer" className="hover:text-accent print:text-ink-subtle">
+                <a href="https://abdullahmalik17.me/" target="_blank" rel="noopener noreferrer" className="hover:text-accent print:text-ink-subtle">
                   portfolio-ai-assistant.vercel.app
                 </a>
               </span>

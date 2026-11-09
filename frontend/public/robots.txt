@@ -17,4 +17,4 @@ User-agent: Google-Extended
 Allow: /
 
 # Canonical Sitemap
-Sitemap: https://portfolio-ai-assistant-of-malik.vercel.app/sitemap.xml
+Sitemap: https://abdullahmalik17.me/sitemap.xml

@@ -14,7 +14,7 @@ A modern, responsive portfolio website built with Next.js, TypeScript, and Tailw
 
 ## Tech Stack
 
-- **Framework**: Next.js 16
+- **Framework**: Next.js 15.5.7
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS 4
 - **Animations**: CSS Animations
@@ -24,7 +24,7 @@ A modern, responsive portfolio website built with Next.js, TypeScript, and Tailw
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - npm or yarn
 
 ### Installation
@@ -68,6 +68,10 @@ npm run build
 ```bash
 npm start
 ```
+
+For the custom-domain deployment sequence, see the repository-level
+[DEPLOYMENT_GUIDE.md](../DEPLOYMENT_GUIDE.md). The canonical production URL is
+`https://abdullahmalik17.me`.
 
 ## Project Structure
 

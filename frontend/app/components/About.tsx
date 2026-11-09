@@ -53,7 +53,7 @@ export default function About() {
               About <span className="text-shimmer">Abdullah Malik</span>
             </h2>
             <p className="mt-4 text-base sm:text-lg text-ink-muted max-w-2xl mx-auto leading-relaxed">
-              Dedicated to high-autonomy software systems, edge performance, and verifiable agentic protocols.
+              A Forward Deployed Engineer in training: close to the workflow, precise about the system, and focused on shipping useful autonomy.
             </p>
           </div>
         </FadeInWhenVisible>
@@ -84,7 +84,7 @@ export default function About() {
                   <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden ring-2 ring-accent/30 shadow-lg relative bg-canvas">
                     <Image
                       src="/profile.jpg"
-                      alt="Abdullah Malik — Agentic AI Engineer & Data Science Undergraduate"
+                      alt="Abdullah Malik — Forward Deployed Engineer & Data Science Undergraduate"
                       width={120}
                       height={120}
                       className="w-full h-full object-cover object-top"
@@ -99,7 +99,7 @@ export default function About() {
                   <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
                     <h4 className="text-lg font-bold text-ink tracking-tight">Abdullah Malik</h4>
                     <span className="text-xs px-2 py-0.5 rounded-full bg-accent/20 text-accent border border-accent/30 font-mono">
-                      Data Scientist & AI Eng
+                      Forward Deployed Engineer
                     </span>
                   </div>
                   
@@ -109,7 +109,7 @@ export default function About() {
                   </div>
 
                   <p className="text-xs text-ink-muted leading-relaxed pt-1">
-                    Specialized in high-autonomy Agentic AI, Go edge daemons (&lt;10MB RAM), and Model Context Protocol. Trained via Panaversity & PIAIC.
+                    I translate real operating workflows into secure agent systems, from Go edge daemons (&lt;10MB RAM) to MCP integrations and Digital FTEs.
                   </p>
                 </div>
               </div>

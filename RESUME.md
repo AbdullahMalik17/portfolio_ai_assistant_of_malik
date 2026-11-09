@@ -1,7 +1,7 @@
 # Abdullah Malik (Muhammad Abdullah Athar)
 **Agentic AI Engineer & Data Science Student**  
 Pakistan • [muhammadabdullah51700@gmail.com](mailto:muhammadabdullah51700@gmail.com) • +92 304 0705172  
-[Portfolio](https://portfolio-ai-assistant-of-malik.vercel.app/) • [GitHub: AbdullahMalik17](https://github.com/AbdullahMalik17) • [LinkedIn: muhammad-abdullah-athar](https://www.linkedin.com/in/muhammad-abdullah-athar) • [X: @Ab4695Athar](https://x.com/Ab4695Athar)
+[Portfolio](https://abdullahmalik17.me/) • [GitHub: AbdullahMalik17](https://github.com/AbdullahMalik17) • [LinkedIn: muhammad-abdullah-athar](https://www.linkedin.com/in/muhammad-abdullah-athar) • [X: @Ab4695Athar](https://x.com/Ab4695Athar)
 
 ---
 

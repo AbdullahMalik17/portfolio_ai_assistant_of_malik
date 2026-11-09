@@ -5,6 +5,7 @@ import ChatbotWidget from "./components/ChatbotWidget";
 import InteractiveOverlays from "./components/InteractiveOverlays";
 import ClientProviders from "./components/ClientProviders";
 import { GITHUB_PROFILE } from "./lib/portfolio-data";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "./lib/site-config";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,16 +18,16 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://portfolio-ai-assistant-of-malik.vercel.app'),
-  title: "Abdullah Malik — Agentic AI Engineer & Data Science Undergraduate",
-  description: `Portfolio of Abdullah Malik (Muhammad Abdullah Athar) — Agentic AI Engineer and BS Data Science student at Islamia University of Bahawalpur (IUB). Creator of MalikClaw (Go edge runtime, ${GITHUB_PROFILE.malikclawStars} GitHub stars), Digital FTEs, and MCP tooling.`,
+  metadataBase: new URL(SITE_URL),
+  title: SITE_NAME,
+  description: SITE_DESCRIPTION,
   keywords: [
     "Abdullah Malik", "Muhammad Abdullah Athar", "BS Data Science IUB", 
     "Islamia University of Bahawalpur", "Agentic AI Engineer", "MalikClaw", 
     "GitHub Starstruck", "Model Context Protocol", "MCP", "Digital FTE", 
     "Go", "Golang", "Python AsyncIO", "TypeScript", "Next.js", "Autonomous Agents"
   ],
-  authors: [{ name: "Abdullah Malik", url: "https://portfolio-ai-assistant-of-malik.vercel.app/" }],
+  authors: [{ name: "Abdullah Malik", url: SITE_URL }],
   creator: "Abdullah Malik",
   publisher: "Abdullah Malik",
   robots: {
@@ -41,14 +42,14 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Abdullah Malik — Agentic AI Engineer & Data Science Undergraduate",
-    description: `BS Data Science student at IUB and agentic AI engineer. Creator of MalikClaw (Go edge runtime, ${GITHUB_PROFILE.malikclawStars} GitHub stars), Digital FTEs, and MCP tooling.`,
-    url: "https://portfolio-ai-assistant-of-malik.vercel.app/",
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    url: SITE_URL,
     siteName: "Abdullah Malik Portfolio",
     type: "profile",
     images: [
       {
-        url: "/og.png",
+        url: `${SITE_URL}/og.png`,
         width: 1200,
         height: 630,
         alt: "Abdullah Malik — Agentic AI Engineer. Go edge runtimes, MCP servers and multi-agent systems, with 228 GitHub stars across 32 public repositories.",
@@ -57,8 +58,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Abdullah Malik — Agentic AI Engineer & Data Science Undergraduate",
-    description: `BS Data Science @ IUB | Creator of MalikClaw (<10MB RAM Go edge runtime, ${GITHUB_PROFILE.malikclawStars} GitHub stars) | A2AS Behavior Certified`,
+    title: SITE_NAME,
+    description: `Forward Deployed Engineer | MalikClaw (<10MB RAM Go edge runtime, ${GITHUB_PROFILE.malikclawStars} GitHub stars) | A2AS Behavior Certified`,
     creator: "@Ab4695Athar",
     images: ["/og.png"],
   },
@@ -91,13 +92,13 @@ export default function RootLayout({
     "@graph": [
       {
         "@type": "Person",
-        "@id": "https://portfolio-ai-assistant-of-malik.vercel.app/#person",
+        "@id": `${SITE_URL}/#person`,
         "name": "Abdullah Malik",
         "alternateName": ["Muhammad Abdullah Athar", "AbdullahMalik17"],
-        "url": "https://portfolio-ai-assistant-of-malik.vercel.app/",
-        "image": "https://portfolio-ai-assistant-of-malik.vercel.app/profile.jpg",
-        "jobTitle": "Agentic AI Engineer & Data Science Undergraduate",
-        "description": "Agentic AI engineer specializing in autonomous multi-agent systems, lightweight Go edge runtimes (MalikClaw), and Model Context Protocol (MCP). Currently pursuing BS Data Science at Islamia University of Bahawalpur (IUB).",
+        "url": `${SITE_URL}/`,
+        "image": `${SITE_URL}/profile.jpg`,
+        "jobTitle": "Forward Deployed Engineer",
+        "description": SITE_DESCRIPTION,
         "email": "mailto:muhammadabdullah51700@gmail.com",
         "sameAs": [
           "https://github.com/AbdullahMalik17",
@@ -146,12 +147,12 @@ export default function RootLayout({
       },
       {
         "@type": "WebSite",
-        "@id": "https://portfolio-ai-assistant-of-malik.vercel.app/#website",
-        "url": "https://portfolio-ai-assistant-of-malik.vercel.app/",
+        "@id": `${SITE_URL}/#website`,
+        "url": `${SITE_URL}/`,
         "name": "Abdullah Malik — Agentic AI & Data Science Portfolio",
         "description": "Official engineering portfolio and interactive AI assistant of Abdullah Malik.",
         "publisher": {
-          "@id": "https://portfolio-ai-assistant-of-malik.vercel.app/#person"
+          "@id": `${SITE_URL}/#person`
         }
       },
       {
@@ -163,7 +164,7 @@ export default function RootLayout({
         "downloadUrl": "https://github.com/AbdullahMalik17/malikclaw",
         "description": "Ultra-lightweight, high-performance edge AI assistant and gateway in Go (<10MB RAM, sub-second boot) with Urdu-First support and MCP standard.",
         "author": {
-          "@id": "https://portfolio-ai-assistant-of-malik.vercel.app/#person"
+          "@id": `${SITE_URL}/#person`
         }
       }
     ]

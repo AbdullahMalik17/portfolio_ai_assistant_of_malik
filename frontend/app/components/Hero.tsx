@@ -7,10 +7,10 @@ import { ArrowRight, MessageSquare, Layers, ShieldCheck, Globe2 } from 'lucide-r
 import Button from './Button';
 
 const TITLES = [
-  'Agentic AI Engineer',
-  'BS Data Science @ IUB',
-  'Autonomous Systems Architect',
+  'Forward Deployed Engineer',
+  'Agentic AI Systems Builder',
   'Go & MCP Runtime Specialist',
+  'BS Data Science @ IUB',
 ];
 
 export default function Hero() {
@@ -98,7 +98,7 @@ export default function Hero() {
             <span className="absolute inline-flex h-full w-full rounded-full bg-ok opacity-75 animate-ping" />
             <span className="relative inline-flex h-2 w-2 rounded-full bg-ok" />
           </span>
-          <span className="font-medium">Open to agentic AI engineering work</span>
+          <span className="font-medium">Open to forward-deployed AI work</span>
         </motion.button>
 
         {/* Name */}
@@ -131,8 +131,9 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.25 }}
           className="mt-7 max-w-2xl text-lead leading-relaxed text-ink-muted"
         >
-          I build autonomous multi-agent systems, lightweight Go edge runtimes, and
-          MCP-verified pipelines — while studying BS Data Science at IUB.
+          I help teams move from an AI idea to a working system in the field:
+          autonomous agents, lightweight Go runtimes, and MCP-powered workflows
+          that are observable, secure, and ready for real users.
         </motion.p>
 
         {/* Actions */}

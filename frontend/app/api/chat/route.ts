@@ -85,7 +85,7 @@ export async function POST(req: Request) {
         baseURL: 'https://openrouter.ai/api/v1',
         apiKey: openRouterKey,
         defaultHeaders: {
-          'HTTP-Referer': 'https://portfolio-ai-assistant-of-malik.vercel.app',
+          'HTTP-Referer': 'https://abdullahmalik17.me',
           'X-Title': "Abdullah Malik Portfolio AI Assistant",
         },
       });

@@ -56,6 +56,7 @@ OPENAI_API_KEY=your_openai_api_key_here
 DEBUG=false
 HOST=0.0.0.0
 PORT=8000
+CORS_ORIGINS=https://abdullahmalik17.me,https://www.abdullahmalik17.me
 CONTEXT7_ENABLED=false
 SESSION_DB_PATH=conversations.db
 ```
@@ -71,6 +72,9 @@ python main.py
 ```bash
 uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
+
+For a hosted service, use `uvicorn main:app --host 0.0.0.0 --port $PORT` and set
+`GEMINI_API_KEY` and `CORS_ORIGINS` in the provider's secret environment settings.
 
 ### Using Chainlit (optional):
 ```bash
@@ -166,4 +170,3 @@ POST /api/assistant/chat/sync
 ## 📝 License
 
 MIT License
-

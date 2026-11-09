@@ -1,7 +1,8 @@
 import { MetadataRoute } from 'next';
+import { SITE_URL } from './lib/site-config';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://portfolio-ai-assistant-of-malik.vercel.app';
+  const baseUrl = SITE_URL;
 
   return [
     {

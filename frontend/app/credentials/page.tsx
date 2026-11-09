@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     title: 'Credentials & Verified Badges | Abdullah Malik',
     description:
       'Full audit registry of verified online badges, Grade-A Claude agent skills, and GitHub achievements.',
-    url: 'https://portfolio-ai-assistant-of-malik.vercel.app/credentials',
+    url: 'https://abdullahmalik17.me/credentials',
   },
 };
 

@@ -166,9 +166,9 @@ export const PERSONAL_INFO: PersonalInfo = {
   linkedin: "https://www.linkedin.com/in/muhammad-abdullah-athar",
   github: "https://github.com/AbdullahMalik17",
   twitter: "https://x.com/Ab4695Athar?t=nqRO0biMuBDrTIuzZOHq8A&s=08",
-  profession: "Agentic AI Engineer & Data Science Undergraduate",
-  tagline: "Autonomous AI Agents • BS Data Science (IUB) • Multi-Agent Systems • MCP • Digital FTEs",
-  specialty: "I build autonomous AI systems, Digital FTEs, MCP-powered tools, and production-ready agentic workflows."
+  profession: "Forward Deployed Engineer",
+  tagline: "Agentic AI Systems • Edge Runtimes • MCP • Digital FTEs • BS Data Science (IUB)",
+  specialty: "I put autonomous AI systems into real environments: from edge runtimes and MCP tools to production-ready Digital FTE workflows."
 };
 
 // Projects Data
@@ -469,7 +469,7 @@ export const PROJECTS: PortfolioProject[] = [
       { name: "Vercel Postgres", category: "data" }
     ],
     githubUrl: "https://github.com/AbdullahMalik17/portfolio_ai_assistant_of_malik",
-    liveUrl: "https://portfolio-ai-assistant-of-malik.vercel.app/",
+    liveUrl: "https://abdullahmalik17.me/",
     badges: [
       { name: "Vercel Deployment", badgeUrl: "https://therealsujitk-vercel-badge.vercel.app/?app=portfolio-ai-assistant-of-malik-five", targetUrl: "https://portfolio-ai-assistant-of-malik-five.vercel.app/", alt: "Vercel Deployment" },
       { name: "Next.js 15", badgeUrl: "https://img.shields.io/badge/Framework-Next.js%2015-black?style=flat-square&logo=next.js", targetUrl: "https://nextjs.org/", alt: "Next.js" }

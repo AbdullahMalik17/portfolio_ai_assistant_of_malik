@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
 
 export async function GET() {
-  const markdownContent = `# Abdullah Malik (Muhammad Abdullah Athar) — Agentic AI Engineer & Data Science Undergraduate
+  const markdownContent = `# Abdullah Malik (Muhammad Abdullah Athar) — Forward Deployed Engineer
 
-> Portfolio & AI Gateway: https://portfolio-ai-assistant-of-malik.vercel.app/
+> Portfolio & AI Gateway: https://abdullahmalik17.me/
 > GitHub: https://github.com/AbdullahMalik17
 > LinkedIn: https://www.linkedin.com/in/muhammad-abdullah-athar
 > Email: muhammadabdullah51700@gmail.com

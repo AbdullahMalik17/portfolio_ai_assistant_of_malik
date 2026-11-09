@@ -1,16 +1,16 @@
 import { NextResponse } from 'next/server';
 
 export async function GET() {
-  const content = `# Abdullah Malik — Agentic AI Engineer & Data Science Undergraduate
+  const content = `# Abdullah Malik — Forward Deployed Engineer
 > Personal Portfolio and Agentic AI Architecture Showcase
 
 ## Profile
 - Name: Abdullah Malik (Muhammad Abdullah Athar)
-- Role: Agentic AI Engineer & Data Science Undergraduate
+- Role: Forward Deployed Engineer & Data Science Undergraduate
 - University: Islamia University of Bahawalpur (IUB) — BS Data Science
 - Certifications: Panaversity (Agentic AI Specialist), PIAIC (Artificial Intelligence)
 - Official GitHub Profile: https://github.com/AbdullahMalik17
-- Portfolio URL: https://portfolio-ai-assistant-of-malik.vercel.app/
+- Portfolio URL: https://abdullahmalik17.me/
 
 ## Honors & Recognitions
 - GitHub Starstruck (Bronze Tier): Awarded when MalikClaw passed 16 GitHub stars (now 20) (https://github.com/users/AbdullahMalik17/achievements/starstruck)
@@ -27,9 +27,9 @@ export async function GET() {
 - Customer Success FTE: Kafka-driven async support agent with pgvector semantic retrieval
 
 ## Documentation & Pages
-- Portfolio: https://portfolio-ai-assistant-of-malik.vercel.app/
-- Web Resume: https://portfolio-ai-assistant-of-malik.vercel.app/resume
-- Full LLM Context: https://portfolio-ai-assistant-of-malik.vercel.app/llm-context.txt
+- Portfolio: https://abdullahmalik17.me/
+- Web Resume: https://abdullahmalik17.me/resume
+- Full LLM Context: https://abdullahmalik17.me/llm-context.txt
 `;
 
   return new NextResponse(content, {
