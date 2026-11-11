@@ -102,6 +102,14 @@ export default function FlagshipBento({ onSelectProject }: FlagshipBentoProps) {
                       {project.subtitle}
                     </p>
                   )}
+                  {project.results && project.results[0] && (
+                    <p className="mt-3 max-w-2xl text-xs sm:text-sm text-ink leading-relaxed">
+                      <span className="font-mono text-[10px] uppercase tracking-widest text-accent font-bold mr-2">
+                        Client value
+                      </span>
+                      {project.results[0]}
+                    </p>
+                  )}
                 </div>
               </div>
 

@@ -145,6 +145,12 @@ export default function CaseStudies() {
             <p className="mt-4 text-base sm:text-lg text-ink-muted max-w-3xl mx-auto leading-relaxed">
               Architectural breakdowns of flagship autonomous AI systems built for production performance, security isolation, and edge efficiency.
             </p>
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2 mt-5 text-xs font-mono font-bold text-accent hover:text-ink transition-colors"
+            >
+              See a similar workflow in your business <span aria-hidden="true">→</span>
+            </a>
           </div>
         </FadeInWhenVisible>
 
@@ -235,6 +241,21 @@ export default function CaseStudies() {
                     <span>MCP Market</span>
                   </a>
                 )}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-6">
+              <div className="rounded-2xl bg-accent/10 border border-accent/25 p-4">
+                <span className="block text-[10px] font-mono uppercase tracking-widest text-accent font-bold mb-1">Measured result</span>
+                <p className="text-xs text-ink leading-relaxed">{selectedStudy.result}</p>
+              </div>
+              <div className="rounded-2xl glass border border-line p-4">
+                <span className="block text-[10px] font-mono uppercase tracking-widest text-ink-muted font-bold mb-1">Delivery signal</span>
+                <p className="text-xs text-ink leading-relaxed">{selectedStudy.evaluation}</p>
+              </div>
+              <div className="rounded-2xl glass border border-line p-4">
+                <span className="block text-[10px] font-mono uppercase tracking-widest text-ink-muted font-bold mb-1">Best fit</span>
+                <p className="text-xs text-ink leading-relaxed">{selectedStudy.requirements[0]}</p>
               </div>
             </div>
 

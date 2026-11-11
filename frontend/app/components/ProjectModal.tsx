@@ -183,6 +183,27 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
               </div>
             )}
 
+            {project.results && project.results.length > 0 && (
+              <div className="p-5 rounded-2xl bg-accent/10 border border-accent/30">
+                <div className="flex items-center justify-between gap-3 mb-3">
+                  <h3 className="text-sm font-mono uppercase tracking-widest text-accent font-semibold">
+                    Outcomes & Proof
+                  </h3>
+                  <span className="text-[10px] font-mono text-accent/80 uppercase tracking-wider">
+                    {project.results.length} signals
+                  </span>
+                </div>
+                <div className="grid sm:grid-cols-2 gap-3">
+                  {project.results.map((result, resultIdx) => (
+                    <div key={resultIdx} className="flex items-start gap-2.5 text-xs text-ink">
+                      <CheckCircle2 className="w-4 h-4 text-accent shrink-0 mt-0.5" />
+                      <span>{result}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Tech Stack Chips */}
             <div>
               <h3 className="text-sm font-mono uppercase tracking-widest text-ink-muted mb-3 font-semibold">

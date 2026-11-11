@@ -56,6 +56,13 @@ export default function Projects() {
             <p className="mt-4 text-base sm:text-lg text-ink-muted max-w-2xl mx-auto leading-relaxed">
               Production autonomous agents, edge runtimes, Model Context Protocol servers, and enterprise automation pipelines.
             </p>
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-2 text-[11px] font-mono text-ink-muted">
+              <span className="px-3 py-1.5 rounded-full glass border border-line">Built for real constraints</span>
+              <span className="px-3 py-1.5 rounded-full glass border border-line">Measured in production-style tests</span>
+              <a href="#contact" className="px-3 py-1.5 rounded-full bg-accent/10 border border-accent/30 text-accent hover:bg-accent/20 transition-colors">
+                Discuss your workflow →
+              </a>
+            </div>
           </div>
         </FadeInWhenVisible>
 
@@ -135,9 +142,26 @@ export default function Projects() {
                   {project.title}
                 </h4>
 
+                {project.subtitle && (
+                  <p className="text-[11px] font-mono text-accent/90 mb-2 line-clamp-1">
+                    {project.subtitle}
+                  </p>
+                )}
+
                 <p className="text-xs text-ink-muted line-clamp-3 leading-relaxed mb-6">
                   {project.description}
                 </p>
+
+                {project.results && project.results[0] && (
+                  <div className="mb-5 rounded-xl bg-accent/5 border border-accent/20 px-3 py-2.5">
+                    <span className="block text-[9px] font-mono uppercase tracking-widest text-accent font-bold mb-1">
+                      Outcome
+                    </span>
+                    <p className="text-[11px] text-ink leading-relaxed line-clamp-2">
+                      {project.results[0]}
+                    </p>
+                  </div>
+                )}
               </div>
 
               <div>
