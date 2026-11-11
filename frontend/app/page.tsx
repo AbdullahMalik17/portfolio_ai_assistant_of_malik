@@ -70,11 +70,11 @@ export default function Home() {
                 </span>
               </div>
               <p className="text-xs text-ink-muted leading-relaxed font-sans">
-                Forward Deployed Engineer and BS Data Science undergraduate. Turns real workflows into autonomous agent systems, Go edge runtimes, and Model Context Protocol integrations.
+                Agentic AI Engineer and BS Data Science undergraduate. Turns real workflows into autonomous agent systems, Go edge runtimes, and Model Context Protocol integrations.
               </p>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass border border-accent/30 bg-accent/10 text-accent text-[11px] font-mono">
                 <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-                <span>Available in PKT / UTC+5</span>
+                <span>Official portfolio · Available in PKT / UTC+5</span>
               </div>
             </div>
 
