@@ -116,11 +116,12 @@ export default function Contact() {
               Contact
             </span>
             <h2 className="mt-4 text-h2 font-bold leading-[1.15] tracking-tight text-ink">
-              Have an agent system worth building?
+              Have a workflow worth improving?
             </h2>
             <p className="mt-4 max-w-md text-lead leading-relaxed text-ink-muted">
-              Send the workflow you want automated. I reply to every genuine inquiry
-              within 24 hours — usually with a first-pass architecture sketch.
+              Tell me what is slow, repetitive, or difficult to scale. I’ll reply
+              within 24 hours with practical next steps and, when useful, a first
+              architecture direction.
             </p>
 
             <dl className="mt-10 space-y-5 border-t border-line pt-8">
@@ -168,7 +169,7 @@ export default function Contact() {
                   type="text"
                   id="name"
                   name="name"
-                  label="Your Name / Organization"
+                  label="Your Name / Company"
                   value={formData.name}
                   onChange={handleChange}
                   isRequired
@@ -213,7 +214,7 @@ export default function Contact() {
                   loading={isSubmitting}
                   rightIcon={<Send className="h-4 w-4" />}
                 >
-                  Send Message
+                  Send project brief
                 </Button>
               </div>
 

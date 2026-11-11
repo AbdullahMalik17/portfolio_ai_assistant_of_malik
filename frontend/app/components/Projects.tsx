@@ -48,13 +48,14 @@ export default function Projects() {
           <div className="text-center mb-10">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-accent/10 border border-accent/30 text-accent text-xs font-mono font-bold uppercase tracking-wider mb-4 shadow-sm shadow-accent/10">
               <Sparkles className="w-3.5 h-3.5 text-accent" />
-              Flagship Autonomous Systems & Repositories
+              Selected work
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-ink tracking-tight">
-              Engineered <span className="text-shimmer">AI Systems</span>
+              Work that turns complex workflows into useful systems
             </h2>
             <p className="mt-4 text-base sm:text-lg text-ink-muted max-w-2xl mx-auto leading-relaxed">
-              Production autonomous agents, edge runtimes, Model Context Protocol servers, and enterprise automation pipelines.
+              A focused selection of agentic AI, automation, and data systems built
+              for reliability, speed, and real-world use.
             </p>
             <div className="mt-6 flex flex-wrap items-center justify-center gap-2 text-[11px] font-mono text-ink-muted">
               <span className="px-3 py-1.5 rounded-full glass border border-line">Built for real constraints</span>
@@ -78,10 +79,10 @@ export default function Projects() {
               <div>
                 <h3 className="text-2xl font-bold text-ink tracking-tight flex items-center gap-2">
                   <Code className="w-6 h-6 text-accent" />
-                  <span>Other Specialized Systems & Tools</span>
+                  <span>More selected systems</span>
                 </h3>
                 <p className="text-xs sm:text-sm text-ink-muted mt-1">
-                  Full-stack applications, developer tooling, and educational AI platforms.
+                  Additional experiments, tools, and full-stack builds.
                 </p>
               </div>
 

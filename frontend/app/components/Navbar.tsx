@@ -102,7 +102,7 @@ const Navbar = () => {
               duration={500}
               className="cursor-pointer whitespace-nowrap rounded-xl bg-accent px-4 py-2 text-[13px] font-semibold text-accent-ink transition-colors hover:bg-accent-bright"
             >
-              Contact
+              Start a project
             </Link>
 
             {/* Mobile toggle */}

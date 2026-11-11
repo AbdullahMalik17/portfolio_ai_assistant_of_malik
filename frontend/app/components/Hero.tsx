@@ -1,48 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { ArrowRight, MessageSquare, Layers, ShieldCheck, Globe2, Mail } from 'lucide-react';
+<<<<<<< Updated upstream
+import { ArrowRight, MessageSquare, ShieldCheck, Globe2, CheckCircle2, Mail } from 'lucide-react';
 import Button from './Button';
 
-const TITLES = [
-  'Forward Deployed Engineer',
-  'Agentic AI Systems Builder',
-  'Go & MCP Runtime Specialist',
-  'BS Data Science @ IUB',
-];
-
 export default function Hero() {
-  const [titleIndex, setTitleIndex] = useState(0);
-  const [displayText, setDisplayText] = useState('');
-  const [isDeleting, setIsDeleting] = useState(false);
-
-  useEffect(() => {
-    const currentTitle = TITLES[titleIndex];
-    let timer: NodeJS.Timeout;
-
-    if (!isDeleting && displayText === currentTitle) {
-      timer = setTimeout(() => setIsDeleting(true), 2400);
-    } else if (isDeleting && displayText === '') {
-      setIsDeleting(false);
-      setTitleIndex((prev) => (prev + 1) % TITLES.length);
-    } else {
-      timer = setTimeout(
-        () => {
-          setDisplayText((prev) =>
-            isDeleting
-              ? currentTitle.substring(0, prev.length - 1)
-              : currentTitle.substring(0, prev.length + 1)
-          );
-        },
-        isDeleting ? 40 : 80
-      );
-    }
-
-    return () => clearTimeout(timer);
-  }, [displayText, isDeleting, titleIndex]);
-
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
@@ -101,14 +65,15 @@ export default function Hero() {
           <span className="font-medium">Open to forward-deployed AI work</span>
         </motion.button>
 
-        {/* Name */}
+        {/* Positioning */}
         <motion.h1
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.15 }}
           className="text-[2.75rem] font-bold leading-[1.05] tracking-tight text-ink sm:text-6xl lg:text-[4.25rem]"
         >
-          Muhammad <span className="text-shimmer">Abdullah Malik</span>
+          I build <span className="text-shimmer">AI systems</span> that move
+          real work forward.
         </motion.h1>
 
         {/* Role */}
@@ -116,11 +81,10 @@ export default function Hero() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-5 flex h-9 w-full items-center justify-center px-2"
+          className="mt-6 flex w-full items-center justify-center px-2"
         >
-          <span className="whitespace-nowrap font-mono text-base font-medium text-accent sm:text-xl">
-            {displayText}
-            <span className="ml-1 inline-block h-5 w-[2px] translate-y-[3px] bg-accent animate-pulse" />
+          <span className="font-mono text-sm font-medium uppercase tracking-[0.18em] text-accent sm:text-base">
+            Abdullah Malik · Agentic AI Engineer
           </span>
         </motion.div>
 
@@ -131,9 +95,10 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.25 }}
           className="mt-7 max-w-2xl text-lead leading-relaxed text-ink-muted"
         >
-          I help teams move from an AI idea to a working system in the field:
-          autonomous agents, lightweight Go runtimes, and MCP-powered workflows
-          that are observable, secure, and ready for real users.
+          I design and ship secure automation for teams that want less manual
+          work, faster operations, and AI that can be trusted in production.
+          From agent workflows to MCP integrations, I turn ambitious ideas into
+          useful systems.
         </motion.p>
 
         {/* Actions */}
@@ -146,10 +111,10 @@ export default function Hero() {
           <Button
             variant="primary"
             size="lg"
-            onClick={() => scrollToSection('projects')}
+            onClick={() => scrollToSection('contact')}
             rightIcon={<ArrowRight className="h-4 w-4" />}
           >
-            View my work
+            Start a project
           </Button>
 
           <Button
@@ -158,7 +123,7 @@ export default function Hero() {
             onClick={openPortfolioChat}
             leftIcon={<MessageSquare className="h-4 w-4 text-accent" />}
           >
-            Ask the AI assistant
+            See selected work
           </Button>
 
           <Button
@@ -180,15 +145,15 @@ export default function Hero() {
         >
           <span className="flex items-center gap-2">
             <Globe2 className="h-4 w-4 text-accent" />
-            MCP Market listed
+            Production-minded systems
           </span>
           <span className="flex items-center gap-2">
             <ShieldCheck className="h-4 w-4 text-accent" />
-            A2AS behavior certified
+            Security & governance aware
           </span>
           <span className="flex items-center gap-2">
-            <Layers className="h-4 w-4 text-accent" />
-            Go · Kafka · pgvector · Docker
+            <CheckCircle2 className="h-4 w-4 text-accent" />
+            Available for selected work
           </span>
         </motion.div>
       </div>

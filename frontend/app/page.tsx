@@ -48,8 +48,8 @@ export default function Home() {
       <Hero />
       <ProofBar />
       <Projects />
-      <CaseStudies />
       <Services />
+      <CaseStudies />
       <Process />
       <SystemArchitecture />
       <EngineeringCredibility />
