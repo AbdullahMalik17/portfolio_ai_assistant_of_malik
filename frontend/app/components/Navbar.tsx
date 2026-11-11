@@ -2,13 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import { Link } from 'react-scroll';
-import { Menu, X, Command, Sparkles, Cpu, Layers, Terminal, User, FileText } from 'lucide-react';
+import { Menu, X, Command, Sparkles, Cpu, Layers, Workflow, User, FileText } from 'lucide-react';
 
 const navItems = [
   { name: 'Work', to: 'projects', icon: Cpu },
   { name: 'Case Studies', to: 'case-studies', icon: Layers },
-  { name: 'Architecture', to: 'architecture', icon: Terminal },
-  { name: 'Skills', to: 'skills', icon: Sparkles },
+  { name: 'Services', to: 'services', icon: Sparkles },
+  { name: 'Process', to: 'process', icon: Workflow },
   { name: 'About', to: 'about', icon: User },
 ];
 

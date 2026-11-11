@@ -7,6 +7,8 @@ import {
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import ProofBar from './components/ProofBar';
+import Services from './components/Services';
+import Process from './components/Process';
 
 // Dynamic imports with SSR for structured narrative flow
 const Projects = dynamic(() => import('./components/Projects'), { ssr: true });
@@ -47,6 +49,8 @@ export default function Home() {
       <ProofBar />
       <Projects />
       <CaseStudies />
+      <Services />
+      <Process />
       <SystemArchitecture />
       <EngineeringCredibility />
       <Skills />

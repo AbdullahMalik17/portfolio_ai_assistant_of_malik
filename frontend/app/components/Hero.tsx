@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { ArrowRight, MessageSquare, Layers, ShieldCheck, Globe2 } from 'lucide-react';
+import { ArrowRight, MessageSquare, Layers, ShieldCheck, Globe2, Mail } from 'lucide-react';
 import Button from './Button';
 
 const TITLES = [
@@ -159,6 +159,15 @@ export default function Hero() {
             leftIcon={<MessageSquare className="h-4 w-4 text-accent" />}
           >
             Ask the AI assistant
+          </Button>
+
+          <Button
+            variant="ghost"
+            size="lg"
+            onClick={() => scrollToSection('contact')}
+            leftIcon={<Mail className="h-4 w-4 text-accent" />}
+          >
+            Start a conversation
           </Button>
         </motion.div>
 
