@@ -2,19 +2,20 @@
 @import "./styles/xray.css";
 
 /* ============================================================
-   Design tokens — "refined dark lab"
-   One accent (cyan), one neutral ramp, one radius/shadow scale.
+   Design tokens — quiet dark editorial
+   One accent, a soft neutral ramp, and a generous rhythm scale.
    ============================================================ */
 @theme {
   /* Surfaces */
-  --color-canvas: #05070e;
-  --color-surface: #0a101d;
-  --color-surface-raised: #0e1626;
+  --color-canvas: #070a10;
+  --color-surface: #0d121b;
+  --color-surface-raised: #131b27;
+  --color-surface-elevated: #192333;
 
   /* Ink */
-  --color-ink: #eef2f8;
-  --color-ink-muted: #a7b4c8;
-  --color-ink-subtle: #6c7b93;
+  --color-ink: #f3f6fb;
+  --color-ink-muted: #b2bdcc;
+  --color-ink-subtle: #7d8ba0;
 
   /* Single accent */
   --color-accent: #22d3ee;
@@ -28,25 +29,36 @@
   --color-danger: #fb7185;
 
   /* Lines */
-  --color-line: rgba(255, 255, 255, 0.08);
-  --color-line-strong: rgba(34, 211, 238, 0.35);
+  --color-line: rgba(255, 255, 255, 0.1);
+  --color-line-strong: rgba(34, 211, 238, 0.42);
 
   /* Radius */
-  --radius-card: 14px;
-  --radius-panel: 20px;
+  --radius-sm: 0.5rem;
+  --radius-card: 1rem;
+  --radius-panel: 1.375rem;
+  --radius-pill: 9999px;
 
-  /* Type ramp — nothing readable goes below 13px */
-  --text-eyebrow: 0.8125rem;
+  /* Type ramp */
+  --text-eyebrow: 0.75rem;
   --text-body: 1rem;
   --text-lead: 1.1875rem;
   --text-h3: 1.375rem;
-  --text-h2: 2rem;
-  --text-h1: 3.5rem;
+  --text-h2: clamp(1.75rem, 3vw, 2.5rem);
+  --text-h1: clamp(2.75rem, 7vw, 5.5rem);
 
   /* Rhythm */
-  --section-y: 6rem;
-  --shell: 80rem;
-  --nav-h: 4.5rem;
+  --section-y: clamp(4.5rem, 9vw, 8rem);
+  --section-gap: clamp(1.25rem, 3vw, 2.5rem);
+  --shell: 78rem;
+  --nav-h: 4.25rem;
+  --content-pad: clamp(1.25rem, 4vw, 3rem);
+
+  /* Depth and interaction */
+  --shadow-soft: 0 18px 50px -28px rgba(0, 0, 0, 0.72);
+  --shadow-focus: 0 0 0 4px rgba(34, 211, 238, 0.16);
+  --ease-standard: cubic-bezier(0.2, 0.75, 0.25, 1);
+  --duration-fast: 160ms;
+  --duration-standard: 240ms;
 
   /* Glyph assets */
   --icon-external: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 3h6v6'/%3E%3Cpath d='M10 14 21 3'/%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/%3E%3C/svg%3E");
@@ -66,9 +78,10 @@ body {
   color: var(--color-ink);
   font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
   font-size: var(--text-body);
-  line-height: 1.65;
+  line-height: 1.7;
   overflow-x: hidden;
   min-height: 100vh;
+  text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -79,8 +92,8 @@ body::before {
   position: fixed;
   inset: 0;
   background:
-    radial-gradient(90rem 44rem at 50% -10%, rgba(34, 211, 238, 0.09), transparent 70%),
-    radial-gradient(60rem 40rem at 100% 110%, rgba(8, 145, 178, 0.07), transparent 70%);
+    radial-gradient(90rem 44rem at 50% -10%, rgba(34, 211, 238, 0.07), transparent 70%),
+    radial-gradient(60rem 40rem at 100% 110%, rgba(8, 145, 178, 0.05), transparent 70%);
   z-index: -2;
   pointer-events: none;
 }
@@ -97,8 +110,8 @@ body::after {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  letter-spacing: -0.025em;
-  line-height: 1.15;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
   color: var(--color-ink);
   text-wrap: balance;
 }
@@ -106,6 +119,14 @@ h1, h2, h3, h4, h5, h6 {
 p {
   color: var(--color-ink-muted);
   text-wrap: pretty;
+}
+
+a,
+button,
+input,
+textarea,
+select {
+  -webkit-tap-highlight-color: transparent;
 }
 
 a {
@@ -140,8 +161,9 @@ div[id] {
 
 :focus-visible {
   outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
-  border-radius: 4px;
+  outline-offset: 3px;
+  box-shadow: var(--shadow-focus);
+  border-radius: var(--radius-sm);
 }
 
 ::selection {
@@ -171,30 +193,53 @@ div[id] {
 /* ============================================================
    Surfaces
    ============================================================ */
-.glass {
-  background: rgba(14, 22, 38, 0.6);
-  backdrop-filter: blur(14px) saturate(150%);
-  -webkit-backdrop-filter: blur(14px) saturate(150%);
+.page-shell {
+  width: min(100% - (var(--content-pad) * 2), var(--shell));
+  margin-inline: auto;
+}
+
+.section-shell {
+  padding-block: var(--section-y);
+}
+
+.surface {
+  background: var(--color-surface);
   border: 1px solid var(--color-line);
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
+}
+
+.glass {
+  background: color-mix(in srgb, var(--color-surface-raised) 78%, transparent);
+  backdrop-filter: blur(16px) saturate(125%);
+  -webkit-backdrop-filter: blur(16px) saturate(125%);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft), inset 0 1px 0 0 rgba(255, 255, 255, 0.04);
 }
 
 .glass-hover {
-  transition: border-color 0.25s ease, background-color 0.25s ease, transform 0.25s ease;
+  transition:
+    border-color var(--duration-standard) var(--ease-standard),
+    background-color var(--duration-standard) var(--ease-standard),
+    transform var(--duration-standard) var(--ease-standard),
+    box-shadow var(--duration-standard) var(--ease-standard);
 }
 
 .glass-hover:hover {
-  background: rgba(14, 22, 38, 0.85);
+  background: color-mix(in srgb, var(--color-surface-elevated) 88%, transparent);
   border-color: var(--color-line-strong);
   transform: translateY(-2px);
+  box-shadow: 0 24px 60px -32px rgba(0, 0, 0, 0.9), var(--shadow-focus);
 }
 
 /* Overlay panels need to read as solid over busy content */
 .glass-strong {
-  background: rgba(10, 16, 29, 0.92);
+  background: color-mix(in srgb, var(--color-surface) 94%, transparent);
   backdrop-filter: blur(18px) saturate(150%);
   -webkit-backdrop-filter: blur(18px) saturate(150%);
   border: 1px solid var(--color-line);
+  border-radius: var(--radius-panel);
   box-shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.8), inset 0 1px 0 0 rgba(255, 255, 255, 0.04);
 }
 
@@ -205,10 +250,7 @@ div[id] {
 /* Single-accent emphasis. Deliberately static: the previous
    animated rainbow shimmer read as template chrome. */
 .text-shimmer {
-  background: linear-gradient(92deg, #67e8f9 0%, var(--color-accent) 45%, #a5f3fc 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--color-accent-bright);
 }
 
 .eyebrow {
@@ -218,21 +260,29 @@ div[id] {
   font-family: var(--font-geist-mono), ui-monospace, monospace;
   font-size: var(--text-eyebrow);
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--color-accent);
+}
+
+.eyebrow::before {
+  content: "";
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: var(--radius-pill);
+  background: currentColor;
+  box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.12);
 }
 
 /* ============================================================
    Background decoration (referenced by Hero)
    ============================================================ */
 .cyber-grid {
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
-  background-size: 64px 64px;
-  -webkit-mask-image: radial-gradient(70% 60% at 50% 40%, #000 20%, transparent 100%);
-  mask-image: radial-gradient(70% 60% at 50% 40%, #000 20%, transparent 100%);
+  background:
+    radial-gradient(ellipse at center, rgba(34, 211, 238, 0.08), transparent 62%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.025), transparent 38%);
+  -webkit-mask-image: radial-gradient(75% 65% at 50% 38%, #000 14%, transparent 100%);
+  mask-image: radial-gradient(75% 65% at 50% 38%, #000 14%, transparent 100%);
 }
 
 .ambient-glow {
@@ -245,7 +295,7 @@ div[id] {
 }
 
 .ambient-glow-cyan {
-  background: radial-gradient(circle, rgba(34, 211, 238, 0.16), transparent 65%);
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.11), transparent 65%);
 }
 
 /* ============================================================
@@ -263,16 +313,16 @@ div[id] {
   width: 6px;
   border-radius: 50%;
   background: var(--color-accent);
-  animation: chat-bounce 1.4s infinite ease-in-out both;
+  animation: chat-pulse 1.4s infinite ease-in-out both;
 }
 
 .chat-typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
 .chat-typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
 .chat-typing-indicator span:nth-child(3) { animation-delay: 0s; }
 
-@keyframes chat-bounce {
-  0%, 80%, 100% { transform: scale(0.7); opacity: 0.4; }
-  40% { transform: scale(1.2); opacity: 1; }
+@keyframes chat-pulse {
+  0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
+  40% { transform: translateY(-3px); opacity: 1; }
 }
 
 /* ============================================================
@@ -281,6 +331,16 @@ div[id] {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  @media (max-width: 640px) {
+    body {
+      line-height: 1.6;
+    }
+
+    .glass-hover:hover {
+      transform: none;
+    }
   }
 
   *,
