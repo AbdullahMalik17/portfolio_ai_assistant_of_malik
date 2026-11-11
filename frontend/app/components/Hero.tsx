@@ -2,7 +2,6 @@
 
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-<<<<<<< Updated upstream
 import { ArrowRight, MessageSquare, ShieldCheck, Globe2, CheckCircle2, Mail } from 'lucide-react';
 import Button from './Button';
 
