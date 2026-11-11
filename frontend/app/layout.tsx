@@ -19,8 +19,17 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: SITE_NAME,
+  title: {
+    default: SITE_NAME,
+    template: `%s | Abdullah Malik`,
+  },
   description: SITE_DESCRIPTION,
+  applicationName: "Abdullah Malik Portfolio",
+  category: "technology",
+  referrer: "origin-when-cross-origin",
+  alternates: {
+    canonical: "/",
+  },
   keywords: [
     "Abdullah Malik", "Muhammad Abdullah Athar", "BS Data Science IUB", 
     "Islamia University of Bahawalpur", "Agentic AI Engineer", "MalikClaw", 
@@ -45,7 +54,7 @@ export const metadata: Metadata = {
     title: SITE_NAME,
     description: SITE_DESCRIPTION,
     url: SITE_URL,
-    siteName: "Abdullah Malik Portfolio",
+    siteName: SITE_NAME,
     type: "profile",
     images: [
       {
@@ -67,16 +76,18 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "Abdullah Malik Portfolio",
+    title: "Abdullah Malik",
   },
   formatDetection: {
     telephone: false,
   },
   icons: {
     icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
       { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
       { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
     ],
+    shortcut: ["/favicon.svg"],
     apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
   },
 };
@@ -97,7 +108,7 @@ export default function RootLayout({
         "alternateName": ["Muhammad Abdullah Athar", "AbdullahMalik17"],
         "url": `${SITE_URL}/`,
         "image": `${SITE_URL}/profile.jpg`,
-        "jobTitle": "Forward Deployed Engineer",
+        "jobTitle": "Agentic AI Engineer",
         "description": SITE_DESCRIPTION,
         "email": "mailto:muhammadabdullah51700@gmail.com",
         "sameAs": [
@@ -149,8 +160,8 @@ export default function RootLayout({
         "@type": "WebSite",
         "@id": `${SITE_URL}/#website`,
         "url": `${SITE_URL}/`,
-        "name": "Abdullah Malik — Agentic AI & Data Science Portfolio",
-        "description": "Official engineering portfolio and interactive AI assistant of Abdullah Malik.",
+        "name": SITE_NAME,
+        "description": "Official portfolio and interactive AI assistant of Abdullah Malik, Agentic AI Engineer.",
         "publisher": {
           "@id": `${SITE_URL}/#person`
         }

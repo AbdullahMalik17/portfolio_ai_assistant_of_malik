@@ -1,9 +1,12 @@
 {
+  "id": "/",
   "name": "Abdullah Malik — Agentic AI Engineer",
   "short_name": "Abdullah Malik",
-  "description": "Portfolio of Abdullah Malik, agentic AI engineer and BS Data Science undergraduate: Go edge runtimes, Model Context Protocol servers, and multi-agent systems.",
+  "description": "Official portfolio of Abdullah Malik, Agentic AI Engineer building Go edge runtimes, Model Context Protocol servers, and autonomous multi-agent systems.",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone"],
   "background_color": "#05070e",
   "theme_color": "#22d3ee",
   "orientation": "portrait-primary",
@@ -24,6 +27,7 @@
   "categories": ["business", "portfolio", "technology"],
   "lang": "en-US",
   "dir": "ltr",
+  "prefer_related_applications": false,
   "screenshots": [
     {
       "src": "/screenshot-wide.png",
