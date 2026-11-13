@@ -4,6 +4,7 @@ import "./globals.css";
 import ChatbotWidget from "./components/ChatbotWidget";
 import InteractiveOverlays from "./components/InteractiveOverlays";
 import ClientProviders from "./components/ClientProviders";
+import { Analytics } from "@vercel/analytics/next";
 import { GITHUB_PROFILE } from "./lib/portfolio-data";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "./lib/site-config";
 
@@ -198,6 +199,7 @@ export default function RootLayout({
           <ChatbotWidget />
           <InteractiveOverlays />
         </ClientProviders>
+        <Analytics />
       </body>
     </html>
   );

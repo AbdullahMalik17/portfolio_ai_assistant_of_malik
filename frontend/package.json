@@ -12,6 +12,7 @@
   "dependencies": {
     "@google/generative-ai": "^0.21.0",
     "@types/react-scroll": "^1.8.10",
+    "@vercel/analytics": "^2.0.1",
     "@vercel/postgres": "^0.10.0",
     "dotenv": "^17.2.3",
     "framer-motion": "^12.24.10",
